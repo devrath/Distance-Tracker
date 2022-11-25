@@ -1,0 +1,31 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=73:9A:60:A6:C3:94:02:D9:A5:C6:9F:AC:B0:70:3B:3B:DB:50:CD:7E%3Bcom.example.googlemapsdemo
+
+    You can also add your credentials to an existing key, using these values:
+
+    ================================================================================================================
+    Package name:
+    com.istudio.distancetracker
+    ================================================================================================================
+    ================================================================================================================
+    SHA-1 certificate fingerprint:
+    FD:E5:22:55:A1:BD:43:D0:24:53:42:DB:E9:2C:C9:F7:B4:E2:FE:B7
+    ================================================================================================================
+
+    ================================================================================================================
+    How to get SHA-1 key:
+     * Use the command below along with the keystore file to get the  SHA-1 jey
+     * COMMAND➜ keytool -list -v -keystore /Users/devrath/Important/DistanceTracker/keys/Keystore -alias DistanceTrackerAlias
+    How to get API key: https://developers.google.com/maps/documentation/android/start#get-key
+    ================================================================================================================
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">[YOUR-API-KEY]</string>
+</resources>
