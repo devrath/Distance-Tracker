@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Distance Tracker</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="normal">Normal</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="satellite">Satellite</string>
+    <string name="terrain">Terrain</string>
+    <string name="none">None</string>
 </resources>
