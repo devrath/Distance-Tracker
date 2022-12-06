@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.istudio.distancetracker.utils.Permissions.hasLocationPermission
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
+import com.istudio.distancetracker.utils.Permissions.runtimeLocationPermission
 import com.istudio.distancetracker.utils.openAppNotificationSettings
 import com.permissionx.guolindev.PermissionX
 
@@ -56,34 +57,11 @@ class PermissionFragment : Fragment(){
             // If the permission is available navigate to maps fragment
             navigateToMapsScreen()
         } else {
-            requestPermission()
+            runtimeLocationPermission(this,requireActivity(),binding.root)
         }
     }
 
     private fun navigateToMapsScreen() { findNavController().navigate(R.id.action_permissionFragment_to_mapFragment) }
-
-    private fun requestPermission(){
-
-        PermissionX.init(this)
-            .permissions(android.Manifest.permission.ACCESS_FINE_LOCATION)
-            .setDialogTintColor(Color.parseColor("#1972e8"), Color.parseColor("#8ab6f5"))
-            .onExplainRequestReason { scope, deniedList, beforeRequest ->
-                val message = requireActivity().getText(R.string.str_provide_permissions).toString()
-                scope.showRequestReasonDialog(
-                    deniedList, message,
-                    requireActivity().getText(R.string.str_allow).toString(),
-                    requireActivity().getText(R.string.str_deny).toString())
-
-            }
-            .request { allGranted, grantedList, deniedList ->
-                if (allGranted) { navigateToMapsScreen() }
-                else {
-                    Snackbar.make(binding.root, requireActivity().getText(R.string.str_location_permission_required), Snackbar.LENGTH_LONG)
-                        .setAction(requireActivity().getText(R.string.str_location)) { requireActivity().openAppNotificationSettings() }
-                        .show()
-                }
-            }
-    }
     // ********************************** User defined functions ************************************
 
 }
