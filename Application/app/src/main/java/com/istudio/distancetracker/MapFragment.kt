@@ -1,5 +1,7 @@
 package com.istudio.distancetracker
 
+import android.annotation.SuppressLint
+import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -16,11 +18,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
 
-class MapFragment : Fragment() {
+class MapFragment : Fragment(), GoogleMap.OnMyLocationClickListener{
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var map: GoogleMap
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -37,6 +40,12 @@ class MapFragment : Fragment() {
         initOnDestroyView()
     }
     // ********************************** Life cycle methods ***************************************
+
+    // ********************************** Over-ridden methods **************************************
+    override fun onMyLocationClick(location: Location) {
+
+    }
+    // ********************************** Over-ridden methods **************************************
 
     // ********************************** User defined functions ************************************
     private fun initOnCreateView(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -72,10 +81,21 @@ class MapFragment : Fragment() {
     // ********************************** User defined functions ************************************
 
     // **********************************CallBacks *************************************************
+    @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        map = googleMap
+        map.isMyLocationEnabled = true
+        map.setOnMyLocationButtonClickListener(this)
+        map.uiSettings.apply {
+            // By setting the below permissions we don't give the option for user to move the maps instead we move the camera ourselves
+            isZoomControlsEnabled = false
+            isZoomGesturesEnabled = false
+            isRotateGesturesEnabled = false
+            isTiltGesturesEnabled = false
+            isCompassEnabled = false
+            isScrollGesturesEnabled = false
+        }
+
     }
     // **********************************CallBacks *************************************************
 
