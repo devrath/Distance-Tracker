@@ -1,6 +1,7 @@
 package com.istudio.distancetracker
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.service.TrackerService
+import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
@@ -22,10 +25,12 @@ import com.istudio.distancetracker.utils.Permissions.runtimeBackgroundPermission
 import com.istudio.distancetracker.utils.disable
 import com.istudio.distancetracker.utils.hide
 import com.istudio.distancetracker.utils.show
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private var _binding: FragmentMapBinding? = null
@@ -146,11 +151,25 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             }
 
             override fun onFinish() {
-                //sendActionCommandToService(ACTION_SERVICE_START)
                 binding.timerTextView.hide()
+                // Start the tracker service
+                sendActionCmdToService(ACTION_SERVICE_START)
             }
         }
         timer.start()
+    }
+
+    /**
+     * We shall use this to start and stop the tracker service
+     */
+    private fun sendActionCmdToService(action:String) {
+        Intent(
+            requireContext(),
+            TrackerService::class.java
+        ).apply {
+            this.action=action
+            requireContext().startService(this)
+        }
     }
 
     private fun initiateMapSync() {
