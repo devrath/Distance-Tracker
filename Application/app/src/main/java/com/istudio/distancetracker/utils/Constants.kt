@@ -1,4 +1,4 @@
-package com.istudio.distancetracker
+package com.istudio.distancetracker.utils
 
 object Constants {
 

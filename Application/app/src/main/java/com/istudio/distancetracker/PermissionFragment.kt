@@ -1,22 +1,14 @@
 package com.istudio.distancetracker
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.istudio.distancetracker.Permissions.hasLocationPermission
-import com.istudio.distancetracker.Permissions.permissionLocation
+import com.istudio.distancetracker.utils.Permissions.hasLocationPermission
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
 import com.istudio.distancetracker.utils.openAppNotificationSettings
 import com.permissionx.guolindev.PermissionX
