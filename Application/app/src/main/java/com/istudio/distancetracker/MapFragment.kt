@@ -13,35 +13,70 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.databinding.FragmentPermissionBinding
 
 class MapFragment : Fragment() {
 
+    private var _binding: FragmentMapBinding? = null
+    private val binding get() = _binding!!
+
+
+    // ********************************** Life cycle methods ***************************************
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View { return initOnCreateView(inflater,container) }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initOnViewCreated()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        initOnDestroyView()
+    }
+    // ********************************** Life cycle methods ***************************************
+
+    // ********************************** User defined functions ************************************
+    private fun initOnCreateView(inflater: LayoutInflater, container: ViewGroup?): View {
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    private fun initOnViewCreated() {
+        initiateMapSync()
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        binding.apply {
+            startButton.setOnClickListener {
+
+            }
+            stopButton.setOnClickListener {
+
+            }
+            resetButton.setOnClickListener {
+
+            }
+        }
+    }
+
+    private fun initiateMapSync() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+    }
+
+    private fun initOnDestroyView() { _binding = null }
+    // ********************************** User defined functions ************************************
+
+    // **********************************CallBacks *************************************************
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         val sydney = LatLng(-34.0, 151.0)
         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
+    // **********************************CallBacks *************************************************
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_map, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-    }
 }
