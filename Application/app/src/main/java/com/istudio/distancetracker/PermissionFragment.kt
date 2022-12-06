@@ -51,18 +51,12 @@ class PermissionFragment : Fragment(){
 
     private fun initOnViewCreated() {
         setOnClickListener()
-        secondTimeLogin()
     }
 
     private fun initOnDestroyView() { _binding = null }
 
     private fun setOnClickListener() {
         binding.continueButtonId.setOnClickListener { initiateLocationFlow() }
-    }
-
-    private fun secondTimeLogin() {
-        // If the permission is available navigate to maps fragment
-        if (hasLocationPermission(requireContext())) { navigateToMapsScreen() }
     }
 
     private fun initiateLocationFlow() {

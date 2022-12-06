@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Set nav controller
         setNavController()
-
+        // Open the first screen
+        openScreen()
     }
 
     /**
@@ -24,6 +26,10 @@ class MainActivity : AppCompatActivity() {
     private fun setNavController() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
+    }
+
+    private fun openScreen() {
+        if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
     }
 
 }
