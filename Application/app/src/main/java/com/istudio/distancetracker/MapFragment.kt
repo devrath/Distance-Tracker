@@ -1,6 +1,7 @@
 package com.istudio.distancetracker
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.location.Location
 import androidx.fragment.app.Fragment
 
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,8 +17,18 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
+import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
+import com.istudio.distancetracker.utils.Permissions.isBackgroundPermissionRequired
+import com.istudio.distancetracker.utils.Permissions.permissionBackgroundLocation
+import com.istudio.distancetracker.utils.hide
+import com.istudio.distancetracker.utils.openAppNotificationSettings
+import com.istudio.distancetracker.utils.show
+import com.permissionx.guolindev.PermissionX
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
@@ -43,7 +55,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     // ********************************** Over-ridden methods **************************************
     override fun onMyLocationButtonClick(): Boolean {
-
+        // Perform animation and fade the text view after a certain duration
+        binding.apply {
+            hintTextView.animate().alpha(0f).duration = 1500
+            lifecycleScope.launch {
+                // Provide a delay
+                delay(2500)
+                // Finally hide the view
+                hintTextView.hide()
+                // Display the start button
+                startButton.show()
+            }
+        }
         return true
     }
     // ********************************** Over-ridden methods **************************************
@@ -61,9 +84,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun setOnClickListeners() {
         binding.apply {
-            startButton.setOnClickListener {
-
-            }
+            startButton.setOnClickListener { startButtonAction() }
             stopButton.setOnClickListener {
 
             }
@@ -71,6 +92,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
             }
         }
+    }
+
+    private fun startButtonAction() {
+        requestPermission()
     }
 
     private fun initiateMapSync() {
@@ -99,5 +124,38 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     }
     // **********************************CallBacks *************************************************
+
+    private fun requestPermission(){
+
+        if(hasBackgroundLocationPermission(requireContext())){
+           // Proceed further
+
+        }else{
+            PermissionX.init(this)
+                .permissions(permissionBackgroundLocation)
+                .setDialogTintColor(Color.parseColor("#1972e8"), Color.parseColor("#8ab6f5"))
+                .onExplainRequestReason { scope, deniedList, beforeRequest ->
+                    val message = requireActivity().getText(R.string.str_provide_permissions).toString()
+                    scope.showRequestReasonDialog(
+                        deniedList, message,
+                        requireActivity().getText(R.string.str_allow).toString(),
+                        requireActivity().getText(R.string.str_deny).toString())
+                }
+                .request { allGranted, grantedList, deniedList ->
+                    if (allGranted) { startButtonAction() }
+                    else {
+                        Snackbar.make(binding.root, requireActivity().getText(R.string.str_location_permission_required), Snackbar.LENGTH_LONG)
+                            .setAction(requireActivity().getText(R.string.str_location)) {
+                                requireActivity().openAppNotificationSettings()
+
+                            }
+                            .show()
+                    }
+                }
+        }
+
+    }
+
+
 
 }

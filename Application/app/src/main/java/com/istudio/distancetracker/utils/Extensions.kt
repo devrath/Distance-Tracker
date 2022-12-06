@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.view.View
+import android.widget.Button
 
 fun Context.openAppNotificationSettings() {
     val intent = Intent().apply {
@@ -21,4 +23,21 @@ fun Context.openAppNotificationSettings() {
         }
     }
     startActivity(intent)
+}
+
+
+fun View.show(){
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide(){
+    this.visibility = View.INVISIBLE
+}
+
+fun Button.enable(){
+    this.isEnabled = true
+}
+
+fun Button.disable(){
+    this.isEnabled = false
 }
