@@ -58,28 +58,28 @@ class TrackerService : LifecycleService() {
 
     private fun initOnStartCommand(intent: Intent?) {
         intent?.let {
-            when(it.action){
+            when (it.action) {
                 ACTION_SERVICE_START -> {
                     started.postValue(true)
                 }
                 ACTION_SERVICE_STOP -> {
                     started.postValue(false)
                 }
-                else -> { }
+                else -> {}
             }
         }
     }
     // ********************************** User defined functions ************************************
 
     private fun createNotificationChannel() {
-        // There is no else condition since for lower version, we don't need the notification channel 
+        // There is no else condition since for lower version, we don't need the notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME,
+            val channel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                NOTIFICATION_CHANNEL_NAME,
                 IMPORTANCE_LOW
             )
             notificationManager.createNotificationChannel(channel)
         }
     }
-
-
 }
