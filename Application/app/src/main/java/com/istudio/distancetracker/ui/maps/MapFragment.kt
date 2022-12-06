@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui
+package com.istudio.distancetracker.ui.maps
 
 import android.annotation.SuppressLint
 import android.content.Intent

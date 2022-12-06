@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.istudio.distancetracker.MapFragment">
+    tools:context="com.istudio.distancetracker.ui.maps.MapFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MapFragment" />
+        tools:context=".ui.maps.MapFragment" />
 
     <TextView
         android:id="@+id/timer_textView"

@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui
+package com.istudio.distancetracker.ui.permission
 
 import android.os.Bundle
 import android.view.LayoutInflater

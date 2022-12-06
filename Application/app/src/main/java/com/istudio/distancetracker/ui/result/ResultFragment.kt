@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui
+package com.istudio.distancetracker.ui.result
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
