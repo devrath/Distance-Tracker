@@ -1,11 +1,10 @@
-package com.istudio.distancetracker.ui
+package com.istudio.distancetracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.istudio.distancetracker.R
-import com.istudio.distancetracker.util.Permissions.hasLocationPermission
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,14 +13,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navHostFragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-        if (hasLocationPermission(this)) {
-            navController.navigate(R.id.action_permissionFragment_to_mapsFragment)
-        }
+        // Set nav controller
+        setNavController()
 
     }
+
+    /**
+     * Set the nav controller for the screen
+     */
+    private fun setNavController() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
 }

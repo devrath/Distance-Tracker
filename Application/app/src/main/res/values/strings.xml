@@ -19,5 +19,7 @@
     <string name="result">%1$s km</string>
     <string name="_00_00_00">00:00:00</string>
     <string name="_0_0km">0.0km</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
