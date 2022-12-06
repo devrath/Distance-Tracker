@@ -1,18 +1,15 @@
-package com.istudio.distancetracker
+package com.istudio.distancetracker.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.utils.Permissions.hasLocationPermission
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
 import com.istudio.distancetracker.utils.Permissions.runtimeLocationPermission
-import com.istudio.distancetracker.utils.openAppNotificationSettings
-import com.permissionx.guolindev.PermissionX
 
 
 class PermissionFragment : Fragment(){

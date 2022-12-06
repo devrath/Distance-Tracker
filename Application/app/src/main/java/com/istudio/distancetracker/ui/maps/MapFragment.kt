@@ -1,4 +1,4 @@
-package com.istudio.distancetracker
+package com.istudio.distancetracker.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
