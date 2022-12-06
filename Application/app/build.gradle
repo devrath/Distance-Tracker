@@ -77,6 +77,8 @@ dependencies {
 
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
-    // Easy Permissions
-    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    // PermissionX: To handle the runtime permissions gracefully
+    // Web-Site: https://github.com/guolindev/PermissionX
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
+
 }

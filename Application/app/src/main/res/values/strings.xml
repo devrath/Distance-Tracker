@@ -21,5 +21,10 @@
     <string name="_0_0km">0.0km</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_location_permission_required">Location permission is required</string>
+    <string name="str_location">Location</string>
+    <string name="str_allow">Allow</string>
+    <string name="str_deny">Deny</string>
+    <string name="str_provide_permissions">Please provide following permissions</string>
 
 </resources>
