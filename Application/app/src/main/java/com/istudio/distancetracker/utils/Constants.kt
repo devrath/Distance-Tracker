@@ -2,6 +2,8 @@ package com.istudio.distancetracker.utils
 
 object Constants {
 
-    const val PERMISSION_LOCATION_REQUEST_CODE = 1
+    const val COUNTDOWN_TIMER_DURATION = 5000L
+    const val COUNTDOWN_TIMER_INTERVAL = 1000L
+
 
 }
