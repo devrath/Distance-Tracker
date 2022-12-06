@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
 
-class MapFragment : Fragment(), GoogleMap.OnMyLocationClickListener{
+class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -42,8 +42,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationClickListener{
     // ********************************** Life cycle methods ***************************************
 
     // ********************************** Over-ridden methods **************************************
-    override fun onMyLocationClick(location: Location) {
+    override fun onMyLocationButtonClick(): Boolean {
 
+        return true
     }
     // ********************************** Over-ridden methods **************************************
 
@@ -81,7 +82,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationClickListener{
     // ********************************** User defined functions ************************************
 
     // **********************************CallBacks *************************************************
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission","PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         map.isMyLocationEnabled = true
