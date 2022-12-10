@@ -43,10 +43,13 @@ class TrackerService : LifecycleService() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     companion object {
+        // Status of the service
         val started = MutableLiveData<Boolean>()
+        // Starting time of the service
         val startTime = MutableLiveData<Long>()
+        // Stopping time of the service
         val stopTime = MutableLiveData<Long>()
-
+        // Location LatLng list of the entire path
         val locationList = MutableLiveData<MutableList<LatLng>>()
     }
 
@@ -73,6 +76,7 @@ class TrackerService : LifecycleService() {
         intent?.let {
             when (it.action) {
                 ACTION_SERVICE_START -> {
+                    // Keep this flag to track the status of the service : -> true
                     started.postValue(true)
                     // Start the foreground service
                     initiateForegroundService()
@@ -80,6 +84,7 @@ class TrackerService : LifecycleService() {
                     startLocationUpdates()
                 }
                 ACTION_SERVICE_STOP -> {
+                    // Keep this flag to track the status of the service : -> false
                     started.postValue(false)
                 }
                 else -> {}
@@ -91,7 +96,6 @@ class TrackerService : LifecycleService() {
         started.postValue(false)
         startTime.postValue(0L)
         stopTime.postValue(0L)
-
         locationList.postValue(mutableListOf())
     }
 
@@ -158,9 +162,11 @@ class TrackerService : LifecycleService() {
     }
 
     private fun updateNotificationPeriodically() {
+        val title = "Distance Travelled"
+        val content = locationList.value?.let { calculateTheDistance(it) } + "km"
         notification.apply {
-            setContentTitle("Distance Travelled")
-            setContentText(locationList.value?.let { calculateTheDistance(it) } + "km")
+            setContentTitle(title)
+            setContentText(content)
         }
         notificationManager.notify(NOTIFICATION_ID, notification.build())
     }
