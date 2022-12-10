@@ -115,17 +115,12 @@ class TrackerService : LifecycleService() {
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         // Create a location request
-        /*val locationRequest = LocationRequest.Builder(
+        val locationRequest = LocationRequest.Builder(
             Priority.PRIORITY_HIGH_ACCURACY, LOCATION_UPDATE_INTERVAL
         ).setWaitForAccurateLocation(false)
             .setMinUpdateIntervalMillis(LOCATION_FASTEST_UPDATE_INTERVAL)
             .setMaxUpdateDelayMillis(LOCATION_UPDATE_INTERVAL)
-            .build()*/
-        val locationRequest = LocationRequest.create().apply {
-            interval = LOCATION_UPDATE_INTERVAL
-            fastestInterval = LOCATION_FASTEST_UPDATE_INTERVAL
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
+            .build()
 
         // Request for location using the fused location provider client
         fusedLocationProviderClient.requestLocationUpdates(
