@@ -82,6 +82,8 @@ class TrackerService : LifecycleService() {
                     initiateForegroundService()
                     // Start the location updates
                     startLocationUpdates()
+                    // Starting value of time
+                    startTime.postValue(System.currentTimeMillis())
                 }
                 ACTION_SERVICE_STOP -> {
                     // Keep this flag to track the status of the service : -> false
@@ -108,9 +110,7 @@ class TrackerService : LifecycleService() {
         // There is no else condition since for lower version, we don't need the notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                NOTIFICATION_CHANNEL_NAME,
-                IMPORTANCE_LOW
+                NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, IMPORTANCE_LOW
             )
             notificationManager.createNotificationChannel(channel)
         }
@@ -130,8 +130,6 @@ class TrackerService : LifecycleService() {
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.getMainLooper()
         )
-
-        startTime.postValue(System.currentTimeMillis())
     }
 
     private val locationCallback = object : LocationCallback() {
