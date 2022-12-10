@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Build
@@ -19,7 +20,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
-import com.istudio.distancetracker.utils.Constants
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.LOCATION_FASTEST_UPDATE_INTERVAL
@@ -50,7 +50,7 @@ class TrackerService : LifecycleService() {
         // Stopping time of the service
         val stopTime = MutableLiveData<Long>()
         // Location LatLng list of the entire path
-        val locationList = MutableLiveData<MutableList<LatLng>>()
+        var locationList = MutableLiveData<MutableList<LatLng>>()
     }
 
     // ********************************** Life cycle methods ***************************************
@@ -88,6 +88,8 @@ class TrackerService : LifecycleService() {
                 ACTION_SERVICE_STOP -> {
                     // Keep this flag to track the status of the service : -> false
                     started.postValue(false)
+                    // Stop the foreground service
+                    stopForegroundService()
                 }
                 else -> {}
             }
@@ -132,6 +134,24 @@ class TrackerService : LifecycleService() {
         )
     }
 
+    private fun stopForegroundService() {
+        // Remove the fused location updates
+        removeLocationUpdates()
+        // Remove the foreground notification
+        val notifyManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notifyManager.cancel(NOTIFICATION_ID)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            stopForeground(STOP_FOREGROUND_DETACH)
+            stopForeground(true)
+        }else{
+            stopForeground(true)
+        }
+        // Strop the service
+        stopSelf()
+        // Indicate the final time for when the location updates were stopped or
+        stopTime.postValue(System.currentTimeMillis())
+    }
+
     private val locationCallback = object : LocationCallback() {
         // This function will receive a new location update on each location change
         override fun onLocationResult(result: LocationResult) {
@@ -140,8 +160,8 @@ class TrackerService : LifecycleService() {
                 for (location in locations) {
                     val latLng = LatLng(location.latitude,location.longitude)
                     Log.d("TrackerService",latLng.toString())
-                    //updateLocationList(location)
-                    //updateNotificationPeriodically()
+                    updateLocationList(location)
+                    updateNotificationPeriodically()
                 }
             }
         }
@@ -163,6 +183,10 @@ class TrackerService : LifecycleService() {
             setContentText(content)
         }
         notificationManager.notify(NOTIFICATION_ID, notification.build())
+    }
+
+    private fun removeLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
     // ********************************** User defined functions ************************************
 }
