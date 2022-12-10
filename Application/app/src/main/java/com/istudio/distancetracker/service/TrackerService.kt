@@ -128,13 +128,9 @@ class TrackerService : LifecycleService() {
 
         // Request for location using the fused location provider client
         fusedLocationProviderClient.requestLocationUpdates(
-            // Pass the location request
-            locationRequest,
-            // Pass the callback for the location
-            locationCallback,
-            // Looper
-            Looper.getMainLooper()
+            locationRequest, locationCallback, Looper.getMainLooper()
         )
+
         startTime.postValue(System.currentTimeMillis())
     }
 
