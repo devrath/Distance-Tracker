@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.util.Permissions.hasLocationPermission
+import com.istudio.distancetracker.utils.Permissions
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
@@ -14,14 +16,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navHostFragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-        if (hasLocationPermission(this)) {
-            navController.navigate(R.id.action_permissionFragment_to_mapsFragment)
-        }
-
+        // Set nav controller
+        setNavController()
+        // Open the first screen
+        openScreen()
     }
+
+    /**
+     * Set the nav controller for the screen
+     */
+    private fun setNavController() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
+    private fun openScreen() {
+        if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
+    }
+
 }

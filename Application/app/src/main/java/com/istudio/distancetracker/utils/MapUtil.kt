@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.maps
+package com.istudio.distancetracker.utils
 
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -9,9 +9,9 @@ object MapUtil {
 
     fun setCameraPosition(location: LatLng): CameraPosition {
         return CameraPosition.Builder()
-                .target(location)
-                .zoom(18f)
-                .build()
+            .target(location)
+            .zoom(18f)
+            .build()
     }
 
     fun calculateElapsedTime(startTime: Long, stopTime: Long): String {
@@ -25,9 +25,13 @@ object MapUtil {
     }
 
     fun calculateTheDistance(locationList: MutableList<LatLng>): String {
+        val firstPoint = locationList.first()
+        val lastPoint = locationList.last()
+
         if(locationList.size > 1){
-            val meters =
-                    SphericalUtil.computeDistanceBetween(locationList.first(), locationList.last())
+            // Meters
+            val meters = SphericalUtil.computeDistanceBetween(firstPoint,lastPoint)
+            // Kilometers
             val kilometers = meters / 1000
             return DecimalFormat("#.##").format(kilometers)
         }

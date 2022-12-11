@@ -9,8 +9,9 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.istudio.distancetracker.ui.MainActivity
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.util.Constants.NOTIFICATION_CHANNEL_ID
-import com.istudio.distancetracker.util.Constants.PENDING_INTENT_REQUEST_CODE
+import com.istudio.distancetracker.utils.Constants.ACTION_NAVIGATE_TO_MAPS_FRAGMENT
+import com.istudio.distancetracker.utils.Constants.NOTIFICATION_CHANNEL_ID
+import com.istudio.distancetracker.utils.Constants.PENDING_INTENT_REQUEST_CODE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,9 @@ import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
 
+/**
+ * This hilt module will be installed in service module class
+ */
 @Module
 @InstallIn(ServiceComponent::class)
 object NotificationModule {
