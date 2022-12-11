@@ -15,7 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.GoogleMap
@@ -24,17 +26,22 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.ButtCap
 import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.distancetracker.service.TrackerService.Companion.locationList
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.utils.MapUtil.calculateElapsedTime
+import com.istudio.distancetracker.utils.MapUtil.calculateTheDistance
 import com.istudio.distancetracker.utils.MapUtil.setCameraPosition
 import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.utils.Permissions.runtimeBackgroundPermission
@@ -122,6 +129,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** User defined functions ************************************
     private fun initOnCreateView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
     }
 
@@ -144,6 +152,43 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 // As when the polyline is drawn, camera has to follow the points of the mutable list
                 followPolyline()
             }
+        }
+
+        TrackerService.started.observe(viewLifecycleOwner) {
+            started.value = it
+        }
+        TrackerService.startTime.observe(viewLifecycleOwner) {
+            startTime = it
+        }
+        TrackerService.stopTime.observe(viewLifecycleOwner) {
+            stopTime = it
+            if (stopTime != 0L) {
+                if (locationList.isNotEmpty()) {
+                     showBiggerPicture()
+                     displayResults()
+                }
+            }
+        }
+    }
+
+    private fun showBiggerPicture() {
+        val bounds = LatLngBounds.Builder()
+        for (location in locationList) {
+            bounds.include(location)
+        }
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(), 100
+            ), 2000, null
+        )
+        addMarker(locationList.first())
+        addMarker(locationList.last())
+    }
+
+    private fun addMarker(position: LatLng) {
+        val marker = map.addMarker(MarkerOptions().position(position))
+        marker?.let {
+            markerList.add(it)
         }
     }
 
@@ -182,11 +227,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         binding.apply {
             startButton.setOnClickListener { startButtonAction() }
             stopButton.setOnClickListener { stopButtonClicked() }
-            resetButton.setOnClickListener {
-
-            }
+            resetButton.setOnClickListener { onResetButtonClicked() }
         }
     }
+
+    private fun onResetButtonClicked() { mapReset() }
 
     private fun startButtonAction() {
         if(hasBackgroundLocationPermission(requireContext())){
@@ -203,6 +248,33 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         stopForegroundService()
         binding.stopButton.hide()
         binding.startButton.show()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun mapReset() {
+        fusedLocationProviderClient.lastLocation.addOnCompleteListener {
+            val lastKnownLocation = LatLng(
+                it.result.latitude,
+                it.result.longitude
+            )
+            map.animateCamera(
+                CameraUpdateFactory.newCameraPosition(
+                    setCameraPosition(lastKnownLocation)
+                )
+            )
+            for (polyLine in polylineList) {
+                polyLine.remove()
+            }
+            for (marker in markerList) {
+                marker.remove()
+            }
+            locationList.clear()
+            markerList.clear()
+            binding.apply {
+                resetButton.hide()
+                startButton.show()
+            }
+        }
     }
 
 
@@ -264,6 +336,28 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnDestroyView() { _binding = null }
+
+    private fun displayResults() {
+        // Set the result model
+        val result = Result(
+            calculateTheDistance(locationList),
+            calculateElapsedTime(startTime, stopTime)
+        )
+
+        lifecycleScope.launch {
+            delay(2500)
+            val directions = MapFragmentDirections.actionMapFragmentToResultFragment(result)
+            findNavController().navigate(directions)
+            binding.apply {
+                startButton.apply {
+                    hide()
+                    enable()
+                }
+                stopButton.hide()
+                resetButton.show()
+            }
+        }
+    }
     // ********************************** User defined functions ************************************
 
 }

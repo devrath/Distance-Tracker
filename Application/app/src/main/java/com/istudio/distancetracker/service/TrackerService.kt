@@ -90,6 +90,8 @@ class TrackerService : LifecycleService() {
                     started.postValue(false)
                     // Stop the foreground service
                     stopForegroundService()
+                    // Indicate the final time for when the location updates were stopped
+                    stopTime.postValue(System.currentTimeMillis())
                 }
                 else -> {}
             }
@@ -112,7 +114,9 @@ class TrackerService : LifecycleService() {
         // There is no else condition since for lower version, we don't need the notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, IMPORTANCE_LOW
+                NOTIFICATION_CHANNEL_ID,
+                NOTIFICATION_CHANNEL_NAME,
+                IMPORTANCE_LOW
             )
             notificationManager.createNotificationChannel(channel)
         }
@@ -137,19 +141,15 @@ class TrackerService : LifecycleService() {
     private fun stopForegroundService() {
         // Remove the fused location updates
         removeLocationUpdates()
-        // Remove the foreground notification
-        val notifyManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notifyManager.cancel(NOTIFICATION_ID)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             stopForeground(STOP_FOREGROUND_DETACH)
-            stopForeground(true)
-        }else{
+        }else if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
             stopForeground(true)
         }
+        // Remove the foreground notification
+        notificationManager.cancel(NOTIFICATION_ID)
         // Strop the service
         stopSelf()
-        // Indicate the final time for when the location updates were stopped or
-        stopTime.postValue(System.currentTimeMillis())
     }
 
     private val locationCallback = object : LocationCallback() {
@@ -177,7 +177,7 @@ class TrackerService : LifecycleService() {
 
     private fun updateNotificationPeriodically() {
         val title = "Distance Travelled"
-        val content = locationList.value?.let { calculateTheDistance(it) } + "km"
+        val content = locationList.value?.let { calculateTheDistance(it) } + " km"
         notification.apply {
             setContentTitle(title)
             setContentText(content)
