@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.istudio.distancetracker">
 
     <!--
     DESCRIPTION: -> The permission ACCESS_FINE_LOCATION is needed to get the user's location from the device
