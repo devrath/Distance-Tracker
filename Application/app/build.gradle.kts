@@ -43,16 +43,11 @@ android {
     productFlavors {
         create(FlavourUtils.ProductFlavors.DEV) {
             dimension = FlavourUtils.FlavorDimensions.DEFAULT
-            // applicationIdSuffix = ".${FlavourUtils.ProductFlavors.DEV}"
-            // versionNameSuffix = "-${FlavourUtils.ProductFlavors.DEV}"
-        }
-        create(FlavourUtils.ProductFlavors.INTERNAL) {
-            dimension = FlavourUtils.FlavorDimensions.DEFAULT
-            // applicationIdSuffix = ".${FlavourUtils.ProductFlavors.INTERNAL}"
-            // versionNameSuffix = "-${FlavourUtils.ProductFlavors.INTERNAL}"
+            //applicationIdSuffix = ".${FlavourUtils.ProductFlavors.DEV}"
         }
         create(FlavourUtils.ProductFlavors.PUBLIC) {
             dimension = FlavourUtils.FlavorDimensions.DEFAULT
+            //signingConfig =
         }
     }
     /** ************************* FLAVOURS ************************* **/
