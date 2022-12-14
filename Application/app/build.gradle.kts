@@ -72,35 +72,41 @@ android {
 }
 
 dependencies {
+    // ********************************** Firebase ************************************
     implementation(platform(Firebase.googleFirebase))
     implementation(Firebase.firebaseKtx)
     implementation(Firebase.firebaseDatabaseKtx)
     implementation(Firebase.firebaseAnalytics)
     implementation(Firebase.firebaseCrashlyticsKtx)
     implementation(Firebase.firebaseAnalyticsKtx)
+    // ********************************** Firebase ************************************
 
-    implementation(DaggerHilt.hiltAndroid)
-    kapt(DaggerHilt.hiltCompiler)
-
+    // ********************************** Basic ***************************************
+    implementation(SplashScreen.splashAndroidApi)
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
-
     implementation(Google.material)
-
-    implementation(SplashScreen.splashAndroidApi)
-
     implementation(LifeCycle.lifecycleExtensions)
-    implementation(Permission.lifecycleExtensions)
+    implementation(Navigation.navigationFragmentKtx)
+    implementation(Navigation.navigationUiKtx)
+    // ********************************** Basic ***************************************
+
+    // ********************************** Hilt ****************************************
+    implementation(DaggerHilt.hiltAndroid)
+    kapt(DaggerHilt.hiltCompiler)
+    // ********************************** Hilt ****************************************
+
+    // ********************************** Map *****************************************
     implementation(Maps.playServicesLocation)
     implementation(Maps.androidMapsUtils)
     implementation(Maps.playServicesMaps)
-    implementation(Navigation.navigationFragmentKtx)
-    implementation(Navigation.navigationUiKtx)
+    // ********************************** Map *****************************************
 
-    kapt(Room.roomCompiler)
-    implementation(Room.roomKtx)
-    implementation(Room.roomRuntime)
+    // ********************************** Permission **********************************
+    implementation(Permission.lifecycleExtensions)
+    // ********************************** Permission **********************************
 
+    // ***************************** Unit Testing *************************************
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
     testImplementation(Testing.truth)
@@ -116,7 +122,9 @@ dependencies {
     testImplementation(Testing.mockitoCore)
     testImplementation(Testing.orgJson)
     testImplementation(Testing.roboElectric)
+    // ***************************** Unit Testing *************************************
 
+    // ************************* Instrumentation Testing ******************************
     androidTestImplementation(Testing.junit4)
     androidTestImplementation(Testing.junitAndroidExt)
     androidTestImplementation(Testing.truth)
@@ -125,9 +133,9 @@ dependencies {
     androidTestImplementation(Testing.mockk)
     androidTestImplementation(Testing.mockWebServer)
     androidTestImplementation(Testing.hiltTesting)
-
-    kaptAndroidTest(DaggerHilt.hiltCompiler)
     androidTestImplementation(Testing.testRunner)
+    kaptAndroidTest(DaggerHilt.hiltCompiler)
+    // ************************* Instrumentation Testing ******************************
 
     // Injecting fakes
     //androidTestImplementation(project(Modules.coreMock))
