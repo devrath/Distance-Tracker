@@ -6,7 +6,7 @@ object FlavourUtils {
 
     object ProductFlavors {
         const val DEV = "dev"
-        const val PUBLIC = "public"
+        const val PUBLIC = "prod"
     }
 
     object FlavorDimensions {

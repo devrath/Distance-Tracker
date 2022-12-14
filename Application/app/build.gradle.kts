@@ -74,6 +74,9 @@ dependencies {
     implementation(Firebase.firebaseAnalytics)
     implementation(Firebase.firebaseCrashlyticsKtx)
     implementation(Firebase.firebaseAnalyticsKtx)
+    implementation(Firebase.firebaseAuthKtx)
+    implementation(Firebase.firebaseFirestoreKtx)
+    implementation(Firebase.firebaseStorageKtx)
     // ********************************** Firebase ************************************
 
     // ********************************** Basic ***************************************
@@ -84,6 +87,11 @@ dependencies {
     implementation(LifeCycle.lifecycleExtensions)
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
+    implementation(DataStorePreferences.datastorePreferences)
+    implementation(Moshi.moshiRepo)
+    implementation(CustomLogging.orhanobut)
+    implementation(CustomLogging.timber)
+    kapt(Moshi.moshiCodegen)
     // ********************************** Basic ***************************************
 
     // ********************************** Hilt ****************************************
@@ -132,6 +140,10 @@ dependencies {
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     // ************************* Instrumentation Testing ******************************
 
+
+
+
     // Injecting fakes
     //androidTestImplementation(project(Modules.coreMock))
+
 }
