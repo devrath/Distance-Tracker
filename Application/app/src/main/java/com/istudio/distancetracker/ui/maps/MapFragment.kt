@@ -122,6 +122,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             isCompassEnabled = false
             isScrollGesturesEnabled = false
         }
+        map.setPadding(0,0,200,0)
         observeTrackerService()
     }
     // **********************************CallBacks *************************************************
