@@ -3,23 +3,22 @@ package com.istudio.distancetracker.ui.maps
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
-
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -35,7 +34,6 @@ import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
-import com.istudio.distancetracker.service.TrackerService.Companion.locationList
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
@@ -122,7 +120,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             isCompassEnabled = false
             isScrollGesturesEnabled = false
         }
+        // Set map padding
         map.setPadding(0,0,200,0)
+
+        // Set custom location
+        val btnMyLocation: ImageView = (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(Integer.parseInt("2"))
+        btnMyLocation.setImageResource(R.drawable.ic_current_location)
+
         observeTrackerService()
     }
     // **********************************CallBacks *************************************************
@@ -135,6 +139,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnViewCreated() {
+
         initiateMapSync()
         setOnClickListeners()
     }
