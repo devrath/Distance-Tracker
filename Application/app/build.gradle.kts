@@ -94,6 +94,12 @@ dependencies {
     kapt(Moshi.moshiCodegen)
     // ********************************** Basic ***************************************
 
+    // ********************************** Database ************************************
+    kapt(Room.roomCompiler)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRuntime)
+    // ********************************** Database ************************************
+
     // ********************************** Hilt ****************************************
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
