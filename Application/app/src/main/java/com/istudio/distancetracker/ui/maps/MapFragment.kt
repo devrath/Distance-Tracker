@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -234,7 +235,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             startButton.setOnClickListener { startButtonAction() }
             stopButton.setOnClickListener { stopButtonClicked() }
             resetButton.setOnClickListener { onResetButtonClicked() }
+            actLstId.setOnClickListener { onActivityListButtonClicked() }
         }
+    }
+
+    private fun onActivityListButtonClicked() {
+        Toast.makeText(requireActivity(),"List clicked",Toast.LENGTH_LONG).show()
     }
 
     private fun onResetButtonClicked() { mapReset() }
