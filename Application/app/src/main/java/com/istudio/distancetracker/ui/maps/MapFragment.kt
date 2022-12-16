@@ -240,7 +240,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun onActivityListButtonClicked() {
-        Toast.makeText(requireActivity(),"List clicked",Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
     }
 
     private fun onResetButtonClicked() { mapReset() }

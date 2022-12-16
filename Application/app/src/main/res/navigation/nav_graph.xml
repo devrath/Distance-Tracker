@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mapFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_distanceLogFragment"
+            app:destination="@id/distanceLogFragment" />
     </fragment>
     <dialog
         android:id="@+id/resultFragment"
@@ -37,4 +40,9 @@
             android:name="result"
             app:argType="com.istudio.distancetracker.model.Result" />
     </dialog>
+    <fragment
+        android:id="@+id/distanceLogFragment"
+        android:name="com.istudio.distancetracker.DistanceLogFragment"
+        android:label="fragment_distance_log"
+        tools:layout="@layout/fragment_distance_log" />
 </navigation>
