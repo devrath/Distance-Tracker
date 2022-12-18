@@ -125,9 +125,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnViewCreated() {
-        initiateMapSync()
-        setOnClickListeners()
-        setObservers()
+        initMapScreen()
     }
 
     private fun initOnDestroyView() { _binding = null }
@@ -149,6 +147,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             stopButton.setOnClickListener { stopButtonClicked() }
             resetButton.setOnClickListener { onResetButtonClicked() }
             actLstId.setOnClickListener { onActivityListButtonClicked() }
+            settingsActionId.setOnClickListener {
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
         }
     }
 
@@ -244,6 +245,26 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             // Display the reset state for map since the result is calculated and shown
             resetMapUiState()
         }
+    }
+
+    private fun initMapScreen() {
+        if(viewModel.checkLocationEnabled()){
+            binding.apply {
+                errorContainerId.visibility = View.GONE
+                mapContainerId.visibility = View.VISIBLE
+                textView.text = resources.getText(R.string.str_gps_warning)
+            }
+            initiateMapSync()
+            setObservers()
+        }else{
+            binding.apply {
+                errorContainerId.visibility = View.VISIBLE
+                mapContainerId.visibility = View.GONE
+                gpsErrorImg.visibility = View.VISIBLE
+                wifiErrorImg.visibility = View.GONE
+            }
+        }
+        setOnClickListeners()
     }
     // ********************************** User defined functions ************************************
 

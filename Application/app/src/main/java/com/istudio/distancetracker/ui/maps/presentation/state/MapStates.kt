@@ -18,7 +18,6 @@ sealed class MapStates {
     data class FollowCurrentLocation(val location: LatLng, val duration:Int) : MapStates()
     data class AddMarker(val location: LatLng) : MapStates()
 
-
     object DisplayStartButton : MapStates()
     object DisableStopButton : MapStates()
 }

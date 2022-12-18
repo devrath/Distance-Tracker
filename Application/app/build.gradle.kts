@@ -94,6 +94,7 @@ dependencies {
     implementation(Coroutines.coroutineAndroidLib)
     implementation(Coroutines.coroutineLib)
     implementation(Coroutines.coroutinePlayServicesLib)
+    implementation(Lotte.lotteAnimation)
     kapt(Moshi.moshiCodegen)
     // ********************************** Basic ***************************************
 
