@@ -22,6 +22,8 @@ import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
+import com.istudio.distancetracker.utils.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
+import com.istudio.distancetracker.utils.Constants.preparePolyline
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -34,22 +36,6 @@ class MapsVm @Inject constructor(
     private var fusedLocationProviderClient: FusedLocationProviderClient,
     private var log: LoggerFeature,
 ) : BaseViewModel() {
-
-    companion object {
-        private const val widthValue = 10f
-        private const val colorValue = Color.BLUE
-        private const val typeValue = JointType.ROUND
-
-        fun preparePolyline(locationList: MutableList<LatLng>): PolylineOptions =
-            PolylineOptions().apply {
-                width(widthValue)
-                color(colorValue)
-                jointType(typeValue)
-                startCap(ButtCap())
-                endCap(ButtCap())
-                addAll(locationList)
-            }
-    }
 
     /**
      * Using channel: We can notify the fragment to make fragment do something
@@ -70,15 +56,16 @@ class MapsVm @Inject constructor(
     var markerList = mutableListOf<Marker>()
 
 
-    fun drawPolyline() {
+
+    private fun drawPolyline() {
         val polylineOptions = preparePolyline(locationList)
         viewModelScope.launch { _eventChannel.send(MapStates.AddPolyline(polylineOptions)) }
     }
 
-    fun followPolyline() {
+    private fun followPolyline() {
         if (locationList.isNotEmpty()) {
             val location = locationList.last()
-            val duration = 1000
+            val duration = FOLLOW_POLYLINE_UPDATE_DURATION
             viewModelScope.launch { _eventChannel.send(MapStates.FollowCurrentLocation(location,duration)) }
         }
     }
@@ -103,7 +90,7 @@ class MapsVm @Inject constructor(
     /**
      * Reset the states in the view model
      */
-    fun resetViewModel() {
+    private fun resetViewModel() {
         for (polyLine in polylineList) { polyLine.remove() }
         for (marker in markerList) { marker.remove() }
         locationList.clear()
@@ -111,9 +98,9 @@ class MapsVm @Inject constructor(
     }
 
     /**
-     * CALCULATE RESULT:
+     * CALCULATE RESULT
      */
-    fun calculateResult() {
+    private fun calculateResult() {
         log.i(KeysFeatureNames.FEATURE_MAP, "Calculate distance and result")
         val input = CalculateResultInput(locationData = locationList, startTime = startTime,stopTime = stopTime)
         useCases.calculateResult.invoke(input)
@@ -123,6 +110,21 @@ class MapsVm @Inject constructor(
 
     fun addMarker(marker: Marker?) { marker?.let { markerList.add(it) } }
 
+    private fun showBiggerPicture() {
+        val padding = 100
+        val duration = 2000
+        val bounds = LatLngBounds.Builder()
+        for (location in locationList) {
+            bounds.include(location)
+        }
+        viewModelScope.launch {
+            _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
+                bounds = bounds.build(), padding = padding, duration = duration
+            ))
+        }
+        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.first())) }
+        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.last())) }
+    }
 
     // ********************************* Service-States ********************************************
     fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
@@ -155,27 +157,6 @@ class MapsVm @Inject constructor(
             }
         }
     }
-
-    private fun showBiggerPicture() {
-        val padding = 100
-        val duration = 2000
-        val bounds = LatLngBounds.Builder()
-        for (location in locationList) {
-            bounds.include(location)
-        }
-        viewModelScope.launch {
-            _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
-                bounds = bounds.build(), padding = padding, duration = duration
-            ))
-        }
-        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.first())) }
-        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.last())) }
-    }
-
-
-
-
-
     // ********************************* Service-States ********************************************
 
     /**

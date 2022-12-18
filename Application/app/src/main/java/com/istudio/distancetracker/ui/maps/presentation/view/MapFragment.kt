@@ -33,6 +33,9 @@ import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.utils.Constants.HINT_VIEW_ANIMATE_DURATION
+import com.istudio.distancetracker.utils.Constants.LOCATE_MYSELF_TIMER_DURATION
+import com.istudio.distancetracker.utils.Constants.RESULT_PAGE_DISPLAY_DURATION
 import com.istudio.distancetracker.utils.MapUtil.setCameraPosition
 import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.utils.Permissions.runtimeBackgroundPermission
@@ -75,12 +78,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     override fun onMyLocationButtonClick(): Boolean {
         // Perform animation and fade the text view after a certain duration
         binding.apply {
-            hintTextView.animate().alpha(0f).duration = 1500
             lifecycleScope.launch {
-                // Provide a delay
                 delay(2500)
-                // Finally hide the view
-                hintTextView.hide()
                 // Display the start button
                 startButton.show()
             }
@@ -233,7 +232,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         val resultCalculated = Result(result.distanceTravelled, result.elapsedTime)
         lifecycleScope.launch {
             // Give a delay for smoother transition
-            delay(2500)
+            delay(RESULT_PAGE_DISPLAY_DURATION)
             // Display the result page
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown
@@ -381,7 +380,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(
                 Integer.parseInt("2")
             )
-        btnMyLocation.setImageResource(R.drawable.ic_current_location)
+        btnMyLocation.apply {
+            setImageResource(R.drawable.ic_current_location)
+            callOnClick();
+            lifecycleScope.launch {
+                // Provide a delay
+                delay(LOCATE_MYSELF_TIMER_DURATION)
+                callOnClick();
+            }
+        }
     }
     // *************************************** States **********************************************
 
