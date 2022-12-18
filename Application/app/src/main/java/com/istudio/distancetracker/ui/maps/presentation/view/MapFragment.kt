@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -136,10 +135,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     is MapStates.AnimateCamera -> animateCamera(event)
                     is MapStates.DisplayStartButton -> displayStartButton()
                     is MapStates.FollowCurrentLocation -> animateCameraWithDuration(event.location,event.duration)
+                    is MapStates.DisableStopButton -> binding.stopButton.enable()
+                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(event.bounds,event.padding,event.duration)
                     is MapStates.AddPolyline -> {
                         val polyline = map.addPolyline(event.polyLine)
                         viewModel.addPolylineToList(polyline)
                     }
+                    is MapStates.AddMarker -> addMarker(event.location)
                 }
             }
         }
@@ -162,58 +164,29 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         map.animateCamera(newCameraPosition, duration, null)
     }
 
-    private fun observeTrackerService() {
-        TrackerService.locationList.observe(viewLifecycleOwner) {
-            it?.let {
-                viewModel.locationList = it
-                Log.d("LocationReceived",it.toString())
-                if (viewModel.locationList.size > 1) {
-                    // Giving the user the option to stop the service
-                    binding.stopButton.enable()
-                }
-                // On each call-back, it will draw the list of points in the mutable list
-                viewModel.drawPolyline()
-                // As when the polyline is drawn, camera has to follow the points of the mutable list
-                viewModel.followPolyline()
-            }
-        }
+    private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
+        map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding), duration, null)
+    }
 
-        TrackerService.started.observe(viewLifecycleOwner) {
-            viewModel.started.value = it
-        }
-        TrackerService.startTime.observe(viewLifecycleOwner) {
-            viewModel.startTime = it
-        }
+    private fun observeTrackerService() {
+        TrackerService.locationList.observe(viewLifecycleOwner) { viewModel.trackerServiceInProgress(it) }
+        TrackerService.started.observe(viewLifecycleOwner) { viewModel.trackerStartedState(it) }
+        TrackerService.startTime.observe(viewLifecycleOwner) { viewModel.trackerStartTime(it) }
+        //TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
         TrackerService.stopTime.observe(viewLifecycleOwner) {
             viewModel.stopTime = it
             if (viewModel.stopTime != 0L) {
                 if (viewModel.locationList.isNotEmpty()) {
-                     showBiggerPicture()
-                     viewModel.calculateResult()
+                    showBiggerPicture()
+                    viewModel.calculateResult()
                 }
             }
         }
     }
 
-    private fun showBiggerPicture() {
-        val bounds = LatLngBounds.Builder()
-        for (location in viewModel.locationList) {
-            bounds.include(location)
-        }
-        map.animateCamera(
-            CameraUpdateFactory.newLatLngBounds(
-                bounds.build(), 100
-            ), 2000, null
-        )
-        addMarker(viewModel.locationList.first())
-        addMarker(viewModel.locationList.last())
-    }
-
     private fun addMarker(position: LatLng) {
         val marker = map.addMarker(MarkerOptions().position(position))
-        marker?.let {
-            viewModel.markerList.add(it)
-        }
+        viewModel.addMarker(marker)
     }
 
     private fun setOnClickListeners() {
@@ -338,5 +311,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
     // *************************************** States **********************************************
 
+
+    private fun showBiggerPicture() {
+        val bounds = LatLngBounds.Builder()
+        for (location in viewModel.locationList) {
+            bounds.include(location)
+        }
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(), 100
+            ), 2000, null
+        )
+        addMarker(viewModel.locationList.first())
+        addMarker(viewModel.locationList.last())
+    }
 
 }

@@ -2,12 +2,15 @@ package com.istudio.distancetracker.ui.maps.presentation.vm
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.ButtCap
 import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
@@ -116,6 +119,63 @@ class MapsVm @Inject constructor(
             .onSuccess { viewModelScope.launch { _eventChannel.send(MapStates.JourneyResult(it)) } }
             .onFailure { viewModelScope.launch { useCaseError(UseCaseResult.Error(Exception(it))) } }
     }
+
+    fun addMarker(marker: Marker?) { marker?.let { markerList.add(it) } }
+
+
+    // ********************************* Service-States ********************************************
+    fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
+        locations?.let {
+            locationList = it
+            Log.d("LocationReceived",it.toString())
+            if (locationList.size > 1) {
+                // Giving the user the option to stop the service
+                viewModelScope.launch { _eventChannel.send(MapStates.DisableStopButton) }
+            }
+            // On each call-back, it will draw the list of points in the mutable list
+            drawPolyline()
+            // As when the polyline is drawn, camera has to follow the points of the mutable list
+            followPolyline()
+        }
+    }
+
+    fun trackerStartedState(state: Boolean?) { state?.let { started.value = state } }
+
+    fun trackerStartTime(time: Long?) { time?.let { startTime = it } }
+
+    fun trackerStopTime(time: Long?) {
+        time?.let {
+            stopTime = it
+            if (stopTime != 0L) {
+                if (locationList.isNotEmpty()) {
+                    showBiggerPicture()
+                    calculateResult()
+                }
+            }
+        }
+    }
+
+    private fun showBiggerPicture() {
+        val padding = 100
+        val duration = 2000
+        val bounds = LatLngBounds.Builder()
+        for (location in locationList) {
+            bounds.include(location)
+        }
+        viewModelScope.launch {
+            _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
+                bounds = bounds.build(), padding = duration, duration = duration
+            ))
+        }
+        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.first())) }
+        viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.last())) }
+    }
+
+
+
+
+
+    // ********************************* Service-States ********************************************
 
     /**
      * ERROR HANDLING: For the Use cases
