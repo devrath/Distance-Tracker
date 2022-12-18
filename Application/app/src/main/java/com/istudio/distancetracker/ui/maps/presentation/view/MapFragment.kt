@@ -106,10 +106,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
         // Set map padding
         map.setPadding(0,0,200,0)
-
         // Set custom location
         setCustomIconForLocationButton()
-
+        // Start observing the tracker service
         observeTrackerService()
     }
     // **********************************CallBacks *************************************************
@@ -128,11 +127,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun initOnDestroyView() { _binding = null }
 
+    /**
+     * We call the map to start and load asynchronously
+     */
     private fun initiateMapSync() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
 
+    /**
+     * Set the click listeners for all the buttons on the screen
+     */
     private fun setOnClickListeners() {
         binding.apply {
             startButton.setOnClickListener { startButtonAction() }
@@ -142,6 +147,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
 
+    /**
+     * Observer: Here we listen to channel variable in the view-model
+     */
     private fun setObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.events.collect { event ->
@@ -163,26 +171,36 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
 
+    /**
+     * Adding the marker in the screen
+     */
     private fun addMarker(position: LatLng) {
+        // Adding the marker in the map
         val marker = map.addMarker(MarkerOptions().position(position))
+        // Using the marker reference to store in a variable in the view model
         viewModel.addMarker(marker)
     }
 
-    private fun onActivityListButtonClicked() {
-        findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
-    }
-
+    /**
+     * BUTTON-ACTION: Reset the map
+     */
     private fun onResetButtonClicked() { viewModel.mapReset() }
 
+    /**
+     * BUTTON-ACTION: Start button clicked
+     */
     private fun startButtonAction() {
         if(hasBackgroundLocationPermission(requireContext())){
             startCountdown()
-            startButtonActionuiState()
+            startButtonActionUiState()
         }else{
             runtimeBackgroundPermission(this,requireActivity(),binding.root)
         }
     }
 
+    /**
+     * BUTTON-ACTION: Stop button clicked
+     */
     private fun stopButtonClicked() {
         stopForegroundService()
         stoppedUiState()
@@ -260,6 +278,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun resultPageNavigation(resultCalculated: Result) {
         val directions = MapFragmentDirections.actionMapFragmentToResultFragment(resultCalculated)
         findNavController().navigate(directions)
+    }
+
+    private fun onActivityListButtonClicked() {
+        findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
     }
     // *************************************** Navigation ******************************************
 
@@ -346,7 +368,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         binding.timerTextView.hide()
     }
 
-    private fun startButtonActionuiState() {
+    private fun startButtonActionUiState() {
         binding.apply {
             startButton.disable()
             startButton.hide()
