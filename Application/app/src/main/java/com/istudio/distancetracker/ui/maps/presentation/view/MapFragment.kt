@@ -172,16 +172,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         TrackerService.locationList.observe(viewLifecycleOwner) { viewModel.trackerServiceInProgress(it) }
         TrackerService.started.observe(viewLifecycleOwner) { viewModel.trackerStartedState(it) }
         TrackerService.startTime.observe(viewLifecycleOwner) { viewModel.trackerStartTime(it) }
-        //TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
-        TrackerService.stopTime.observe(viewLifecycleOwner) {
-            viewModel.stopTime = it
-            if (viewModel.stopTime != 0L) {
-                if (viewModel.locationList.isNotEmpty()) {
-                    showBiggerPicture()
-                    viewModel.calculateResult()
-                }
-            }
-        }
+        TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
     }
 
     private fun addMarker(position: LatLng) {
@@ -310,20 +301,5 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
     // *************************************** States **********************************************
-
-
-    private fun showBiggerPicture() {
-        val bounds = LatLngBounds.Builder()
-        for (location in viewModel.locationList) {
-            bounds.include(location)
-        }
-        map.animateCamera(
-            CameraUpdateFactory.newLatLngBounds(
-                bounds.build(), 100
-            ), 2000, null
-        )
-        addMarker(viewModel.locationList.first())
-        addMarker(viewModel.locationList.last())
-    }
 
 }

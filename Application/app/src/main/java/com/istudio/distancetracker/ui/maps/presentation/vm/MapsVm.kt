@@ -164,7 +164,7 @@ class MapsVm @Inject constructor(
         }
         viewModelScope.launch {
             _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
-                bounds = bounds.build(), padding = duration, duration = duration
+                bounds = bounds.build(), padding = padding, duration = duration
             ))
         }
         viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.first())) }
