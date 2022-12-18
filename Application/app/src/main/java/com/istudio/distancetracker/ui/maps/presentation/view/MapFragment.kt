@@ -1,14 +1,20 @@
 package com.istudio.distancetracker.ui.maps.presentation.view
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -33,7 +39,6 @@ import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
-import com.istudio.distancetracker.utils.Constants.HINT_VIEW_ANIMATE_DURATION
 import com.istudio.distancetracker.utils.Constants.LOCATE_MYSELF_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.RESULT_PAGE_DISPLAY_DURATION
 import com.istudio.distancetracker.utils.MapUtil.setCameraPosition
@@ -47,6 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+
 
 @AndroidEntryPoint
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
@@ -280,7 +286,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun onActivityListButtonClicked() {
-        findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
+        //findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
+        locationEnabled()
     }
     // *************************************** Navigation ******************************************
 
@@ -391,5 +398,33 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
     // *************************************** States **********************************************
+
+    private fun locationEnabled() {
+        val lm = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        var gps_enabled = false
+        var network_enabled = false
+        try {
+            gps_enabled = lm!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        try {
+            network_enabled = lm!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        if (!gps_enabled && !network_enabled) {
+            AlertDialog.Builder(requireContext())
+                .setMessage("GPS Enable")
+                .setPositiveButton("Settings",
+                    DialogInterface.OnClickListener { paramDialogInterface, paramInt ->
+                        startActivity(
+                            Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                        )
+                    })
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
 
 }
