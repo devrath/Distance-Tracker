@@ -1,7 +1,9 @@
 package com.istudio.distancetracker.ui.maps.presentation.vm
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
+import android.location.LocationManager
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -34,6 +36,7 @@ import javax.inject.Inject
 class MapsVm @Inject constructor(
     private var useCases: MapFragmentUseCases,
     private var fusedLocationProviderClient: FusedLocationProviderClient,
+    private var loacationManager: LocationManager,
     private var log: LoggerFeature,
 ) : BaseViewModel() {
 
@@ -124,6 +127,10 @@ class MapsVm @Inject constructor(
         }
         viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.first())) }
         viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.last())) }
+    }
+
+    fun checkLocationEnabled(): Boolean {
+        return loacationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
     // ********************************* Service-States ********************************************
