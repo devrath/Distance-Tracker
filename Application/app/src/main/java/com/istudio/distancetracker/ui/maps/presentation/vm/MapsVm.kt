@@ -36,12 +36,12 @@ class MapsVm @Inject constructor(
 ) : BaseViewModel() {
 
     companion object {
-        const val widthValue = 10f
-        const val colorValue = Color.BLUE
-        const val typeValue = JointType.ROUND
+        private const val widthValue = 10f
+        private const val colorValue = Color.BLUE
+        private const val typeValue = JointType.ROUND
 
-        fun preparePolyline(locationList: MutableList<LatLng>): PolylineOptions {
-            return PolylineOptions().apply {
+        fun preparePolyline(locationList: MutableList<LatLng>): PolylineOptions =
+            PolylineOptions().apply {
                 width(widthValue)
                 color(colorValue)
                 jointType(typeValue)
@@ -49,7 +49,6 @@ class MapsVm @Inject constructor(
                 endCap(ButtCap())
                 addAll(locationList)
             }
-        }
     }
 
     /**

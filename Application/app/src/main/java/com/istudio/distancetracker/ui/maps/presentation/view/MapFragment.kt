@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -107,8 +108,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         map.setPadding(0,0,200,0)
 
         // Set custom location
-        val btnMyLocation: ImageView = (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(Integer.parseInt("2"))
-        btnMyLocation.setImageResource(R.drawable.ic_current_location)
+        setCustomIconForLocationButton()
 
         observeTrackerService()
     }
@@ -124,6 +124,22 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         initiateMapSync()
         setOnClickListeners()
         setObservers()
+    }
+
+    private fun initOnDestroyView() { _binding = null }
+
+    private fun initiateMapSync() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+    }
+
+    private fun setOnClickListeners() {
+        binding.apply {
+            startButton.setOnClickListener { startButtonAction() }
+            stopButton.setOnClickListener { stopButtonClicked() }
+            resetButton.setOnClickListener { onResetButtonClicked() }
+            actLstId.setOnClickListener { onActivityListButtonClicked() }
+        }
     }
 
     private fun setObservers() {
@@ -147,46 +163,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
 
-    private fun displayStartButton() {
-        binding.apply {
-            resetButton.hide()
-            startButton.show()
-        }
-    }
-
-    private fun animateCamera(event: MapStates.AnimateCamera) {
-        val newCameraPosition =  CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
-        map.animateCamera(newCameraPosition)
-    }
-
-    private fun animateCameraWithDuration(location: LatLng, duration: Int) {
-        val newCameraPosition = CameraUpdateFactory.newCameraPosition(setCameraPosition(location))
-        map.animateCamera(newCameraPosition, duration, null)
-    }
-
-    private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
-        map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding), duration, null)
-    }
-
-    private fun observeTrackerService() {
-        TrackerService.locationList.observe(viewLifecycleOwner) { viewModel.trackerServiceInProgress(it) }
-        TrackerService.started.observe(viewLifecycleOwner) { viewModel.trackerStartedState(it) }
-        TrackerService.startTime.observe(viewLifecycleOwner) { viewModel.trackerStartTime(it) }
-        TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
-    }
-
     private fun addMarker(position: LatLng) {
         val marker = map.addMarker(MarkerOptions().position(position))
         viewModel.addMarker(marker)
-    }
-
-    private fun setOnClickListeners() {
-        binding.apply {
-            startButton.setOnClickListener { startButtonAction() }
-            stopButton.setOnClickListener { stopButtonClicked() }
-            resetButton.setOnClickListener { onResetButtonClicked() }
-            actLstId.setOnClickListener { onActivityListButtonClicked() }
-        }
     }
 
     private fun onActivityListButtonClicked() {
@@ -198,9 +177,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun startButtonAction() {
         if(hasBackgroundLocationPermission(requireContext())){
             startCountdown()
-            binding.startButton.disable()
-            binding.startButton.hide()
-            binding.stopButton.show()
+            startButtonActionuiState()
         }else{
             runtimeBackgroundPermission(this,requireActivity(),binding.root)
         }
@@ -208,65 +185,31 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun stopButtonClicked() {
         stopForegroundService()
-        binding.stopButton.hide()
-        binding.startButton.show()
+        stoppedUiState()
     }
 
     private fun startCountdown() {
-        binding.apply {
-            timerTextView.show()
-            stopButton.disable()
-        }
-
+        countDownUiState()
         val timer: CountDownTimer = object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
             override fun onTick(millisUntilFinished: Long) {
                 val currentSecond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
                 val zeroString = "0"
-                val strGo = requireActivity().getText(R.string.go)
-                val colorBlack =  ContextCompat.getColor(requireContext(), R.color.black)
-                val colorRed =  ContextCompat.getColor(requireContext(), R.color.red)
-
-                binding.apply {
-                    if (currentSecond == zeroString) {
-                        timerTextView.text = strGo
-                        timerTextView.setTextColor(colorBlack)
-                    } else {
-                        timerTextView.text = currentSecond.toString()
-                        timerTextView.setTextColor(colorRed)
-                    }
-                }
+                if (currentSecond == zeroString) { counterGoState() }
+                else { counterCountDownState(currentSecond) }
             }
 
             override fun onFinish() {
-                binding.timerTextView.hide()
-                // Start the tracker service
-                sendActionCmdToService(ACTION_SERVICE_START)
+                hideTimerTextView()
+                startLocationService()
             }
         }
         timer.start()
     }
 
-    /**
-     * We shall use this to start and stop the tracker service
-     */
-    private fun sendActionCmdToService(action:String) {
-        Intent(requireContext(), TrackerService::class.java).apply {
-            this.action=action
-            requireContext().startService(this)
-        }
-    }
-
     private fun stopForegroundService() {
-        binding.startButton.disable()
-        sendActionCmdToService(ACTION_SERVICE_STOP)
+        disableStartButton()
+        stopLocationService()
     }
-
-    private fun initiateMapSync() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-    }
-
-    private fun initOnDestroyView() { _binding = null }
 
     private fun displayResults(result: CalculateResultOutput) {
         val resultCalculated = Result(result.distanceTravelled, result.elapsedTime)
@@ -281,6 +224,38 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
     // ********************************** User defined functions ************************************
 
+    // *************************************** Location Service ************************************
+    /**
+     * DESCRIPTION: Observe the live actions from the location service
+     */
+    private fun observeTrackerService() {
+        TrackerService.locationList.observe(viewLifecycleOwner) { viewModel.trackerServiceInProgress(it) }
+        TrackerService.started.observe(viewLifecycleOwner) { viewModel.trackerStartedState(it) }
+        TrackerService.startTime.observe(viewLifecycleOwner) { viewModel.trackerStartTime(it) }
+        TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
+    }
+
+    /**
+     * DESCRIPTION: Start the location service
+     */
+    private fun startLocationService() { sendActionCmdToService(ACTION_SERVICE_START) }
+
+    /**
+     * DESCRIPTION: Stop the location service
+     */
+    private fun stopLocationService() { sendActionCmdToService(ACTION_SERVICE_STOP) }
+
+    /**
+     * We shall use this to start and stop the tracker service
+     */
+    private fun sendActionCmdToService(action:String) {
+        Intent(requireContext(), TrackerService::class.java).apply {
+            this.action=action
+            requireContext().startService(this)
+        }
+    }
+    // *************************************** Location Service ************************************
+
     // *************************************** Navigation ******************************************
     private fun resultPageNavigation(resultCalculated: Result) {
         val directions = MapFragmentDirections.actionMapFragmentToResultFragment(resultCalculated)
@@ -288,8 +263,35 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
     // *************************************** Navigation ******************************************
 
+    // ********************************** Animate Camera *******************************************
+    private fun animateCamera(event: MapStates.AnimateCamera) {
+        val newCameraPosition =  CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
+        animateMap(newCameraPosition,0)
+    }
+
+    private fun animateCameraWithDuration(location: LatLng, duration: Int) {
+        val newCameraPosition = CameraUpdateFactory.newCameraPosition(setCameraPosition(location))
+        animateMap(newCameraPosition,duration)
+    }
+
+    private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
+        val newCameraPosition = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+        animateMap(newCameraPosition,duration)
+    }
+
+    private fun animateMap(newCameraPosition: CameraUpdate,  duration: Int) {
+        map.animateCamera(newCameraPosition,duration,null)
+    }
+    // ********************************** Animate Camera *******************************************
 
     // *************************************** States **********************************************
+    private fun displayStartButton() {
+        binding.apply {
+            resetButton.hide()
+            startButton.show()
+        }
+    }
+
     private fun resetMapUiState() {
         binding.apply {
             startButton.apply {
@@ -299,6 +301,65 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             stopButton.hide()
             resetButton.show()
         }
+    }
+
+    private fun counterGoState() {
+        // Text Color:-> BLACK
+        val colorBlack = ContextCompat.getColor(requireContext(), R.color.black)
+        // Text String:-> GO
+        val strGo = requireActivity().getText(R.string.go)
+        binding.apply {
+            timerTextView.text = strGo
+            timerTextView.setTextColor(colorBlack)
+        }
+    }
+
+    private fun counterCountDownState(currentSecond: String) {
+        // Text Color:-> RED
+        val colorRed = ContextCompat.getColor(requireContext(), R.color.red)
+        binding.apply {
+            // Text String:-> Current second Number
+            timerTextView.text = currentSecond.toString()
+            timerTextView.setTextColor(colorRed)
+        }
+    }
+
+    private fun countDownUiState() {
+        binding.apply {
+            timerTextView.show()
+            stopButton.disable()
+        }
+    }
+
+    private fun disableStartButton() {
+        binding.startButton.disable()
+    }
+
+    private fun stoppedUiState() {
+        binding.apply {
+            stopButton.hide()
+            startButton.show()
+        }
+    }
+
+    private fun hideTimerTextView() {
+        binding.timerTextView.hide()
+    }
+
+    private fun startButtonActionuiState() {
+        binding.apply {
+            startButton.disable()
+            startButton.hide()
+            stopButton.show()
+        }
+    }
+
+    private fun setCustomIconForLocationButton() {
+        val btnMyLocation: ImageView =
+            (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(
+                Integer.parseInt("2")
+            )
+        btnMyLocation.setImageResource(R.drawable.ic_current_location)
     }
     // *************************************** States **********************************************
 
