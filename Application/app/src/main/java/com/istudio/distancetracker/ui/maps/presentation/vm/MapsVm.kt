@@ -2,6 +2,7 @@ package com.istudio.distancetracker.ui.maps.presentation.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MapsVm @Inject constructor(
     private var useCases: MapFragmentUseCases,
+    private var fusedLocationProviderClient: FusedLocationProviderClient,
     private var log: LoggerFeature,
 ) : BaseViewModel() {
 
