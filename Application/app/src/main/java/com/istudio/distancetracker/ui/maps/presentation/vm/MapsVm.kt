@@ -90,11 +90,13 @@ class MapsVm @Inject constructor(
 
     @SuppressLint("MissingPermission")
     fun mapReset() {
-        fusedLocationProviderClient.lastLocation.addOnCompleteListener {
-            val lastKnownLocation = LatLng(it.result.latitude, it.result.longitude)
-            viewModelScope.launch { _eventChannel.send(MapStates.AnimateCamera(lastKnownLocation)) }
-            viewModelScope.launch { _eventChannel.send(MapStates.DisplayStartButton) }
-            resetViewModel()
+        fusedLocationProviderClient.lastLocation.addOnCompleteListener { location ->
+            location.result?.let { latLngLoc ->
+                val lastKnownLocation = LatLng(latLngLoc.latitude, latLngLoc.longitude)
+                viewModelScope.launch { _eventChannel.send(MapStates.AnimateCamera(lastKnownLocation)) }
+                viewModelScope.launch { _eventChannel.send(MapStates.DisplayStartButton) }
+                resetViewModel()
+            }
         }
     }
 

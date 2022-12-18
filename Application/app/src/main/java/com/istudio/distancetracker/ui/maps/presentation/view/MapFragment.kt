@@ -266,7 +266,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** Animate Camera *******************************************
     private fun animateCamera(event: MapStates.AnimateCamera) {
         val newCameraPosition =  CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
-        animateMap(newCameraPosition,0)
+        map.animateCamera(newCameraPosition)
     }
 
     private fun animateCameraWithDuration(location: LatLng, duration: Int) {
