@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.istudio.distancetracker.ui.maps.MapFragment">
+    tools:context="com.istudio.distancetracker.ui.maps.presentation.view.MapFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"

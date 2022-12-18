@@ -28,4 +28,8 @@
     <string name="str_deny">Deny</string>
     <string name="str_provide_permissions">Please provide following permissions</string>
 
+
+    <!-- New Resources-->
+    <string name="str_distance_calculating_error">Error Calculating Distance</string>
+
 </resources>

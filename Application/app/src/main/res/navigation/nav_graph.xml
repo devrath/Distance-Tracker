@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.istudio.distancetracker.ui.maps.MapFragment"
+        android:name="com.istudio.distancetracker.ui.maps.presentation.view.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action

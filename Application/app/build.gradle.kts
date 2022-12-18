@@ -91,6 +91,9 @@ dependencies {
     implementation(Moshi.moshiRepo)
     implementation(CustomLogging.orhanobut)
     implementation(CustomLogging.timber)
+    implementation(Coroutines.coroutineAndroidLib)
+    implementation(Coroutines.coroutineLib)
+    implementation(Coroutines.coroutinePlayServicesLib)
     kapt(Moshi.moshiCodegen)
     // ********************************** Basic ***************************************
 

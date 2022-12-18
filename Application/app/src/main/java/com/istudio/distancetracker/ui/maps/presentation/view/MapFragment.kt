@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.maps
+package com.istudio.distancetracker.ui.maps.presentation.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,11 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -27,20 +25,20 @@ import com.google.android.gms.maps.model.ButtCap
 import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.R
+import com.istudio.distancetracker.core.platform.extensions.showSnackbar
 import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
+import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
+import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
-import com.istudio.distancetracker.utils.MapUtil.calculateElapsedTime
-import com.istudio.distancetracker.utils.MapUtil.calculateTheDistance
 import com.istudio.distancetracker.utils.MapUtil.setCameraPosition
 import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.utils.Permissions.runtimeBackgroundPermission
@@ -61,16 +59,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private lateinit var map: GoogleMap
 
-    val started = MutableLiveData(false)
-
-    private var startTime = 0L
-    private var stopTime = 0L
-
-    private var locationList = mutableListOf<LatLng>()
-    private var polylineList = mutableListOf<Polyline>()
-    private var markerList = mutableListOf<Marker>()
-
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    private val viewModel: MapsVm by viewModels()
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -140,17 +131,28 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnViewCreated() {
-
         initiateMapSync()
         setOnClickListeners()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.events.collect { event ->
+                when(event){
+                    is MapStates.JourneyResult -> displayResults(event.result)
+                    is MapStates.ShowErrorMessage -> showSnackbar(message = event.message.asString(requireContext()))
+                }
+            }
+        }
     }
 
     private fun observeTrackerService() {
         TrackerService.locationList.observe(viewLifecycleOwner) {
             it?.let {
-                locationList = it
+                viewModel.locationList = it
                 Log.d("LocationReceived",it.toString())
-                if (locationList.size > 1) {
+                if (viewModel.locationList.size > 1) {
                     // Giving the user the option to stop the service
                     binding.stopButton.enable()
                 }
@@ -162,17 +164,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
 
         TrackerService.started.observe(viewLifecycleOwner) {
-            started.value = it
+            viewModel.started.value = it
         }
         TrackerService.startTime.observe(viewLifecycleOwner) {
-            startTime = it
+            viewModel.startTime = it
         }
         TrackerService.stopTime.observe(viewLifecycleOwner) {
-            stopTime = it
-            if (stopTime != 0L) {
-                if (locationList.isNotEmpty()) {
+            viewModel.stopTime = it
+            if (viewModel.stopTime != 0L) {
+                if (viewModel.locationList.isNotEmpty()) {
                      showBiggerPicture()
-                     displayResults()
+                     viewModel.calculateResult()
                 }
             }
         }
@@ -180,7 +182,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun showBiggerPicture() {
         val bounds = LatLngBounds.Builder()
-        for (location in locationList) {
+        for (location in viewModel.locationList) {
             bounds.include(location)
         }
         map.animateCamera(
@@ -188,14 +190,14 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 bounds.build(), 100
             ), 2000, null
         )
-        addMarker(locationList.first())
-        addMarker(locationList.last())
+        addMarker(viewModel.locationList.first())
+        addMarker(viewModel.locationList.last())
     }
 
     private fun addMarker(position: LatLng) {
         val marker = map.addMarker(MarkerOptions().position(position))
         marker?.let {
-            markerList.add(it)
+            viewModel.markerList.add(it)
         }
     }
 
@@ -211,19 +213,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 jointType(typeValue)
                 startCap(ButtCap())
                 endCap(ButtCap())
-                addAll(locationList)
+                addAll(viewModel.locationList)
             }
         )
-        polylineList.add(polyline)
+        viewModel.polylineList.add(polyline)
     }
 
     private fun followPolyline() {
-        if (locationList.isNotEmpty()) {
+        if (viewModel.locationList.isNotEmpty()) {
             map.animateCamera(
                 (CameraUpdateFactory.newCameraPosition(
                     setCameraPosition(
                         // Lets set to the last position
-                        locationList.last()
+                        viewModel.locationList.last()
                     )
                 )), 1000, null
             )
@@ -265,23 +267,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     @SuppressLint("MissingPermission")
     private fun mapReset() {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener {
-            val lastKnownLocation = LatLng(
-                it.result.latitude,
-                it.result.longitude
-            )
+            val lastKnownLocation = LatLng(it.result.latitude, it.result.longitude)
             map.animateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    setCameraPosition(lastKnownLocation)
-                )
+                CameraUpdateFactory.newCameraPosition(setCameraPosition(lastKnownLocation))
             )
-            for (polyLine in polylineList) {
-                polyLine.remove()
-            }
-            for (marker in markerList) {
-                marker.remove()
-            }
-            locationList.clear()
-            markerList.clear()
+            viewModel.resetViewModel()
             binding.apply {
                 resetButton.hide()
                 startButton.show()
@@ -328,10 +318,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * We shall use this to start and stop the tracker service
      */
     private fun sendActionCmdToService(action:String) {
-        Intent(
-            requireContext(),
-            TrackerService::class.java
-        ).apply {
+        Intent(requireContext(), TrackerService::class.java).apply {
             this.action=action
             requireContext().startService(this)
         }
@@ -349,27 +336,39 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun initOnDestroyView() { _binding = null }
 
-    private fun displayResults() {
-        // Set the result model
-        val result = Result(
-            calculateTheDistance(locationList),
-            calculateElapsedTime(startTime, stopTime)
-        )
-
+    private fun displayResults(result: CalculateResultOutput) {
+        val resultCalculated = Result(result.distanceTravelled, result.elapsedTime)
         lifecycleScope.launch {
+            // Give a delay for smoother transition
             delay(2500)
-            val directions = MapFragmentDirections.actionMapFragmentToResultFragment(result)
-            findNavController().navigate(directions)
-            binding.apply {
-                startButton.apply {
-                    hide()
-                    enable()
-                }
-                stopButton.hide()
-                resetButton.show()
-            }
+            // Display the result page
+            resultPageNavigation(resultCalculated)
+            // Display the reset state for map since the result is calculated and shown
+            resetMapUiState()
         }
     }
     // ********************************** User defined functions ************************************
+
+    // *************************************** Navigation ******************************************
+    private fun resultPageNavigation(resultCalculated: Result) {
+        val directions = MapFragmentDirections.actionMapFragmentToResultFragment(resultCalculated)
+        findNavController().navigate(directions)
+    }
+    // *************************************** Navigation ******************************************
+
+
+    // *************************************** States **********************************************
+    private fun resetMapUiState() {
+        binding.apply {
+            startButton.apply {
+                hide()
+                enable()
+            }
+            stopButton.hide()
+            resetButton.show()
+        }
+    }
+    // *************************************** States **********************************************
+
 
 }
