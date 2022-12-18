@@ -1,11 +1,16 @@
 package com.istudio.distancetracker.ui.maps.presentation.vm
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.model.ButtCap
+import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
 import com.istudio.distancetracker.core.platform.base.BaseViewModel
 import com.istudio.distancetracker.core.platform.functional.UseCaseResult
@@ -27,6 +32,23 @@ class MapsVm @Inject constructor(
     private var log: LoggerFeature,
 ) : BaseViewModel() {
 
+    companion object {
+        const val widthValue = 10f
+        const val colorValue = Color.BLUE
+        const val typeValue = JointType.ROUND
+
+        fun preparePolyline(locationList: MutableList<LatLng>): PolylineOptions {
+            return PolylineOptions().apply {
+                width(widthValue)
+                color(colorValue)
+                jointType(typeValue)
+                startCap(ButtCap())
+                endCap(ButtCap())
+                addAll(locationList)
+            }
+        }
+    }
+
     /**
      * Using channel: We can notify the fragment to make fragment do something
      * Fragment should not be able to add values into the channel instead it should only be able to take value from the channel
@@ -44,6 +66,35 @@ class MapsVm @Inject constructor(
     var locationList = mutableListOf<LatLng>()
     var polylineList = mutableListOf<Polyline>()
     var markerList = mutableListOf<Marker>()
+
+
+    fun drawPolyline() {
+        val polylineOptions = preparePolyline(locationList)
+        viewModelScope.launch { _eventChannel.send(MapStates.AddPolyline(polylineOptions)) }
+    }
+
+    fun followPolyline() {
+        if (locationList.isNotEmpty()) {
+            val location = locationList.last()
+            val duration = 1000
+            viewModelScope.launch { _eventChannel.send(MapStates.FollowCurrentLocation(location,duration)) }
+        }
+    }
+
+    fun addPolylineToList(polyLine: Polyline) {
+        polylineList.add(polyLine)
+    }
+
+
+    @SuppressLint("MissingPermission")
+    fun mapReset() {
+        fusedLocationProviderClient.lastLocation.addOnCompleteListener {
+            val lastKnownLocation = LatLng(it.result.latitude, it.result.longitude)
+            viewModelScope.launch { _eventChannel.send(MapStates.AnimateCamera(lastKnownLocation)) }
+            viewModelScope.launch { _eventChannel.send(MapStates.DisplayStartButton) }
+            resetViewModel()
+        }
+    }
 
     /**
      * Reset the states in the view model

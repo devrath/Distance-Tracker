@@ -2,7 +2,6 @@ package com.istudio.distancetracker.ui.maps.presentation.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -15,18 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.ButtCap
-import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.core.platform.extensions.showSnackbar
 import com.istudio.distancetracker.databinding.FragmentMapBinding
@@ -58,8 +52,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private val binding get() = _binding!!
 
     private lateinit var map: GoogleMap
-
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private val viewModel: MapsVm by viewModels()
 
@@ -126,7 +118,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** User defined functions ************************************
     private fun initOnCreateView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
     }
 
@@ -142,9 +133,33 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 when(event){
                     is MapStates.JourneyResult -> displayResults(event.result)
                     is MapStates.ShowErrorMessage -> showSnackbar(message = event.message.asString(requireContext()))
+                    is MapStates.AnimateCamera -> animateCamera(event)
+                    is MapStates.DisplayStartButton -> displayStartButton()
+                    is MapStates.FollowCurrentLocation -> animateCameraWithDuration(event.location,event.duration)
+                    is MapStates.AddPolyline -> {
+                        val polyline = map.addPolyline(event.polyLine)
+                        viewModel.addPolylineToList(polyline)
+                    }
                 }
             }
         }
+    }
+
+    private fun displayStartButton() {
+        binding.apply {
+            resetButton.hide()
+            startButton.show()
+        }
+    }
+
+    private fun animateCamera(event: MapStates.AnimateCamera) {
+        val newCameraPosition =  CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
+        map.animateCamera(newCameraPosition)
+    }
+
+    private fun animateCameraWithDuration(location: LatLng, duration: Int) {
+        val newCameraPosition = CameraUpdateFactory.newCameraPosition(setCameraPosition(location))
+        map.animateCamera(newCameraPosition, duration, null)
     }
 
     private fun observeTrackerService() {
@@ -157,9 +172,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     binding.stopButton.enable()
                 }
                 // On each call-back, it will draw the list of points in the mutable list
-                drawPolyline()
+                viewModel.drawPolyline()
                 // As when the polyline is drawn, camera has to follow the points of the mutable list
-                followPolyline()
+                viewModel.followPolyline()
             }
         }
 
@@ -201,37 +216,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
 
-    private fun drawPolyline() {
-        val widthValue = 10f
-        val colorValue = Color.BLUE
-        val typeValue = JointType.ROUND
-
-        val polyline = map.addPolyline(
-            PolylineOptions().apply {
-                width(widthValue)
-                color(colorValue)
-                jointType(typeValue)
-                startCap(ButtCap())
-                endCap(ButtCap())
-                addAll(viewModel.locationList)
-            }
-        )
-        viewModel.polylineList.add(polyline)
-    }
-
-    private fun followPolyline() {
-        if (viewModel.locationList.isNotEmpty()) {
-            map.animateCamera(
-                (CameraUpdateFactory.newCameraPosition(
-                    setCameraPosition(
-                        // Lets set to the last position
-                        viewModel.locationList.last()
-                    )
-                )), 1000, null
-            )
-        }
-    }
-
     private fun setOnClickListeners() {
         binding.apply {
             startButton.setOnClickListener { startButtonAction() }
@@ -245,7 +229,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
     }
 
-    private fun onResetButtonClicked() { mapReset() }
+    private fun onResetButtonClicked() { viewModel.mapReset() }
 
     private fun startButtonAction() {
         if(hasBackgroundLocationPermission(requireContext())){
@@ -263,22 +247,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         binding.stopButton.hide()
         binding.startButton.show()
     }
-
-    @SuppressLint("MissingPermission")
-    private fun mapReset() {
-        fusedLocationProviderClient.lastLocation.addOnCompleteListener {
-            val lastKnownLocation = LatLng(it.result.latitude, it.result.longitude)
-            map.animateCamera(
-                CameraUpdateFactory.newCameraPosition(setCameraPosition(lastKnownLocation))
-            )
-            viewModel.resetViewModel()
-            binding.apply {
-                resetButton.hide()
-                startButton.show()
-            }
-        }
-    }
-
 
     private fun startCountdown() {
         binding.apply {
