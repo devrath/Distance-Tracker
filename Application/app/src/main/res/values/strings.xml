@@ -33,5 +33,7 @@
     <string name="str_distance_calculating_error">Error Calculating Distance</string>
     <string name="str_settings">Settings</string>
     <string name="str_gps_warning">Enable GPS \n otherwise location tracking won\'t work</string>
+    <string name="network_is_available">Network connected</string>
+    <string name="network_is_unavailable">Network connection is lost</string>
 
 </resources>

@@ -85,6 +85,7 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(Google.material)
     implementation(LifeCycle.lifecycleExtensions)
+    implementation(LifeCycle.lifecycleLiveData)
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
     implementation(DataStorePreferences.datastorePreferences)

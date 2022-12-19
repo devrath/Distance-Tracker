@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdate
@@ -28,10 +30,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.distancetracker.R
+import com.istudio.distancetracker.core.platform.extensions.SnackBarDisplay
 import com.istudio.distancetracker.core.platform.extensions.showSnackbar
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
 import com.istudio.distancetracker.model.Result
+import com.istudio.distancetracker.service.NetworkObserver
+import com.istudio.distancetracker.service.NetworkState
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
 import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
@@ -62,6 +67,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private val binding get() = _binding!!
 
     private lateinit var map: GoogleMap
+    private lateinit var networkObserver: NetworkObserver
 
     private val viewModel: MapsVm by viewModels()
 
@@ -126,6 +132,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnViewCreated() {
+        initNetworkObserver()
         initMapScreen()
     }
 
@@ -246,6 +253,20 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             // Display the reset state for map since the result is calculated and shown
             binding.mapMasterViewId.resetMapUiState()
         }
+    }
+
+    private fun initNetworkObserver() {
+        // --> Initialize the network observer in your activity or fragment
+        networkObserver = NetworkObserver(requireContext(), lifecycle)
+        lifecycle.addObserver(networkObserver)
+
+        // --> Use live data to observe the network changes
+        networkObserver.networkAvailableStateFlow.asLiveData().observe(viewLifecycleOwner, Observer { networkState ->
+            when (networkState) {
+                NetworkState.Unavailable -> SnackBarDisplay.showNetworkUnavailableAlert(binding.root)
+                NetworkState.Available -> SnackBarDisplay.removeNetworkUnavailableAlert()
+            }
+        })
     }
 
     private fun initMapScreen() {
