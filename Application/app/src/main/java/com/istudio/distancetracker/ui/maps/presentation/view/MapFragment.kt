@@ -269,13 +269,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initMapScreen() {
-        if(viewModel.checkLocationEnabled()){
+        if(!viewModel.checkLocationEnabled()){
+            // GPS is not available
+            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
+        }else if(!viewModel.checkConnectivity()){
+            // Connectivity is not available
+            binding.mapMasterViewId.showMapView(isError = true,isGpsError = false)
+        }else{
+            // Connectivity and GPS is available
             binding.mapMasterViewId.showMapView(isError = false)
             initiateMapSync()
             setObservers()
-        }else{
             initNetworkObserver()
-            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
         }
         setOnClickListeners()
     }

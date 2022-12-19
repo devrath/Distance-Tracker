@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
+import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
 import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
 import com.istudio.distancetracker.core.platform.base.BaseViewModel
 import com.istudio.distancetracker.core.platform.functional.UseCaseResult
@@ -37,6 +38,7 @@ class MapsVm @Inject constructor(
     private var useCases: MapFragmentUseCases,
     private var fusedLocationProviderClient: FusedLocationProviderClient,
     private var loacationManager: LocationManager,
+    private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
 ) : BaseViewModel() {
 
@@ -134,6 +136,8 @@ class MapsVm @Inject constructor(
         val isNetworkProviderEnabled = loacationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         return isGpsProviderEnabled && isNetworkProviderEnabled
     }
+
+    fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
 
     // ********************************* Service-States ********************************************
     fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
