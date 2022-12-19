@@ -132,7 +132,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun initOnViewCreated() {
-        initNetworkObserver()
         initMapScreen()
     }
 
@@ -275,6 +274,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             initiateMapSync()
             setObservers()
         }else{
+            initNetworkObserver()
             binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
         }
         setOnClickListeners()

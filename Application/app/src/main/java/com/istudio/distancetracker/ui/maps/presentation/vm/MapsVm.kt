@@ -130,7 +130,9 @@ class MapsVm @Inject constructor(
     }
 
     fun checkLocationEnabled(): Boolean {
-        return loacationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isGpsProviderEnabled = loacationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkProviderEnabled = loacationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        return isGpsProviderEnabled && isNetworkProviderEnabled
     }
 
     // ********************************* Service-States ********************************************
