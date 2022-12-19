@@ -251,10 +251,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun initMapScreen() {
         if(viewModel.checkLocationEnabled()){
             binding.mapMasterViewId.showMapView(isError = false)
-        }else{
-            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
             initiateMapSync()
             setObservers()
+        }else{
+            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
         }
         setOnClickListeners()
     }
