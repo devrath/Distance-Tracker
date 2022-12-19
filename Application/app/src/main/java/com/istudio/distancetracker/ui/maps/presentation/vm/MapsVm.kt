@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
+import com.istudio.distancetracker.core.domain.features.location.LocationFeature
 import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
 import com.istudio.distancetracker.core.platform.base.BaseViewModel
 import com.istudio.distancetracker.core.platform.functional.UseCaseResult
@@ -37,7 +38,7 @@ import javax.inject.Inject
 class MapsVm @Inject constructor(
     private var useCases: MapFragmentUseCases,
     private var fusedLocationProviderClient: FusedLocationProviderClient,
-    private var loacationManager: LocationManager,
+    private var locationFeature: LocationFeature,
     private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
 ) : BaseViewModel() {
@@ -131,11 +132,7 @@ class MapsVm @Inject constructor(
         viewModelScope.launch { _eventChannel.send(MapStates.AddMarker(locationList.last())) }
     }
 
-    fun checkLocationEnabled(): Boolean {
-        val isGpsProviderEnabled = loacationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        val isNetworkProviderEnabled = loacationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        return isGpsProviderEnabled && isNetworkProviderEnabled
-    }
+    fun checkLocationEnabled() = locationFeature.isLocationEnabled()
 
     fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
 

@@ -16,11 +16,11 @@ object ConnectivityModule {
 
     @Provides
     @Singleton
-    fun provideRepositoryLogger(connectivityFeature: ConnectivityFeature) = connectivityFeature.checkConnectivity()
+    fun provideConnectivityFeature(connectivityFeature: ConnectivityFeature) = connectivityFeature.checkConnectivity()
 
     @Provides
     @Singleton
-    fun provideLoggerFeature(@ApplicationContext appContext: Context): ConnectivityFeature {
+    fun provideConnectivityImplementation(@ApplicationContext appContext: Context): ConnectivityFeature {
         return ConnectivityFeatureImpl(appContext)
     }
 

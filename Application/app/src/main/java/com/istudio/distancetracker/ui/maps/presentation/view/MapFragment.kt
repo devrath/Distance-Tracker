@@ -218,9 +218,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * BUTTON-ACTION: Reset the map
      */
-    private fun onResetButtonClicked() {
-        viewModel.mapReset()
-    }
+    private fun onResetButtonClicked() { viewModel.mapReset() }
 
     /**
      * BUTTON-ACTION: Start button clicked
@@ -333,16 +331,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * DESCRIPTION: Start the location service
      */
-    private fun startLocationService() {
-        sendActionCmdToService(ACTION_SERVICE_START)
-    }
+    private fun startLocationService() { sendActionCmdToService(ACTION_SERVICE_START) }
 
     /**
      * DESCRIPTION: Stop the location service
      */
-    private fun stopLocationService() {
-        sendActionCmdToService(ACTION_SERVICE_STOP)
-    }
+    private fun stopLocationService() { sendActionCmdToService(ACTION_SERVICE_STOP) }
 
     /**
      * We shall use this to start and stop the tracker service
