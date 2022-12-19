@@ -51,6 +51,6 @@ class MapErrorView @JvmOverloads constructor(
         binding.networkSettingsActionId.setOnClickListener(listener)
 
     fun setGpsSettingsActionListener(listener: OnClickListener) =
-        binding.networkSettingsActionId.setOnClickListener(listener)
+        binding.gpsSettingsActionId.setOnClickListener(listener)
 
 }

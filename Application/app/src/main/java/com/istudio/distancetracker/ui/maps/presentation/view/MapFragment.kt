@@ -1,6 +1,7 @@
 package com.istudio.distancetracker.ui.maps.presentation.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -13,6 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -74,7 +77,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View { return initOnCreateView(inflater,container) }
+    ): View {
+        return initOnCreateView(inflater, container)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,7 +107,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** Over-ridden methods **************************************
 
     // **********************************CallBacks *************************************************
-    @SuppressLint("MissingPermission","PotentialBehaviorOverride")
+    @SuppressLint("MissingPermission", "PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         map.isMyLocationEnabled = true
@@ -117,7 +122,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             isScrollGesturesEnabled = false
         }
         // Set map padding
-        map.setPadding(0,0,200,0)
+        map.setPadding(0, 0, 200, 0)
         // Set custom location
         setCustomIconForLocationButton()
         // Start observing the tracker service
@@ -135,7 +140,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         initMapScreen()
     }
 
-    private fun initOnDestroyView() { _binding = null }
+    private fun initOnDestroyView() {
+        _binding = null
+    }
 
     /**
      * We call the map to start and load asynchronously
@@ -155,10 +162,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             setResetButtonClickListener { onResetButtonClicked() }
             setActLstButtonClickListener { onActivityListButtonClicked() }
             setLocationSettingsButtonClickListener {
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                locationsSettingsLauncher.launch(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
             setNetworkSettingsButtonClickListener {
-                startActivity(Intent(Settings.ACTION_SETTINGS))
+                connectivitySettingsLauncher.launch(Intent(Settings.ACTION_SETTINGS))
             }
         }
     }
@@ -169,14 +176,25 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun setObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.events.collect { event ->
-                when(event){
+                when (event) {
                     is MapStates.JourneyResult -> displayResults(event.result)
-                    is MapStates.ShowErrorMessage -> showSnackbar(message = event.message.asString(requireContext()))
+                    is MapStates.ShowErrorMessage -> showSnackbar(
+                        message = event.message.asString(
+                            requireContext()
+                        )
+                    )
                     is MapStates.AnimateCamera -> animateCamera(event)
                     is MapStates.DisplayStartButton -> binding.mapMasterViewId.displayStartButton()
-                    is MapStates.FollowCurrentLocation -> animateCameraWithDuration(event.location,event.duration)
+                    is MapStates.FollowCurrentLocation -> animateCameraWithDuration(
+                        event.location,
+                        event.duration
+                    )
                     is MapStates.DisableStopButton -> binding.mapMasterViewId.enableStopButton()
-                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(event.bounds,event.padding,event.duration)
+                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(
+                        event.bounds,
+                        event.padding,
+                        event.duration
+                    )
                     is MapStates.AddPolyline -> {
                         val polyline = map.addPolyline(event.polyLine)
                         viewModel.addPolylineToList(polyline)
@@ -200,17 +218,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * BUTTON-ACTION: Reset the map
      */
-    private fun onResetButtonClicked() { viewModel.mapReset() }
+    private fun onResetButtonClicked() {
+        viewModel.mapReset()
+    }
 
     /**
      * BUTTON-ACTION: Start button clicked
      */
     private fun startButtonAction() {
-        if(hasBackgroundLocationPermission(requireContext())){
+        if (hasBackgroundLocationPermission(requireContext())) {
             startCountdown()
             binding.mapMasterViewId.startButtonActionUiState()
-        }else{
-            runtimeBackgroundPermission(this,requireActivity(),binding.root)
+        } else {
+            runtimeBackgroundPermission(this, requireActivity(), binding.root)
         }
     }
 
@@ -224,19 +244,24 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun startCountdown() {
         binding.mapMasterViewId.countDownUiState()
-        val timer: CountDownTimer = object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
-            override fun onTick(millisUntilFinished: Long) {
-                val currentSecond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
-                val zeroString = "0"
-                if (currentSecond == zeroString) { binding.mapMasterViewId.counterGoState() }
-                else { binding.mapMasterViewId.counterCountDownState(currentSecond) }
-            }
+        val timer: CountDownTimer =
+            object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val currentSecond =
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
+                    val zeroString = "0"
+                    if (currentSecond == zeroString) {
+                        binding.mapMasterViewId.counterGoState()
+                    } else {
+                        binding.mapMasterViewId.counterCountDownState(currentSecond)
+                    }
+                }
 
-            override fun onFinish() {
-                binding.mapMasterViewId.hideTimerTextView()
-                startLocationService()
+                override fun onFinish() {
+                    binding.mapMasterViewId.hideTimerTextView()
+                    startLocationService()
+                }
             }
-        }
         timer.start()
     }
 
@@ -263,22 +288,23 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         lifecycle.addObserver(networkObserver)
 
         // --> Use live data to observe the network changes
-        networkObserver.networkAvailableStateFlow.asLiveData().observe(viewLifecycleOwner, Observer { networkState ->
-            when (networkState) {
-                NetworkState.Unavailable -> SnackBarDisplay.showNetworkUnavailableAlert(binding.root)
-                NetworkState.Available -> SnackBarDisplay.removeNetworkUnavailableAlert()
-            }
-        })
+        networkObserver.networkAvailableStateFlow.asLiveData()
+            .observe(viewLifecycleOwner, Observer { networkState ->
+                when (networkState) {
+                    NetworkState.Unavailable -> SnackBarDisplay.showNetworkUnavailableAlert(binding.root)
+                    NetworkState.Available -> SnackBarDisplay.removeNetworkUnavailableAlert()
+                }
+            })
     }
 
     private fun initMapScreen() {
-        if(!viewModel.checkLocationEnabled()){
+        if (!viewModel.checkLocationEnabled()) {
             // GPS is not available
-            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
-        }else if(!viewModel.checkConnectivity()){
+            binding.mapMasterViewId.showMapView(isError = true, isGpsError = true)
+        } else if (!viewModel.checkConnectivity()) {
             // Connectivity is not available
-            binding.mapMasterViewId.showMapView(isError = true,isGpsError = false)
-        }else{
+            binding.mapMasterViewId.showMapView(isError = true, isGpsError = false)
+        } else {
             // Connectivity and GPS is available
             binding.mapMasterViewId.showMapView(isError = false)
             initiateMapSync()
@@ -294,7 +320,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * DESCRIPTION: Observe the live actions from the location service
      */
     private fun observeTrackerService() {
-        TrackerService.locationList.observe(viewLifecycleOwner) { viewModel.trackerServiceInProgress(it) }
+        TrackerService.locationList.observe(viewLifecycleOwner) {
+            viewModel.trackerServiceInProgress(
+                it
+            )
+        }
         TrackerService.started.observe(viewLifecycleOwner) { viewModel.trackerStartedState(it) }
         TrackerService.startTime.observe(viewLifecycleOwner) { viewModel.trackerStartTime(it) }
         TrackerService.stopTime.observe(viewLifecycleOwner) { viewModel.trackerStopTime(it) }
@@ -303,19 +333,23 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * DESCRIPTION: Start the location service
      */
-    private fun startLocationService() { sendActionCmdToService(ACTION_SERVICE_START) }
+    private fun startLocationService() {
+        sendActionCmdToService(ACTION_SERVICE_START)
+    }
 
     /**
      * DESCRIPTION: Stop the location service
      */
-    private fun stopLocationService() { sendActionCmdToService(ACTION_SERVICE_STOP) }
+    private fun stopLocationService() {
+        sendActionCmdToService(ACTION_SERVICE_STOP)
+    }
 
     /**
      * We shall use this to start and stop the tracker service
      */
-    private fun sendActionCmdToService(action:String) {
+    private fun sendActionCmdToService(action: String) {
         Intent(requireContext(), TrackerService::class.java).apply {
-            this.action=action
+            this.action = action
             requireContext().startService(this)
         }
     }
@@ -335,24 +369,37 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     // ********************************** Animate Camera *******************************************
     private fun animateCamera(event: MapStates.AnimateCamera) {
-        val newCameraPosition =  CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
+        val newCameraPosition =
+            CameraUpdateFactory.newCameraPosition(setCameraPosition(event.location))
         map.animateCamera(newCameraPosition)
     }
 
     private fun animateCameraWithDuration(location: LatLng, duration: Int) {
         val newCameraPosition = CameraUpdateFactory.newCameraPosition(setCameraPosition(location))
-        animateMap(newCameraPosition,duration)
+        animateMap(newCameraPosition, duration)
     }
 
     private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
         val newCameraPosition = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-        animateMap(newCameraPosition,duration)
+        animateMap(newCameraPosition, duration)
     }
 
-    private fun animateMap(newCameraPosition: CameraUpdate,  duration: Int) {
-        map.animateCamera(newCameraPosition,duration,null)
+    private fun animateMap(newCameraPosition: CameraUpdate, duration: Int) {
+        map.animateCamera(newCameraPosition, duration, null)
     }
     // ********************************** Animate Camera *******************************************
+
+    // ********************************** Activity Result ******************************************
+    var connectivitySettingsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+            initMapScreen()
+        }
+
+    var locationsSettingsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
+            initMapScreen()
+        }
+    // ********************************** Activity Result ******************************************
 
     // *************************************** States **********************************************
     private fun setCustomIconForLocationButton() {
