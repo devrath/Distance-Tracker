@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/errorContainerId"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:gravity="center">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/gpsErrorImg"
+        android:layout_width="@dimen/lotte_error_view_size"
+        android:layout_height="@dimen/lotte_error_view_size"
+        app:lottie_rawRes="@raw/gps_lotte"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wifiErrorImg"
+        android:layout_width="@dimen/lotte_error_view_size"
+        android:layout_height="@dimen/lotte_error_view_size"
+        app:lottie_rawRes="@raw/wifi_lotte"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/str_gps_warning" />
+
+    <Button
+        android:id="@+id/gpsSettingsActionId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_settings" />
+
+    <Button
+        android:id="@+id/networkSettingsActionId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_settings" />
+
+</LinearLayout>

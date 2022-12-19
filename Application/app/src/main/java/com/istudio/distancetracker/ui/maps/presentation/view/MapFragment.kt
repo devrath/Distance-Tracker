@@ -35,6 +35,7 @@ import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
 import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
+import com.istudio.distancetracker.utils.Constants
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
@@ -87,7 +88,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             lifecycleScope.launch {
                 delay(2500)
                 // Display the start button
-                startButton.show()
+                binding.mapMasterViewId.displayStartButton()
             }
         }
         return false
@@ -142,12 +143,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * Set the click listeners for all the buttons on the screen
      */
     private fun setOnClickListeners() {
-        binding.apply {
-            startButton.setOnClickListener { startButtonAction() }
-            stopButton.setOnClickListener { stopButtonClicked() }
-            resetButton.setOnClickListener { onResetButtonClicked() }
-            actLstId.setOnClickListener { onActivityListButtonClicked() }
-            settingsActionId.setOnClickListener {
+        binding.mapMasterViewId.apply {
+            setStartButtonClickListener { startButtonAction() }
+            setStopButtonClickListener { stopButtonClicked() }
+            setResetButtonClickListener { onResetButtonClicked() }
+            setActLstButtonClickListener { onActivityListButtonClicked() }
+            setLocationSettingsButtonClickListener {
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
         }
@@ -163,9 +164,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     is MapStates.JourneyResult -> displayResults(event.result)
                     is MapStates.ShowErrorMessage -> showSnackbar(message = event.message.asString(requireContext()))
                     is MapStates.AnimateCamera -> animateCamera(event)
-                    is MapStates.DisplayStartButton -> displayStartButton()
+                    is MapStates.DisplayStartButton -> binding.mapMasterViewId.displayStartButton()
                     is MapStates.FollowCurrentLocation -> animateCameraWithDuration(event.location,event.duration)
-                    is MapStates.DisableStopButton -> binding.stopButton.enable()
+                    is MapStates.DisableStopButton -> binding.mapMasterViewId.enableStopButton()
                     is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(event.bounds,event.padding,event.duration)
                     is MapStates.AddPolyline -> {
                         val polyline = map.addPolyline(event.polyLine)
@@ -198,7 +199,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun startButtonAction() {
         if(hasBackgroundLocationPermission(requireContext())){
             startCountdown()
-            startButtonActionUiState()
+            binding.mapMasterViewId.startButtonActionUiState()
         }else{
             runtimeBackgroundPermission(this,requireActivity(),binding.root)
         }
@@ -209,21 +210,21 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      */
     private fun stopButtonClicked() {
         stopForegroundService()
-        stoppedUiState()
+        binding.mapMasterViewId.stoppedUiState()
     }
 
     private fun startCountdown() {
-        countDownUiState()
+        binding.mapMasterViewId.countDownUiState()
         val timer: CountDownTimer = object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
             override fun onTick(millisUntilFinished: Long) {
                 val currentSecond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
                 val zeroString = "0"
-                if (currentSecond == zeroString) { counterGoState() }
-                else { counterCountDownState(currentSecond) }
+                if (currentSecond == zeroString) { binding.mapMasterViewId.counterGoState() }
+                else { binding.mapMasterViewId.counterCountDownState(currentSecond) }
             }
 
             override fun onFinish() {
-                hideTimerTextView()
+                binding.mapMasterViewId.hideTimerTextView()
                 startLocationService()
             }
         }
@@ -231,7 +232,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     private fun stopForegroundService() {
-        disableStartButton()
+        binding.mapMasterViewId.disableStartButton()
         stopLocationService()
     }
 
@@ -243,26 +244,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             // Display the result page
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown
-            resetMapUiState()
+            binding.mapMasterViewId.resetMapUiState()
         }
     }
 
     private fun initMapScreen() {
         if(viewModel.checkLocationEnabled()){
-            binding.apply {
-                errorContainerId.visibility = View.GONE
-                mapContainerId.visibility = View.VISIBLE
-                textView.text = resources.getText(R.string.str_gps_warning)
-            }
+            binding.mapMasterViewId.showMapView(isError = true,isGpsError = true)
             initiateMapSync()
             setObservers()
         }else{
-            binding.apply {
-                errorContainerId.visibility = View.VISIBLE
-                mapContainerId.visibility = View.GONE
-                gpsErrorImg.visibility = View.VISIBLE
-                wifiErrorImg.visibility = View.GONE
-            }
+            binding.mapMasterViewId.showMapView(isError = false)
         }
         setOnClickListeners()
     }
@@ -308,7 +300,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun onActivityListButtonClicked() {
         //findNavController().navigate(R.id.action_mapFragment_to_distanceLogFragment)
-        locationEnabled()
+        //locationEnabled()
     }
     // *************************************** Navigation ******************************************
 
@@ -334,118 +326,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // ********************************** Animate Camera *******************************************
 
     // *************************************** States **********************************************
-    private fun displayStartButton() {
-        binding.apply {
-            resetButton.hide()
-            startButton.show()
-        }
-    }
-
-    private fun resetMapUiState() {
-        binding.apply {
-            startButton.apply {
-                hide()
-                enable()
-            }
-            stopButton.hide()
-            resetButton.show()
-        }
-    }
-
-    private fun counterGoState() {
-        // Text Color:-> BLACK
-        val colorBlack = ContextCompat.getColor(requireContext(), R.color.black)
-        // Text String:-> GO
-        val strGo = requireActivity().getText(R.string.go)
-        binding.apply {
-            timerTextView.text = strGo
-            timerTextView.setTextColor(colorBlack)
-        }
-    }
-
-    private fun counterCountDownState(currentSecond: String) {
-        // Text Color:-> RED
-        val colorRed = ContextCompat.getColor(requireContext(), R.color.red)
-        binding.apply {
-            // Text String:-> Current second Number
-            timerTextView.text = currentSecond.toString()
-            timerTextView.setTextColor(colorRed)
-        }
-    }
-
-    private fun countDownUiState() {
-        binding.apply {
-            timerTextView.show()
-            stopButton.disable()
-        }
-    }
-
-    private fun disableStartButton() {
-        binding.startButton.disable()
-    }
-
-    private fun stoppedUiState() {
-        binding.apply {
-            stopButton.hide()
-            startButton.show()
-        }
-    }
-
-    private fun hideTimerTextView() {
-        binding.timerTextView.hide()
-    }
-
-    private fun startButtonActionUiState() {
-        binding.apply {
-            startButton.disable()
-            startButton.hide()
-            stopButton.show()
-        }
-    }
-
     private fun setCustomIconForLocationButton() {
-        val btnMyLocation: ImageView =
-            (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(
-                Integer.parseInt("2")
-            )
-        btnMyLocation.apply {
-            setImageResource(R.drawable.ic_current_location)
-            callOnClick();
+        binding.mapMasterViewId.apply {
+            setCustomIconForLocationButton()
             lifecycleScope.launch {
                 // Provide a delay
-                delay(LOCATE_MYSELF_TIMER_DURATION)
-                callOnClick();
+                delay(Constants.LOCATE_MYSELF_TIMER_DURATION)
+                initiateLocationButtonClick()
             }
         }
     }
     // *************************************** States **********************************************
-
-    private fun locationEnabled() {
-        val lm = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-        var gps_enabled = false
-        var network_enabled = false
-        try {
-            gps_enabled = lm!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        try {
-            network_enabled = lm!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        if (!gps_enabled && !network_enabled) {
-            AlertDialog.Builder(requireContext())
-                .setMessage("GPS Enable")
-                .setPositiveButton("Settings",
-                    DialogInterface.OnClickListener { paramDialogInterface, paramInt ->
-                        startActivity(
-                            Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                        )
-                    })
-                .setNegativeButton("Cancel", null)
-                .show()
-        }
-    }
-
 }
