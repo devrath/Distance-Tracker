@@ -24,26 +24,26 @@ class MapErrorView @JvmOverloads constructor(
     fun noConnectivityView() {
         binding.apply {
             // Show the network error
-            wifiErrorImg.visible(animate = true)
+            wifiErrorImg.visible(animate = false)
             // Hide the gps error
-            gpsErrorImg.gone(animate = true)
+            gpsErrorImg.gone(animate = false)
             // Show the network settings action button
-            networkSettingsActionId.visible(animate = true)
+            networkSettingsActionId.visible(animate = false)
             // Hide the gps settings action button
-            gpsSettingsActionId.gone(animate = true)
+            gpsSettingsActionId.gone(animate = false)
         }
     }
 
     fun noGpsView() {
         binding.apply {
             // Show the network error
-            wifiErrorImg.gone(animate = true)
+            wifiErrorImg.gone(animate = false)
             // Hide the gps error
-            gpsErrorImg.visible(animate = true)
+            gpsErrorImg.visible(animate = false)
             // Hide the network settings action button
-            networkSettingsActionId.gone(animate = true)
+            networkSettingsActionId.gone(animate = false)
             // Show the gps settings action button
-            gpsSettingsActionId.visible(animate = true)
+            gpsSettingsActionId.visible(animate = false)
         }
     }
 

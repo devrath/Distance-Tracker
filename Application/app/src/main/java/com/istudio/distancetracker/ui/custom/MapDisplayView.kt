@@ -35,8 +35,8 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun displayStartButton() {
         binding.apply {
-            resetButton.gone(animate = true)
-            startButton.visible(animate = true)
+            resetButton.gone(animate = false)
+            startButton.visible(animate = false)
         }
     }
 
@@ -46,11 +46,11 @@ class MapDisplayView @JvmOverloads constructor(
     fun resetMapUiState() {
         binding.apply {
             startButton.apply {
-                gone(animate = true)
+                gone(animate = false)
                 enable()
             }
-            stopButton.gone(animate = true)
-            resetButton.visible(animate = true)
+            stopButton.gone(animate = false)
+            resetButton.visible(animate = false)
         }
     }
 
@@ -77,27 +77,27 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun countDownUiState() {
         binding.apply {
-            timerTextView.visible(animate = true)
+            timerTextView.visible(animate = false)
             stopButton.disable()
         }
     }
 
     fun stoppedUiState() {
         binding.apply {
-            stopButton.gone(animate = true)
-            startButton.visible(animate = true)
+            stopButton.gone(animate = false)
+            startButton.visible(animate = false)
         }
     }
 
     fun hideTimerTextView() {
-        binding.timerTextView.gone(animate = true)
+        binding.timerTextView.gone(animate = false)
     }
 
     fun startButtonActionUiState() {
         binding.apply {
             startButton.disable()
-            startButton.gone(animate = true)
-            stopButton.visible(animate = true)
+            startButton.gone(animate = false)
+            stopButton.visible(animate = false)
         }
     }
 

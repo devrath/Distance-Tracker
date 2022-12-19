@@ -40,16 +40,16 @@ class MapMasterView @JvmOverloads constructor(
     fun showMapView(isError:Boolean=true, isGpsError:Boolean=true) {
         binding.apply {
             if(isError){
-                mapViewId.gone(animate = true)
-                errorViewId.visible(animate = true)
+                mapViewId.gone(animate = false)
+                errorViewId.visible(animate = false)
                 if(isGpsError){
                     errorViewId.noGpsView()
                 }else{
                     errorViewId.noConnectivityView()
                 }
             }else{
-                mapViewId.visible(animate = true)
-                errorViewId.gone(animate = true)
+                mapViewId.visible(animate = false)
+                errorViewId.gone(animate = false)
             }
         }
     }
