@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
+import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
 import com.istudio.distancetracker.core.domain.features.location.LocationFeature
 import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
 import com.istudio.distancetracker.core.platform.base.BaseViewModel
@@ -37,10 +38,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MapsVm @Inject constructor(
     private var useCases: MapFragmentUseCases,
-    private var fusedLocationProviderClient: FusedLocationProviderClient,
     private var locationFeature: LocationFeature,
     private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
+    private var lastLocationFeature: LastLocationFeature,
 ) : BaseViewModel() {
 
     /**
@@ -83,11 +84,11 @@ class MapsVm @Inject constructor(
 
     @SuppressLint("MissingPermission")
     fun mapReset() {
-        fusedLocationProviderClient.lastLocation.addOnCompleteListener { location ->
-            location.result?.let { latLngLoc ->
-                val lastKnownLocation = LatLng(latLngLoc.latitude, latLngLoc.longitude)
-                viewModelScope.launch { _eventChannel.send(MapStates.AnimateCamera(lastKnownLocation)) }
-                viewModelScope.launch { _eventChannel.send(MapStates.DisplayStartButton) }
+        viewModelScope.launch {
+            lastLocationFeature.currentLocation().collect{ location ->
+                val lastKnownLocation = LatLng(location.latitude, location.longitude)
+                _eventChannel.send(MapStates.AnimateCamera(lastKnownLocation))
+                _eventChannel.send(MapStates.DisplayStartButton)
                 resetViewModel()
             }
         }
