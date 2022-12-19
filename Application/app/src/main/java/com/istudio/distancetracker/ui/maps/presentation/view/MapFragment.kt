@@ -157,6 +157,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             setLocationSettingsButtonClickListener {
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
+            setNetworkSettingsButtonClickListener {
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
         }
     }
 

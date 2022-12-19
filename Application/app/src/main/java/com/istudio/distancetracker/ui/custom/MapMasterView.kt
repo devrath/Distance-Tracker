@@ -59,5 +59,6 @@ class MapMasterView @JvmOverloads constructor(
     fun setResetButtonClickListener(listener: OnClickListener) = binding.mapViewId.setResetButtonClickListener(listener)
     fun setActLstButtonClickListener(listener: OnClickListener) = binding.mapViewId.setActLstButtonClickListener(listener)
     fun setLocationSettingsButtonClickListener(listener: OnClickListener) = binding.errorViewId.setGpsSettingsActionListener(listener)
+    fun setNetworkSettingsButtonClickListener(listener: OnClickListener) = binding.errorViewId.setNetworkSettingsActionListener(listener)
 
 }
