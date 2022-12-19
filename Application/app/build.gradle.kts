@@ -74,6 +74,9 @@ dependencies {
     implementation(Firebase.firebaseAnalytics)
     implementation(Firebase.firebaseCrashlyticsKtx)
     implementation(Firebase.firebaseAnalyticsKtx)
+    implementation(Firebase.firebaseAuthKtx)
+    implementation(Firebase.firebaseFirestoreKtx)
+    implementation(Firebase.firebaseStorageKtx)
     // ********************************** Firebase ************************************
 
     // ********************************** Basic ***************************************
@@ -82,9 +85,25 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(Google.material)
     implementation(LifeCycle.lifecycleExtensions)
+    implementation(LifeCycle.lifecycleLiveData)
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
+    implementation(DataStorePreferences.datastorePreferences)
+    implementation(Moshi.moshiRepo)
+    implementation(CustomLogging.orhanobut)
+    implementation(CustomLogging.timber)
+    implementation(Coroutines.coroutineAndroidLib)
+    implementation(Coroutines.coroutineLib)
+    implementation(Coroutines.coroutinePlayServicesLib)
+    implementation(Lotte.lotteAnimation)
+    kapt(Moshi.moshiCodegen)
     // ********************************** Basic ***************************************
+
+    // ********************************** Database ************************************
+    kapt(Room.roomCompiler)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRuntime)
+    // ********************************** Database ************************************
 
     // ********************************** Hilt ****************************************
     implementation(DaggerHilt.hiltAndroid)
@@ -132,6 +151,10 @@ dependencies {
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     // ************************* Instrumentation Testing ******************************
 
+
+
+
     // Injecting fakes
     //androidTestImplementation(project(Modules.coreMock))
+
 }
