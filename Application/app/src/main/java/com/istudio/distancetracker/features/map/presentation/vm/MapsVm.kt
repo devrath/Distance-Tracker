@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.maps.presentation.vm
+package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,7 +26,7 @@ import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
 import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
-import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.utils.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.utils.Constants.preparePolyline
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -125,7 +125,8 @@ class MapsVm @Inject constructor(
             bounds.include(location)
         }
         viewModelScope.launch {
-            _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
+            _eventChannel.send(
+                MapStates.AnimateCameraForBiggerPitchure(
                 bounds = bounds.build(), padding = padding, duration = duration
             ))
         }

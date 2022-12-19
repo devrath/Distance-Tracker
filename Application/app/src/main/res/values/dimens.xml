@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="lotte_error_view_size">200dp</dimen>
+    <dimen name="lotte_permission_view_size">400dp</dimen>
+
 </resources>

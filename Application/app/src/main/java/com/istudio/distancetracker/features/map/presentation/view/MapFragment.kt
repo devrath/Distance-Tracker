@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.maps.presentation.view
+package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -41,8 +41,8 @@ import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.NetworkObserver
 import com.istudio.distancetracker.service.NetworkState
 import com.istudio.distancetracker.service.TrackerService
-import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
-import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.utils.Constants
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP

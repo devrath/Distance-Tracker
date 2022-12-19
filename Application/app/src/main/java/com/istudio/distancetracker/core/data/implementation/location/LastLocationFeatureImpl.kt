@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.core.RepoManager.resume
 import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
 import com.istudio.distancetracker.core.domain.features.location.LocationFeature
-import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

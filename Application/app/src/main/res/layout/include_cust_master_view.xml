@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.istudio.distancetracker.ui.maps.presentation.view.MapFragment">
+    tools:context="com.istudio.distancetracker.features.map.presentation.view.MapFragment">
 
     <com.istudio.distancetracker.ui.custom.MapErrorView
         android:id="@+id/errorViewId"
