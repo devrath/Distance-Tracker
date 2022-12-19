@@ -179,21 +179,16 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 when (event) {
                     is MapStates.JourneyResult -> displayResults(event.result)
                     is MapStates.ShowErrorMessage -> showSnackbar(
-                        message = event.message.asString(
-                            requireContext()
-                        )
+                        message = event.message.asString(requireContext())
                     )
                     is MapStates.AnimateCamera -> animateCamera(event)
                     is MapStates.DisplayStartButton -> binding.mapMasterViewId.displayStartButton()
                     is MapStates.FollowCurrentLocation -> animateCameraWithDuration(
-                        event.location,
-                        event.duration
+                        event.location, event.duration
                     )
                     is MapStates.DisableStopButton -> binding.mapMasterViewId.enableStopButton()
                     is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(
-                        event.bounds,
-                        event.padding,
-                        event.duration
+                        event.bounds, event.padding, event.duration
                     )
                     is MapStates.AddPolyline -> {
                         val polyline = map.addPolyline(event.polyLine)
