@@ -138,7 +138,7 @@ class MapsVm @Inject constructor(
     fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
         locations?.let {
             locationList = it
-            Log.d("LocationReceived",it.toString())
+            log.i(FEATURE_MAP, "LocationReceived:->$locationList")
             if (locationList.size > 1) {
                 // Giving the user the option to stop the service
                 viewModelScope.launch { _eventChannel.send(MapStates.DisableStopButton) }
