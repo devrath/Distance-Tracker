@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
-import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Build
@@ -20,14 +19,14 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
-import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
-import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
-import com.istudio.distancetracker.utils.Constants.LOCATION_FASTEST_UPDATE_INTERVAL
-import com.istudio.distancetracker.utils.Constants.LOCATION_UPDATE_INTERVAL
-import com.istudio.distancetracker.utils.Constants.NOTIFICATION_CHANNEL_ID
-import com.istudio.distancetracker.utils.Constants.NOTIFICATION_CHANNEL_NAME
-import com.istudio.distancetracker.utils.Constants.NOTIFICATION_ID
-import com.istudio.distancetracker.utils.MapUtil.calculateTheDistance
+import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
+import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
+import com.istudio.distancetracker.Constants.LOCATION_FASTEST_UPDATE_INTERVAL
+import com.istudio.distancetracker.Constants.LOCATION_UPDATE_INTERVAL
+import com.istudio.distancetracker.Constants.NOTIFICATION_CHANNEL_ID
+import com.istudio.distancetracker.Constants.NOTIFICATION_CHANNEL_NAME
+import com.istudio.distancetracker.Constants.NOTIFICATION_ID
+import com.istudio.distancetracker.features.map.util.MapUtil.calculateTheDistance
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

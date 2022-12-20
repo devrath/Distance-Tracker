@@ -1,15 +1,12 @@
-package com.istudio.distancetracker.ui.custom
+package com.istudio.distancetracker.features.map.presentation.custom
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import com.istudio.distancetracker.R
 import com.istudio.distancetracker.core.platform.extensions.gone
 import com.istudio.distancetracker.core.platform.extensions.visible
 import com.istudio.distancetracker.databinding.IncludeCustMasterViewBinding
-import com.istudio.distancetracker.utils.enable
 
 class MapMasterView @JvmOverloads constructor(
     context: Context,

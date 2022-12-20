@@ -7,11 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.istudio.distancetracker.ui.MainActivity
+import com.istudio.distancetracker.MainActivity
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.utils.Constants.ACTION_NAVIGATE_TO_MAPS_FRAGMENT
-import com.istudio.distancetracker.utils.Constants.NOTIFICATION_CHANNEL_ID
-import com.istudio.distancetracker.utils.Constants.PENDING_INTENT_REQUEST_CODE
+import com.istudio.distancetracker.Constants.NOTIFICATION_CHANNEL_ID
+import com.istudio.distancetracker.Constants.PENDING_INTENT_REQUEST_CODE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

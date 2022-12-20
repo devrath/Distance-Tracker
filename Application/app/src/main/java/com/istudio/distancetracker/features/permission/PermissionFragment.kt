@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.permission
+package com.istudio.distancetracker.features.permission
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.utils.Permissions.hasLocationPermission
+import com.istudio.distancetracker.features.permission.utils.Permissions.hasLocationPermission
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
-import com.istudio.distancetracker.utils.Permissions.runtimeLocationPermission
+import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeLocationPermission
 
 
 class PermissionFragment : Fragment(){

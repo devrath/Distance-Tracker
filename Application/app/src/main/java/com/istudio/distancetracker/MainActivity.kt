@@ -1,11 +1,10 @@
-package com.istudio.distancetracker.ui
+package com.istudio.distancetracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.istudio.distancetracker.R
-import com.istudio.distancetracker.utils.Permissions
+import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

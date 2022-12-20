@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.utils
+package com.istudio.distancetracker.features.permission.utils
 
 import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -12,6 +12,7 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.istudio.distancetracker.R
+import com.istudio.distancetracker.core.platform.extensions.openAppNotificationSettings
 import com.permissionx.guolindev.PermissionX
 
 object Permissions {

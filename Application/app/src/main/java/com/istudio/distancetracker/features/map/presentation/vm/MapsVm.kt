@@ -1,21 +1,13 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
-import android.location.LocationManager
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.ButtCap
-import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
 import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
 import com.istudio.distancetracker.core.domain.features.location.LocationFeature
@@ -27,8 +19,8 @@ import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
-import com.istudio.distancetracker.utils.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
-import com.istudio.distancetracker.utils.Constants.preparePolyline
+import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
+import com.istudio.distancetracker.Constants.preparePolyline
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

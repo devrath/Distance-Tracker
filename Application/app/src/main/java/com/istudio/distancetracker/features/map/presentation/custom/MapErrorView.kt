@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.custom
+package com.istudio.distancetracker.features.map.presentation.custom
 
 import android.content.Context
 import android.util.AttributeSet

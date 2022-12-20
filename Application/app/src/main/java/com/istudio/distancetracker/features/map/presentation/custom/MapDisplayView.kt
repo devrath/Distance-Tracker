@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.custom
+package com.istudio.distancetracker.features.map.presentation.custom
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,18 +7,12 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.istudio.distancetracker.R
+import com.istudio.distancetracker.core.platform.extensions.disable
+import com.istudio.distancetracker.core.platform.extensions.enable
 import com.istudio.distancetracker.core.platform.extensions.gone
 import com.istudio.distancetracker.core.platform.extensions.visible
-import com.istudio.distancetracker.databinding.IncludeCustErrorViewBinding
 import com.istudio.distancetracker.databinding.IncludeCustMapViewBinding
-import com.istudio.distancetracker.databinding.IncludeCustMasterViewBinding
-import com.istudio.distancetracker.utils.Constants
-import com.istudio.distancetracker.utils.disable
-import com.istudio.distancetracker.utils.enable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class MapDisplayView @JvmOverloads constructor(
     context: Context,

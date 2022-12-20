@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.ui.result
+package com.istudio.distancetracker.features.result
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentResultBinding
 
 class ResultFragment : BottomSheetDialogFragment() {
