@@ -21,6 +21,7 @@ import com.istudio.distancetracker.features.map.domain.entities.inputs.Calculate
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.Constants.preparePolyline
+import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -57,12 +58,14 @@ class MapsVm @Inject constructor(
 
 
     private fun drawPolyline() {
+        log.i(FEATURE_MAP, "Polyline draw is invoked")
         val polylineOptions = preparePolyline(locationList)
         viewModelScope.launch { _eventChannel.send(MapStates.AddPolyline(polylineOptions)) }
     }
 
     private fun followPolyline() {
         if (locationList.isNotEmpty()) {
+            log.i(FEATURE_MAP, "Follow user as he travels <--> Current-Location:->$locationList.last()")
             val location = locationList.last()
             val duration = FOLLOW_POLYLINE_UPDATE_DURATION
             viewModelScope.launch { _eventChannel.send(MapStates.FollowCurrentLocation(location,duration)) }
@@ -70,6 +73,7 @@ class MapsVm @Inject constructor(
     }
 
     fun addPolylineToList(polyLine: Polyline) {
+        log.i(FEATURE_MAP, "new polyline is added to list of polylines")
         polylineList.add(polyLine)
     }
 
@@ -100,7 +104,7 @@ class MapsVm @Inject constructor(
      * CALCULATE RESULT
      */
     private fun calculateResult() {
-        log.i(KeysFeatureNames.FEATURE_MAP, "Calculate distance and result")
+        log.i(FEATURE_MAP, "Calculate distance and result")
         val input = CalculateResultInput(locationData = locationList, startTime = startTime,stopTime = stopTime)
         useCases.calculateResult.invoke(input)
             .onSuccess { viewModelScope.launch { _eventChannel.send(MapStates.JourneyResult(it)) } }
@@ -167,7 +171,7 @@ class MapsVm @Inject constructor(
      * ERROR HANDLING: For the Use cases
      */
     private suspend fun useCaseError(result: UseCaseResult.Error) {
-        log.e(KeysFeatureNames.FEATURE_MAP, result.exception.message.toString())
+        log.e(FEATURE_MAP, result.exception.message.toString())
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _eventChannel.send(MapStates.ShowErrorMessage(uiEvent))
     }
