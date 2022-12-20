@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/permissionFragment"
-        android:name="com.istudio.distancetracker.ui.permission.PermissionFragment"
+        android:name="com.istudio.distancetracker.features.permission.PermissionFragment"
         android:label="fragment_permission"
         tools:layout="@layout/fragment_permission" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.istudio.distancetracker.ui.maps.presentation.view.MapFragment"
+        android:name="com.istudio.distancetracker.features.map.presentation.view.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <dialog
         android:id="@+id/resultFragment"
-        android:name="com.istudio.distancetracker.ui.result.ResultFragment"
+        android:name="com.istudio.distancetracker.features.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action

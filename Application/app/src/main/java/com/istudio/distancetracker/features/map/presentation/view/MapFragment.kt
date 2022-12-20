@@ -1,23 +1,14 @@
-package com.istudio.distancetracker.ui.maps.presentation.view
+package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,22 +32,16 @@ import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.NetworkObserver
 import com.istudio.distancetracker.service.NetworkState
 import com.istudio.distancetracker.service.TrackerService
-import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
-import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
-import com.istudio.distancetracker.utils.Constants
-import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_START
-import com.istudio.distancetracker.utils.Constants.ACTION_SERVICE_STOP
-import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_DURATION
-import com.istudio.distancetracker.utils.Constants.COUNTDOWN_TIMER_INTERVAL
-import com.istudio.distancetracker.utils.Constants.LOCATE_MYSELF_TIMER_DURATION
-import com.istudio.distancetracker.utils.Constants.RESULT_PAGE_DISPLAY_DURATION
-import com.istudio.distancetracker.utils.MapUtil.setCameraPosition
-import com.istudio.distancetracker.utils.Permissions.hasBackgroundLocationPermission
-import com.istudio.distancetracker.utils.Permissions.runtimeBackgroundPermission
-import com.istudio.distancetracker.utils.disable
-import com.istudio.distancetracker.utils.enable
-import com.istudio.distancetracker.utils.hide
-import com.istudio.distancetracker.utils.show
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
+import com.istudio.distancetracker.Constants
+import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
+import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
+import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_DURATION
+import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
+import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
+import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -122,7 +107,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             isScrollGesturesEnabled = false
         }
         // Set map padding
-        map.setPadding(0, 0, 200, 0)
+        map.setPadding(0, 0, 20, 0)
         // Set custom location
         setCustomIconForLocationButton()
         // Start observing the tracker service
@@ -267,7 +252,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         val resultCalculated = Result(result.distanceTravelled, result.elapsedTime)
         lifecycleScope.launch {
             // Give a delay for smoother transition
-            delay(RESULT_PAGE_DISPLAY_DURATION)
+            //delay(RESULT_PAGE_DISPLAY_DURATION)
             // Display the result page
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown

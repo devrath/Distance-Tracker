@@ -1,9 +1,10 @@
-package com.istudio.distancetracker.ui.custom
+package com.istudio.distancetracker.features.map.presentation.custom
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.core.platform.extensions.gone
 import com.istudio.distancetracker.core.platform.extensions.visible
 import com.istudio.distancetracker.databinding.IncludeCustErrorViewBinding
@@ -31,6 +32,8 @@ class MapErrorView @JvmOverloads constructor(
             networkSettingsActionId.visible(animate = false)
             // Hide the gps settings action button
             gpsSettingsActionId.gone(animate = false)
+            // Set the text
+            notificationTxtId.text = resources.getText(R.string.str_network_warning)
         }
     }
 
@@ -44,6 +47,8 @@ class MapErrorView @JvmOverloads constructor(
             networkSettingsActionId.gone(animate = false)
             // Show the gps settings action button
             gpsSettingsActionId.visible(animate = false)
+            // Set the text
+            notificationTxtId.text = resources.getText(R.string.str_gps_warning)
         }
     }
 

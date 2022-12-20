@@ -1,21 +1,13 @@
-package com.istudio.distancetracker.ui.maps.presentation.vm
+package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
-import android.location.LocationManager
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.ButtCap
-import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
 import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
 import com.istudio.distancetracker.core.domain.features.location.LocationFeature
@@ -26,9 +18,10 @@ import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
 import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
-import com.istudio.distancetracker.ui.maps.presentation.state.MapStates
-import com.istudio.distancetracker.utils.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
-import com.istudio.distancetracker.utils.Constants.preparePolyline
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
+import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
+import com.istudio.distancetracker.Constants.preparePolyline
+import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -65,12 +58,14 @@ class MapsVm @Inject constructor(
 
 
     private fun drawPolyline() {
+        log.i(FEATURE_MAP, "Polyline draw is invoked")
         val polylineOptions = preparePolyline(locationList)
         viewModelScope.launch { _eventChannel.send(MapStates.AddPolyline(polylineOptions)) }
     }
 
     private fun followPolyline() {
         if (locationList.isNotEmpty()) {
+            log.i(FEATURE_MAP, "Follow user as he travels <--> Current-Location:->$locationList.last()")
             val location = locationList.last()
             val duration = FOLLOW_POLYLINE_UPDATE_DURATION
             viewModelScope.launch { _eventChannel.send(MapStates.FollowCurrentLocation(location,duration)) }
@@ -78,6 +73,7 @@ class MapsVm @Inject constructor(
     }
 
     fun addPolylineToList(polyLine: Polyline) {
+        log.i(FEATURE_MAP, "new polyline is added to list of polylines")
         polylineList.add(polyLine)
     }
 
@@ -108,7 +104,7 @@ class MapsVm @Inject constructor(
      * CALCULATE RESULT
      */
     private fun calculateResult() {
-        log.i(KeysFeatureNames.FEATURE_MAP, "Calculate distance and result")
+        log.i(FEATURE_MAP, "Calculate distance and result")
         val input = CalculateResultInput(locationData = locationList, startTime = startTime,stopTime = stopTime)
         useCases.calculateResult.invoke(input)
             .onSuccess { viewModelScope.launch { _eventChannel.send(MapStates.JourneyResult(it)) } }
@@ -125,7 +121,8 @@ class MapsVm @Inject constructor(
             bounds.include(location)
         }
         viewModelScope.launch {
-            _eventChannel.send(MapStates.AnimateCameraForBiggerPitchure(
+            _eventChannel.send(
+                MapStates.AnimateCameraForBiggerPitchure(
                 bounds = bounds.build(), padding = padding, duration = duration
             ))
         }
@@ -174,7 +171,7 @@ class MapsVm @Inject constructor(
      * ERROR HANDLING: For the Use cases
      */
     private suspend fun useCaseError(result: UseCaseResult.Error) {
-        log.e(KeysFeatureNames.FEATURE_MAP, result.exception.message.toString())
+        log.e(FEATURE_MAP, result.exception.message.toString())
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _eventChannel.send(MapStates.ShowErrorMessage(uiEvent))
     }

@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.utils
+package com.istudio.distancetracker
 
 import android.graphics.Color
 import com.google.android.gms.maps.model.ButtCap

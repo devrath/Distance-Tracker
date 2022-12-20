@@ -1,11 +1,11 @@
-package com.istudio.distancetracker.ui.maps.presentation.state
+package com.istudio.distancetracker.features.map.presentation.state
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
-import com.istudio.distancetracker.ui.maps.presentation.vm.MapsVm
+import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 
 sealed class MapStates {
     //object OnSubmitClick : MapStates()

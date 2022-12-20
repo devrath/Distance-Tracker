@@ -3,6 +3,7 @@ package com.istudio.distancetracker.core.platform.extensions
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.view.View
+import android.widget.Button
 
 
 /** Set the View visibility to VISIBLE and eventually animate the View alpha till 100% */
@@ -50,4 +51,20 @@ private fun View.hide(hidingStrategy: Int, animate: Boolean = true) {
     } else {
         visibility = hidingStrategy
     }
+}
+
+fun View.show(){
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide(){
+    this.visibility = View.INVISIBLE
+}
+
+fun Button.enable(){
+    this.isEnabled = true
+}
+
+fun Button.disable(){
+    this.isEnabled = false
 }

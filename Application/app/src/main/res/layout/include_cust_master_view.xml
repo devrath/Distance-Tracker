@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.istudio.distancetracker.ui.maps.presentation.view.MapFragment">
+    tools:context="com.istudio.distancetracker.features.map.presentation.view.MapFragment">
 
-    <com.istudio.distancetracker.ui.custom.MapErrorView
+    <com.istudio.distancetracker.features.map.presentation.custom.MapErrorView
         android:id="@+id/errorViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,9 +16,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.istudio.distancetracker.ui.custom.MapErrorView" />
+        tools:context="com.istudio.distancetracker.features.map.presentation.custom.MapErrorView" />
 
-    <com.istudio.distancetracker.ui.custom.MapDisplayView
+    <com.istudio.distancetracker.features.map.presentation.custom.MapDisplayView
         android:id="@+id/mapViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,6 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.istudio.distancetracker.ui.custom.MapDisplayView" />
+        tools:context="com.istudio.distancetracker.features.map.presentation.custom.MapDisplayView" />
 
 </LinearLayout>
