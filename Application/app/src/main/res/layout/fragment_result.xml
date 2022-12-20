@@ -23,7 +23,7 @@
                 android:id="@+id/closeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="@dimen/result_view_close_button_padding"
                 android:src="@drawable/ic_close" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/statistics"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/result_view_header_text_size"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:text="@string/share"
-            android:layout_margin="10dp" />
+            android:layout_margin="@dimen/result_view_share_button_layout_margin" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="@dimen/result_view_distance_container_margin"
+            android:layout_marginEnd="@dimen/result_view_distance_container_margin"
             android:orientation="vertical">
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/_0_0km"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="@dimen/result_view_distance_text_size"
                 android:textStyle="bold" />
 
             <TextView
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/_00_00_00"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="@dimen/result_view_time_text_size"
                 android:textStyle="bold" />
 
             <TextView

@@ -2,5 +2,13 @@
 <resources>
     <dimen name="lotte_error_view_size">200dp</dimen>
     <dimen name="lotte_permission_view_size">400dp</dimen>
+    <dimen name="maps_action_button_margin_bottom">40dp</dimen>
+    <dimen name="counter_text_size">80sp</dimen>
+    <dimen name="result_view_close_button_padding">10dp</dimen>
+    <dimen name="result_view_header_text_size">20sp</dimen>
+    <dimen name="result_view_share_button_layout_margin">10dp</dimen>
+    <dimen name="result_view_distance_container_margin">10dp</dimen>
+    <dimen name="result_view_distance_text_size">30sp</dimen>
+    <dimen name="result_view_time_text_size">30sp</dimen>
 
 </resources>
