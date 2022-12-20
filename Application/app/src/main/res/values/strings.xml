@@ -16,6 +16,7 @@
     // Result Fragment
     <string name="distance">Distance</string>
     <string name="time">Time</string>
+    <string name="duration">Duration</string>
     <string name="share">Share</string>
     <string name="result">%1$s km</string>
     <string name="_00_00_00">00:00:00</string>
@@ -36,5 +37,6 @@
     <string name="str_network_warning">Please enable network \n otherwise location tracking won\'t work</string>
     <string name="network_is_available">Network connected</string>
     <string name="network_is_unavailable">Network connection is lost</string>
+    <string name="statistics">Statistics</string>
 
 </resources>

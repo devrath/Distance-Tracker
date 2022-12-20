@@ -34,6 +34,15 @@ class ResultFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
+        binding.closeId.setOnClickListener { dismiss() }
+    }
+
     private fun shareResult() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
