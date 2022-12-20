@@ -122,7 +122,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             isScrollGesturesEnabled = false
         }
         // Set map padding
-        map.setPadding(0, 0, 200, 0)
+        map.setPadding(0, 0, 20, 0)
         // Set custom location
         setCustomIconForLocationButton()
         // Start observing the tracker service
@@ -267,7 +267,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         val resultCalculated = Result(result.distanceTravelled, result.elapsedTime)
         lifecycleScope.launch {
             // Give a delay for smoother transition
-            delay(RESULT_PAGE_DISPLAY_DURATION)
+            //delay(RESULT_PAGE_DISPLAY_DURATION)
             // Display the result page
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown

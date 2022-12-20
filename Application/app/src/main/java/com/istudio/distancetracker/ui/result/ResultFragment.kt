@@ -17,32 +17,71 @@ class ResultFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
 
+    var distance : String = ""
+    var time : String = ""
+
+    // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentResultBinding.inflate(inflater, container, false)
-
-        binding.distanceValueTextView.text = getString(R.string.result, args.result.distance)
-        binding.timeValueTextView.text = args.result.time
-
-        binding.shareButton.setOnClickListener {
-            shareResult()
-        }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initOnViewCreated()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        initOnDestroyView()
+    }
+    // ********************************** Life cycle methods ***************************************
+
+
+    // ********************************** User defined functions ************************************
+    private fun initOnViewCreated() {
+        getDataFromPreviousScreen()
         setOnClickListener()
+        setDataForTheScreen()
     }
 
+    private fun initOnDestroyView() { _binding = null }
+
+
+    /**
+     * Set on click listeners for the screen
+     */
     private fun setOnClickListener() {
-        binding.closeId.setOnClickListener { dismiss() }
+        binding.apply {
+            closeId.setOnClickListener { dismiss() }
+            shareButton.setOnClickListener { shareResult() }
+        }
     }
 
+    /**
+     * Getting the data from the previous screen
+     */
+    private fun getDataFromPreviousScreen() {
+        distance = args.result.distance
+        time = args.result.time
+    }
+
+    /**
+     * Set the data for the current screen
+     */
+    private fun setDataForTheScreen() {
+        binding.apply {
+            distanceValueTextView.text = distance
+            timeValueTextView.text = time
+        }
+    }
+
+    /**
+     * Open the share sheet for sharing the result
+     */
     private fun shareResult() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -51,9 +90,6 @@ class ResultFragment : BottomSheetDialogFragment() {
         }
         startActivity(shareIntent)
     }
+    // ********************************** User defined functions ************************************
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
