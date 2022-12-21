@@ -5,8 +5,11 @@ import com.google.android.gms.maps.model.ButtCap
 import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.play.core.install.model.AppUpdateType
 
 object Constants {
+
+    const val APP_UPDATE_TYPE = AppUpdateType.IMMEDIATE
 
     const val COUNTDOWN_TIMER_DURATION = 5000L
     const val COUNTDOWN_TIMER_INTERVAL = 1000L
@@ -27,6 +30,7 @@ object Constants {
 
     const val PENDING_INTENT_REQUEST_CODE = 99
 
+    const val APP_UPDATE_REQUEST_CODE = 100
 
     // <-----> Polyline constants <----->
     fun preparePolyline(locationList: MutableList<LatLng>): PolylineOptions {

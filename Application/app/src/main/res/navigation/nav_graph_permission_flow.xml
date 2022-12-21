@@ -42,7 +42,7 @@
     </dialog>
     <fragment
         android:id="@+id/distanceLogFragment"
-        android:name="com.istudio.distancetracker.DistanceLogFragment"
+        android:name="com.istudio.distancetracker.features.distancelog.DistanceLogFragment"
         android:label="fragment_distance_log"
         tools:layout="@layout/fragment_distance_log" />
 </navigation>
