@@ -39,4 +39,8 @@
     <string name="network_is_unavailable">Network connection is lost</string>
     <string name="statistics">Statistics</string>
 
+    <string name="toast_updated">App successfully updated</string>
+    <string name="toast_failed">It was not possible to update your app</string>
+    <string name="toast_cancelled">App update cancelled</string>
+
 </resources>
