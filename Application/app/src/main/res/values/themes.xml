@@ -31,4 +31,11 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.DistanceTrackerApp</item>
+    </style>
+
 </resources>

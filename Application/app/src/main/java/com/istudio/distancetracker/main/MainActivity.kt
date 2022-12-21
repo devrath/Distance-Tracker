@@ -1,11 +1,18 @@
-package com.istudio.distancetracker
+package com.istudio.distancetracker.main
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.DecelerateInterpolator
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -18,21 +25,39 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.core.platform.extensions.toast
 import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    var contentHasLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Set nav controller
+
         setNavController()
-        // Check for the updates
+        startLoadingContent()
+        setupSplashScreen(splashScreen)
+    }
+
+    private fun startLoadingContent() {
+        // For this example, the Timer delay represents awaiting a response from a network call
+        //Timer().schedule(3000){}
+        contentHasLoaded = true
         checkForUpdates()
     }
 
@@ -47,6 +72,34 @@ class MainActivity : AppCompatActivity() {
     private fun openScreen() {
         if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
     }
+
+    /** ******************************** SPLASH ************************************************ **/
+    private fun setupSplashScreen(splashScreen: androidx.core.splashscreen.SplashScreen) {
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (contentHasLoaded) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else false
+                }
+            }
+        )
+
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val slideBack = ObjectAnimator.ofFloat(
+                splashScreenView.view, View.TRANSLATION_Z, 0f,
+                -splashScreenView.view.width.toFloat()
+            ).apply {
+                interpolator = DecelerateInterpolator()
+                duration = 800L
+                doOnEnd { splashScreenView.remove() }
+            }
+            slideBack.start()
+        }
+    }
+    /** ******************************** SPLASH ************************************************ **/
 
     /** ******************************** APPLICATION UPDATE  *********************************** **/
     private fun checkForUpdates() {
