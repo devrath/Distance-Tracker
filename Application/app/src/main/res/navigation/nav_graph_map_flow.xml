@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.istudio.distancetracker.features.map.presentation.view.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_distanceLogFragment"
+            app:destination="@id/distanceLogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/resultFragment"
+        android:name="com.istudio.distancetracker.features.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_mapFragment2"
+            app:destination="@id/mapFragment" />
+        <argument
+            android:name="result"
+            app:argType="com.istudio.distancetracker.model.Result" />
+    </dialog>
+    <fragment
+        android:id="@+id/distanceLogFragment"
+        android:name="com.istudio.distancetracker.features.distancelog.DistanceLogFragment"
+        android:label="fragment_distance_log"
+        tools:layout="@layout/fragment_distance_log" />
+</navigation>

@@ -9,10 +9,8 @@ import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -29,14 +27,6 @@ import com.istudio.distancetracker.R
 import com.istudio.distancetracker.core.platform.extensions.toast
 import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -70,7 +60,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openScreen() {
-        if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
+        if (Permissions.hasLocationPermission(this@MainActivity)) {
+            navController.setGraph(R.navigation.nav_graph_map_flow)
+        }else{
+            navController.setGraph(R.navigation.nav_graph_permission_flow)
+        }
     }
 
     /** ******************************** SPLASH ************************************************ **/
@@ -89,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val slideBack = ObjectAnimator.ofFloat(
-                splashScreenView.view, View.TRANSLATION_Z, 0f,
+                splashScreenView.view, View.TRANSLATION_X, 0f,
                 -splashScreenView.view.width.toFloat()
             ).apply {
                 interpolator = DecelerateInterpolator()
