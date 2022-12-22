@@ -44,7 +44,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.UserLogsActivity"
             android:theme="@style/Theme.App.Starting"
             android:exported="true">
             <intent-filter>
