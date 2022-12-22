@@ -47,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
+            android:textColor="@color/colorResultCloseIcon"
             android:text="@string/share"
             android:layout_margin="@dimen/result_view_share_button_layout_margin" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -71,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_0_0km"
-                android:textColor="@color/black"
+                android:textColor="@color/colorResultValues"
                 android:textSize="@dimen/result_view_distance_text_size"
                 android:textStyle="bold" />
 
@@ -79,6 +80,7 @@
                 android:id="@+id/distance_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorResultValues"
                 android:text="@string/distance" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -96,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_00_00_00"
-                android:textColor="@color/black"
+                android:textColor="@color/colorResultValues"
                 android:textSize="@dimen/result_view_time_text_size"
                 android:textStyle="bold" />
 
@@ -104,6 +106,7 @@
                 android:id="@+id/durationView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorResultValues"
                 android:text="@string/duration" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

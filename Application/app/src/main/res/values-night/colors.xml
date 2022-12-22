@@ -15,9 +15,9 @@
     <color name="colorBlue">#6495ED</color>
 
 
-    <color name="colorResultValues">#FF000000</color>
-    <color name="colorResultCloseIcon">#FF000000</color>
-    <color name="colorRefreshIcon">#FF000000</color>
-    <color name="colorPermissionPageDescription">#FF000000</color>
+    <color name="colorResultValues">#FFFFFFFF</color>
+    <color name="colorResultCloseIcon">#00FFFF</color>
+    <color name="colorRefreshIcon">#FFFFFFFF</color>
+    <color name="colorPermissionPageDescription">#FFFFFFFF</color>
 
 </resources>
