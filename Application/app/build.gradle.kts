@@ -53,7 +53,9 @@ android {
     /** ************************* FLAVOURS ************************* **/
 
     kotlinOptions { jvmTarget = ProjectConfig.jvmTarget }
+    buildFeatures { compose = true }
     buildFeatures { viewBinding = true }
+    composeOptions { kotlinCompilerExtensionVersion = Compose.composeVersion }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -67,6 +69,22 @@ android {
 }
 
 dependencies {
+
+    // ********************************** Compose ************************************
+    implementation(Compose.compiler)
+    implementation(Compose.ui)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.hiltNavigationCompose)
+    implementation(Compose.material)
+    implementation(Compose.runtime)
+    implementation(Compose.navigation)
+    implementation(Compose.viewModelCompose)
+    implementation(Compose.activityCompose)
+    implementation(Compose.uiToolingPreview)
+    debugImplementation(Compose.uiTooling)
+    // ********************************** Compose ************************************
+
+
     // ********************************** Firebase ************************************
     implementation(platform(Firebase.googleFirebase))
     implementation(Firebase.firebaseKtx)
