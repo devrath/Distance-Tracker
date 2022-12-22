@@ -32,20 +32,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
-    var contentHasLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContentView(R.layout.activity_main)
         setNavController()
-        startLoadingContent()
-    }
-
-    private fun startLoadingContent() {
-        // For this example, the Timer delay represents awaiting a response from a network call
-        //Timer().schedule(3000){}
-        contentHasLoaded = true
         checkForUpdates()
     }
 
@@ -60,34 +52,6 @@ class MainActivity : AppCompatActivity() {
     private fun openScreen() {
         if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
     }
-
-    /** ******************************** SPLASH ************************************************ **/
-    private fun setupSplashScreen(splashScreen: androidx.core.splashscreen.SplashScreen) {
-        val content: View = findViewById(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener(
-            object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    return if (contentHasLoaded) {
-                        content.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
-                    } else false
-                }
-            }
-        )
-
-        splashScreen.setOnExitAnimationListener { splashScreenView ->
-            val slideBack = ObjectAnimator.ofFloat(
-                splashScreenView.view, View.TRANSLATION_X, 0f,
-                -splashScreenView.view.width.toFloat()
-            ).apply {
-                interpolator = DecelerateInterpolator()
-                duration = 800L
-                doOnEnd { splashScreenView.remove() }
-            }
-            slideBack.start()
-        }
-    }
-    /** ******************************** SPLASH ************************************************ **/
 
     /** ******************************** APPLICATION UPDATE  *********************************** **/
     private fun checkForUpdates() {
