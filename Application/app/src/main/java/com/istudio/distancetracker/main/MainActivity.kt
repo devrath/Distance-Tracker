@@ -60,11 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openScreen() {
-        if (Permissions.hasLocationPermission(this@MainActivity)) {
-            navController.setGraph(R.navigation.nav_graph_map_flow)
-        }else{
-            navController.setGraph(R.navigation.nav_graph_permission_flow)
-        }
+        if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
     }
 
     /** ******************************** SPLASH ************************************************ **/
