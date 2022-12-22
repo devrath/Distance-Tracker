@@ -35,13 +35,11 @@ class MainActivity : AppCompatActivity() {
     var contentHasLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setNavController()
         startLoadingContent()
-        setupSplashScreen(splashScreen)
     }
 
     private fun startLoadingContent() {
