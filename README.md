@@ -70,6 +70,7 @@ RUNTIME-PERMISSION: -> Not needed
 
 ## **`𝙻𝚘𝚌𝚊𝚝𝚎 𝚝𝚑𝚎 𝚌𝚞𝚛𝚛𝚎𝚗𝚝 𝚞𝚜𝚎𝚛`** 🌀
 * Once the map is loaded, We can access the Location button on the map and by simulating a click action on the map, we and redirect the camera to the user location.
+
 `Locating user` |
 --- |
 <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/locating_user.gif" width="160" height="330"/> |
