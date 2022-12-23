@@ -58,9 +58,13 @@ RUNTIME-PERMISSION: -> Not needed
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 ```
 
+<div align="center">
+  
 `Runtime Permission` | `Background tracking permission` |
 --- | --- |
 <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/RuntimePermission.gif" width="160" height="330"/> | <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/BackgroundPermission.gif" width="160" height="330"/> |
+  
+</div>
 
 ## **`𝙶𝚎𝚝𝚝𝚒𝚗𝚐 𝚌𝚞𝚛𝚛𝚎𝚗𝚝 𝚞𝚜𝚎𝚛 𝚕𝚘𝚌𝚊𝚝𝚒𝚘𝚗`** 🌍
 * We use [_**fused-location-provider**_](https://developers.google.com/location-context/fused-location-provider) to get the current location of the user 
@@ -71,10 +75,15 @@ RUNTIME-PERMISSION: -> Not needed
 ## **`𝙻𝚘𝚌𝚊𝚝𝚎 𝚝𝚑𝚎 𝚌𝚞𝚛𝚛𝚎𝚗𝚝 𝚞𝚜𝚎𝚛`** 🌀
 * Once the map is loaded, We can access the Location button on the map and by simulating a click action on the map, we and redirect the camera to the user location.
 
+<div align="center">
+  
 `Locating user` |
 --- |
 <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/locating_user.gif" width="160" height="330"/> |
+  
+</div>
 
+  
 ## **`𝚂𝚎𝚛𝚟𝚒𝚌𝚎 𝚝𝚘 𝚝𝚛𝚊𝚌𝚔 𝚞𝚜𝚎𝚛𝚜 𝚖𝚘𝚖𝚎𝚗𝚝 𝚒𝚗 𝚋𝚊𝚌𝚔𝚐𝚛𝚘𝚞𝚗𝚍`** ☂️
 * When we require tracking the user journey we need to use the fused location service continously at certain intervals of time and get the `lat/lng` position of the user
 * This tracking needs to happen continously regards of application is in foreground or background. In this scenario we need to use a foreground service to run the location mechanish continously which also require a notification to be shown on the app tray which displays distance travelled.
