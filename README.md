@@ -27,7 +27,14 @@ This application is used to track the user distance traveled and the time taken 
 * Place the SHA Keys: https://console.cloud.google.com/google/maps-apis/credentials?project=distance-tracker-369716
 * Then add a string resource(SECRET.xml) in project location SRC -> RELEASE -> RES -> VALUES -> SECRET.XML and the key
 * <resources><string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">SHJJS8s8shhdsdssdss</string></resources>
-```   
+```  
+
+🔰 `Create firebase account`
+```java
+* Since the project uses firebase to register crashes we need to create a firebase account.
+* Place the google-services.json in the project app level.
+```  
+
 
 
 ## **`𝙲𝚘𝚗𝚝𝚛𝚒𝚋𝚞𝚝𝚎`** 🙋‍♂️
