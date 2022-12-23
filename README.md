@@ -5,6 +5,32 @@
 ## **`𝙸𝚗𝚝𝚛𝚘𝚍𝚞𝚌𝚝𝚒𝚘𝚗`** 💡
 This application is used to track the user distance traveled and the time taken to travel the distance
 
+
+## **`𝙰𝚋𝚘𝚞𝚝 𝚙𝚎𝚛𝚖𝚒𝚜𝚜𝚒𝚘𝚗𝚜 𝚞𝚜𝚎𝚍 𝚏𝚘𝚛 𝚝𝚑𝚎 𝚊𝚙𝚙`** 💡
+▪️ In android sharing user location is very delicate so a series of permissions need to be provided from user </br>
+▪️ There are two scenarios to handle when it comes to runtime permissions `ACCESS_FINE_LOCATION`,`ACCESS_BACKGROUND_LOCATION`</br>
+
+
+```xml
+<!--
+DESCRIPTION: -> The permission ACCESS_FINE_LOCATION is needed to get the user's location from the device
+RUNTIME-PERMISSION: -> Needed
+-->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--
+DESCRIPTION: -> The permission ACCESS_BACKGROUND_LOCATION is needed from android-10 and above in older version its by default provided
+RUNTIME-PERMISSION: -> Needed
+-->
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+<!--
+DESCRIPTION: -> The permission FOREGROUND_SERVICE is needed to display the foreground notification as a service
+RUNTIME-PERMISSION: -> Not needed
+-->
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+```
+
+
 ## Set-Up 👣
 
 🔰 `Steps for creating a debug key for map-API`
