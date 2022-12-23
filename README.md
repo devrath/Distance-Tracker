@@ -1,3 +1,6 @@
+![cover](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Banner/banner.jpeg)
+
+
 <img src="https://github.com/devrath/devrath/blob/master/images/kotlin_logo.png" align="right" title="Kotlin Logo" width="120">
 
 # Distance-Tracker 🧞‍
