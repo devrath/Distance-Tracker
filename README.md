@@ -5,6 +5,15 @@
 ## **`𝙸𝚗𝚝𝚛𝚘𝚍𝚞𝚌𝚝𝚒𝚘𝚗`** 💡
 This application is used to track the user distance traveled and the time taken to travel the distance
 
+## **`𝙳𝚎𝚖𝚘 𝚘𝚏 𝚝𝚑𝚎 𝚙𝚛𝚘𝚓𝚎𝚌𝚝`** 🧶
+<div align="center">
+  
+`Demo` |
+--- |
+<img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/Demo.gif" width="160" height="330"/> |
+  
+</div>
+
 
 ## Set-Up 👣
 
