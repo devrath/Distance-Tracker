@@ -45,7 +45,7 @@ This application is used to track the user distance traveled and the time taken 
 ```  
 ## **`𝙰𝚋𝚘𝚞𝚝 𝚙𝚎𝚛𝚖𝚒𝚜𝚜𝚒𝚘𝚗𝚜 𝚞𝚜𝚎𝚍 𝚏𝚘𝚛 𝚝𝚑𝚎 𝚊𝚙𝚙`** 🔑
 ▪️ In android sharing user location is very delicate so a series of permissions need to be provided from user </br>
-▪️ There are two scenarios to handle when it comes to runtime permissions `ACCESS_FINE_LOCATION`,`ACCESS_BACKGROUND_LOCATION`</br>
+▪️ There are two scenarios to handle when it comes to runtime permissions `ACCESS_FINE_LOCATION`, `ACCESS_BACKGROUND_LOCATION`</br>
 
 ```xml
 <!--
