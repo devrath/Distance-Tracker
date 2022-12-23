@@ -2,7 +2,7 @@
     <string name="app_name">Distance Tracker</string>
     // Permission Fragment
     <string name="continue_text">Continue</string>
-    <string name="permission_description">Welcome to Distance Tracker. In order to use our application we will first need to request location permission from you. Otherwise we will not be able to provide you with our service. If you agree and wish to continue tap on the button below.</string>
+    <string name="permission_description">In order to use the application, Please provide the runtime permissions</string>
     <string name="permission_required">Permission Required</string>
 
     // Maps Fragment
