@@ -30,9 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures { viewBinding = true }
 }
 
 dependencies {
+
+    implementation(Coroutines.coroutinePlayServicesLib)
+
+    implementation(LifeCycle.lifecycleExtensions)
+    implementation(LifeCycle.lifecycleLiveData)
+    implementation(LifeCycle.lifecycleRuntimeKtx)
+
     //implementation Build.kotlinStdlibPlugin
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
