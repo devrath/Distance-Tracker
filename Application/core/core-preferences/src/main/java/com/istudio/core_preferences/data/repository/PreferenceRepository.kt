@@ -1,37 +1,32 @@
 package com.istudio.core_preferences.data.repository
 
+import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.core_preferences.domain.PreferenceDatastore
 import kotlinx.coroutines.flow.Flow
 
-class PreferenceRepository(
-    val preference: PreferenceDatastore
-) {
+class PreferenceRepository(private val preference: InAppReviewPreferences) {
 
-    /**
-     * @param isOnBoardingShown if the on-boarding screen is shown or not
-     */
-    suspend fun saveOnBoardingState(isOnBoardingShown: Boolean) {
-        preference.saveOnBoardingState(isOnBoardingShown)
+    suspend fun saveOnBoardingState(hasRated: Boolean) {
+        preference.setUserRatedApp(hasRated)
     }
 
-    /**
-     * @return if on-boarding screen is shown or not
-     */
-    suspend fun readOnBoardingState(): Flow<Boolean> {
-        return preference.readOnBoardingState()
+    suspend fun hasUserRatedApp(): Flow<Boolean> {
+        return preference.hasUserRatedApp()
     }
 
-    /**
-     * @param user details of the logged in user
-     */
-    suspend fun saveUserState(user: String) {
-        preference.saveCurrentUser(user)
+    suspend fun setUserChosenRateLater(hasChosenRateLater: Boolean) {
+        preference.setUserChosenRateLater(hasChosenRateLater)
     }
 
-    /**
-     * @return the user data that is being saved
-     */
-    suspend fun readUserState(): Flow<String> {
-        return preference.readCurrentUser()
+    suspend fun hasUserChosenRateLater(): Flow<Boolean> {
+        return preference.hasUserChosenRateLater()
+    }
+
+    suspend fun setRateLater(time: Long) {
+        preference.setRateLater(time)
+    }
+
+    suspend fun getRateLaterTime(): Flow<Long> {
+        return preference.getRateLaterTime()
     }
 }

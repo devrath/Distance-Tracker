@@ -5,9 +5,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences
 import com.istudio.core_preferences.domain.PreferenceDatastore
 import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences.KEY_TEXT
+import com.istudio.core_preferences.domain.InAppReviewPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -15,32 +18,46 @@ import java.io.IOException
 
 class PreferenceDatastoreImpl(
     private val dataStore: DataStore<Preferences>
-) : PreferenceDatastore {
+) : InAppReviewPreferences {
 
     companion object {
-        private val KEY_REF_isOnBoardingShown = booleanPreferencesKey(KEY_TEXT)
-        private val KEY_REF_currentUserDetails = stringPreferencesKey(KEY_TEXT)
+        private val keyRefHasUserRatedTheApp = booleanPreferencesKey(KeysPreferences.keyHasUserRatedApp)
+        private val keyRefHasUserChosenRateLater = booleanPreferencesKey(KeysPreferences.keyHasUserChosenRateLater)
+        private val keyRefGetRateLaterTime = longPreferencesKey(KeysPreferences.keyGetRateLaterTime)
     }
 
     /** *************************************************************** **/
-    override suspend fun saveOnBoardingState(state: Boolean) {
-        dataStore.edit { it[KEY_REF_isOnBoardingShown] = state }
+    override suspend fun hasUserRatedApp(): Flow<Boolean> {
+        return dataStore.getValueFlow(keyRefHasUserRatedTheApp, false)
     }
 
-    override suspend fun readOnBoardingState(): Flow<Boolean> {
-        return dataStore.getValueFlow(KEY_REF_isOnBoardingShown, false)
+    override suspend fun setUserRatedApp(hasRated: Boolean) {
+        dataStore.edit { it[keyRefHasUserRatedTheApp] = hasRated }
     }
-    /** ************************************************************** **/
+    /** *************************************************************** **/
 
-    /** ************************************************************** **/
-    override suspend fun saveCurrentUser(state: String) {
-        dataStore.edit { it[KEY_REF_currentUserDetails] = state }
+    /** *************************************************************** **/
+    override suspend fun hasUserChosenRateLater(): Flow<Boolean> {
+        return dataStore.getValueFlow(keyRefHasUserChosenRateLater, false)
     }
 
-    override suspend fun readCurrentUser(): Flow<String> {
-        return dataStore.getValueFlow(KEY_REF_currentUserDetails, "")
+    override suspend fun setUserChosenRateLater(hasChosenRateLater: Boolean) {
+        dataStore.edit { it[keyRefHasUserChosenRateLater] = hasChosenRateLater }
     }
-    /** ************************************************************** **/
+    /** *************************************************************** **/
+
+    /** *************************************************************** **/
+    override suspend fun getRateLaterTime(): Flow<Long> {
+        return dataStore.getValueFlow(keyRefGetRateLaterTime, defaultValue = -1)
+    }
+
+    override suspend fun setRateLater(time: Long) {
+        dataStore.edit { it[keyRefGetRateLaterTime] = time }
+    }
+    /** *************************************************************** **/
+
+    override suspend fun clearIfUserDidNotRate() { dataStore.edit { it.clear() } }
+
 
     private fun <T> DataStore<Preferences>.getValueFlow(
         key: Preferences.Key<T>,
