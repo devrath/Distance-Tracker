@@ -14,6 +14,7 @@ buildscript {
         classpath(Build.ktLintPlugin)
         classpath(Build.navSafeArgs)
         classpath(Build.secretsGradle)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0-RC")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
