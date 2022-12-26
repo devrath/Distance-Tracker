@@ -170,10 +170,9 @@ dependencies {
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     // ************************* Instrumentation Testing ******************************
 
+    // ********************************** Modules ************************************
+    implementation(project(Modules.featInAppReview))
+    // ********************************** Modules ************************************
 
-
-
-    // Injecting fakes
-    //androidTestImplementation(project(Modules.coreMock))
 
 }
