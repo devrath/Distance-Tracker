@@ -22,6 +22,7 @@ import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.Constants.preparePolyline
 import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
+import com.istudio.feat_inappreview.InAppReviewView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -56,6 +57,8 @@ class MapsVm @Inject constructor(
     var markerList = mutableListOf<Marker>()
 
 
+    private lateinit var inAppReviewView: InAppReviewView
+
 
     private fun drawPolyline() {
         log.i(FEATURE_MAP, "Polyline draw is invoked")
@@ -88,6 +91,7 @@ class MapsVm @Inject constructor(
                 resetViewModel()
             }
         }
+        showInAppReview()
     }
 
     /**
@@ -134,6 +138,17 @@ class MapsVm @Inject constructor(
 
     fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
 
+    // ********************************* Review Prompt *********************************************
+    /**
+     * Sets an interface that backs up the In App Review prompts.
+     **/
+    fun setInAppReview(mapFragment: InAppReviewView) {
+        this.inAppReviewView = inAppReviewView
+    }
+
+    fun showInAppReview() { inAppReviewView.showReviewFlow() }
+    // ********************************* Review Prompt *********************************************
+
     // ********************************* Service-States ********************************************
     fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
         locations?.let {
@@ -175,5 +190,4 @@ class MapsVm @Inject constructor(
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _eventChannel.send(MapStates.ShowErrorMessage(uiEvent))
     }
-
 }

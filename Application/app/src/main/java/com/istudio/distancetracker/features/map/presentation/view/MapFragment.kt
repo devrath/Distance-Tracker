@@ -42,14 +42,18 @@ import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
+import com.istudio.feat_inappreview.InAppReviewView
+import com.istudio.feat_inappreview.dialog.InAppReviewPromptDialog
+import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
+class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InAppReviewView {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -58,6 +62,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private lateinit var networkObserver: NetworkObserver
 
     private val viewModel: MapsVm by viewModels()
+
+    /**
+     * Used to launch the In App Review flow if the user should see it.
+     * */
+    @Inject
+    lateinit var reviewManager: InAppReviewManager
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -88,6 +98,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             }
         }
         return false
+    }
+
+    override fun showReviewFlow() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            if (reviewManager.isEligibleForReview()) {
+                val dialog = InAppReviewPromptDialog()
+                dialog.show(childFragmentManager, null)
+            }
+        }
     }
     // ********************************** Over-ridden methods **************************************
 
@@ -198,7 +217,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * BUTTON-ACTION: Reset the map
      */
-    private fun onResetButtonClicked() { viewModel.mapReset() }
+    private fun onResetButtonClicked() {
+        // viewModel.mapReset()
+        showReviewFlow()
+    }
 
     /**
      * BUTTON-ACTION: Start button clicked
@@ -288,6 +310,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             initiateMapSync()
             setObservers()
             initNetworkObserver()
+            //viewModel.setInAppReview(MapFragment@this)
         }
         setOnClickListeners()
     }

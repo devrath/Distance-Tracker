@@ -2,6 +2,7 @@ package com.istudio.feat_inappreview
 
 /**
  * Represents an interface all features that can prompt the In App Review Flow should implement.
+ * Via this interface your app can call this and invoke the review feature
  * */
 interface InAppReviewView {
 
