@@ -41,6 +41,7 @@ class InAppReviewManagerImpl  @Inject constructor(
 
     companion object {
         private const val KEY_REVIEW = "reviewFlow"
+        private const val DAYS_FOR_REVIEW_REMINDER : Long = 14
     }
 
     private var reviewInfo: ReviewInfo? = null
@@ -76,7 +77,7 @@ class InAppReviewManagerImpl  @Inject constructor(
     private suspend fun enoughTimePassed(): Boolean {
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime().first()
 
-        return abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(14)
+        return abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(DAYS_FOR_REVIEW_REMINDER)
     }
 
     /**

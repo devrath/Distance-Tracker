@@ -39,6 +39,7 @@ class MapsVm @Inject constructor(
     private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
     private var lastLocationFeature: LastLocationFeature,
+    // Feature: In-App Review
     private var reviewManager: InAppReviewManager
 ) : BaseViewModel() {
 

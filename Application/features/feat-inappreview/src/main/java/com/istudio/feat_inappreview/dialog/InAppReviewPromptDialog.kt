@@ -111,7 +111,7 @@ class InAppReviewPromptDialog : DialogFragment() {
         )
 
                 */
-        binding?.progressBar?.setImageResource(R.drawable.progress_black)
+        //binding?.progressBar?.setImageResource(R.drawable.progress_black)
     }
 
     /**

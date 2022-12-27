@@ -6,107 +6,81 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
+    app:cardCornerRadius="5dp"
     app:cardElevation="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:gravity="center"
+        android:padding="20dp"
+        android:orientation="vertical">
+
 
         <ImageView
-            android:id="@+id/sadFace"
-            android:layout_width="@dimen/ratePromptFaceSize"
-            android:layout_height="@dimen/ratePromptFaceSize"
-            android:layout_margin="@dimen/largeMargin"
-            android:src="@drawable/sad_face"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/progressBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/promptProgressMargin"
-            android:src="@drawable/progress_black"
-            app:layout_constraintBottom_toBottomOf="@id/sadFace"
-            app:layout_constraintEnd_toStartOf="@id/happyFace"
-            app:layout_constraintStart_toEndOf="@id/sadFace"
-            app:layout_constraintTop_toTopOf="@id/sadFace" />
-
-        <ImageView
-            android:id="@+id/happyFace"
-            android:layout_width="@dimen/ratePromptFaceSize"
-            android:layout_height="@dimen/ratePromptFaceSize"
-            android:layout_margin="@dimen/largeMargin"
-            android:src="@drawable/happy_face"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_rate_review" />
 
         <TextView
             android:id="@+id/reviewPromptTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/defaultMargin"
             android:gravity="center_horizontal"
             android:text="@string/inAppReviewTitle"
-            android:textSize="@dimen/ratePromptTitleTextSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sadFace" />
+            android:textSize="@dimen/ratePromptTitleTextSize" />
 
         <TextView
             android:id="@+id/reviewPromptText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
             android:gravity="center"
             android:text="@string/inAppReviewMessage"
-            android:textSize="@dimen/ratePromptMessageTextSize"
+            android:textSize="@dimen/ratePromptMessageTextSize" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/welcomeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/welcomeTextViewId"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reviewPromptTitle" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/rate_app_lotte" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/leaveReviewCard"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/buttonSize"
-            android:layout_marginHorizontal="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/largeMargin"
-            android:layout_marginBottom="@dimen/smallMargin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reviewPromptText">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
+            <Button
                 android:id="@+id/leaveReview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:backgroundTint="@color/colorGreen"
+                android:textColor="@color/white"
                 android:text="@string/inAppReviewRateNow"
                 android:textSize="@dimen/promptButtonTextSize" />
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/reviewLaterCard"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/buttonSize"
-            android:layout_marginHorizontal="@dimen/defaultMargin"
-            android:layout_marginTop="@dimen/buttonMarginTop"
-            android:layout_marginBottom="@dimen/defaultMargin"
-            android:paddingBottom="@dimen/defaultMargin"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/leaveReviewCard">
-
-            <TextView
+            <Button
                 android:id="@+id/reviewLater"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:backgroundTint="@color/colorRed"
+                android:textColor="@color/white"
                 android:text="@string/inAppReviewRateLater"
                 android:textSize="@dimen/promptButtonTextSize" />
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

@@ -9,5 +9,6 @@ dependencies {
     "implementation"(Google.playCore)
     "implementation"(AndroidX.constraint)
     "implementation"(AndroidX.cardView)
+    "implementation"(Lotte.lotteAnimation)
     //"implementation"(Google.playCoreKtx)
 }
