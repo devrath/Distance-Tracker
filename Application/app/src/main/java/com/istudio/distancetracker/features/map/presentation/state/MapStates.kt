@@ -20,4 +20,6 @@ sealed class MapStates {
 
     object DisplayStartButton : MapStates()
     object DisableStopButton : MapStates()
+
+    object LaunchInAppReview : MapStates()
 }

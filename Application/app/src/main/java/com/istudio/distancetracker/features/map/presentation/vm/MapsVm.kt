@@ -3,6 +3,7 @@ package com.istudio.distancetracker.features.map.presentation.vm
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -23,6 +24,8 @@ import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.Constants.preparePolyline
 import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
 import com.istudio.feat_inappreview.InAppReviewView
+import com.istudio.feat_inappreview.dialog.InAppReviewPromptDialog
+import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -36,6 +39,7 @@ class MapsVm @Inject constructor(
     private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
     private var lastLocationFeature: LastLocationFeature,
+    private var reviewManager: InAppReviewManager
 ) : BaseViewModel() {
 
     /**
@@ -139,12 +143,15 @@ class MapsVm @Inject constructor(
     fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
 
     // ********************************* Review Prompt *********************************************
-    /**
-     * Sets an interface that backs up the In App Review prompts.
-     **/
-    fun setInAppReview(inAppReviewView: InAppReviewView) { this.inAppReviewView = inAppReviewView }
-
-    private fun showInAppReview() { inAppReviewView.showReviewFlow() }
+    private fun showInAppReview() {
+        viewModelScope.launch {
+            when {
+                reviewManager.isEligibleForReview() -> {
+                    viewModelScope.launch { _eventChannel.send(MapStates.LaunchInAppReview) }
+                }
+            }
+        }
+    }
     // ********************************* Review Prompt *********************************************
 
     // ********************************* Service-States ********************************************

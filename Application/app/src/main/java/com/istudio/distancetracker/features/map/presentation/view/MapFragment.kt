@@ -53,7 +53,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InAppReviewView {
+class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -98,18 +98,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
             }
         }
         return false
-    }
-
-    /**
-     * This will be triggered from the view model callback
-     */
-    override fun showReviewFlow() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            if (reviewManager.isEligibleForReview()) {
-                val dialog = InAppReviewPromptDialog()
-                dialog.show(childFragmentManager, null)
-            }
-        }
     }
     // ********************************** Over-ridden methods **************************************
 
@@ -202,6 +190,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
                         viewModel.addPolylineToList(polyline)
                     }
                     is MapStates.AddMarker -> addMarker(event.location)
+                    is MapStates.LaunchInAppReview -> {
+                        InAppReviewPromptDialog().show(childFragmentManager, null)
+                    }
                 }
             }
         }
@@ -310,7 +301,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
             initiateMapSync()
             setObservers()
             initNetworkObserver()
-            viewModel.setInAppReview(this)
         }
         setOnClickListeners()
     }
