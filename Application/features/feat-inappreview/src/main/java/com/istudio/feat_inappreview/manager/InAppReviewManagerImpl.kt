@@ -9,6 +9,7 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.tasks.Task
 import com.istudio.core_preferences.data.repository.PreferenceRepository
+import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.distancetracker.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.math.abs
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit
 class InAppReviewManagerImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val reviewManager: ReviewManager,
-    private val inAppReviewPreferences: PreferenceRepository
+    private val inAppReviewPreferences: InAppReviewPreferences
 ) : InAppReviewManager {
 
     companion object {
@@ -60,7 +61,7 @@ class InAppReviewManagerImpl @Inject constructor(
             || (inAppReviewPreferences.hasUserChosenRateLater() && enoughTimePassed())
     }
 
-    private suspend fun enoughTimePassed(): Boolean {
+    private fun enoughTimePassed(): Boolean {
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime()
 
         return abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(14)

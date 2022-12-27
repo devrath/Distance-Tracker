@@ -6,10 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences
-import com.istudio.core_preferences.domain.PreferenceDatastore
-import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences.KEY_TEXT
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

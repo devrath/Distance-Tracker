@@ -1,7 +1,6 @@
 package com.istudio.core_preferences.data.repository
 
 import com.istudio.core_preferences.domain.InAppReviewPreferences
-import com.istudio.core_preferences.domain.PreferenceDatastore
 import kotlinx.coroutines.flow.Flow
 
 class PreferenceRepository(private val preference: InAppReviewPreferences) {

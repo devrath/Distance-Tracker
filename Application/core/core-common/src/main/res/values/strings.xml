@@ -1,0 +1,4 @@
+<resources>
+    <string name="network_is_available">Network connected</string>
+    <string name="network_is_unavailable">Network connection is lost</string>
+</resources>
