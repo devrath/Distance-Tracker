@@ -142,11 +142,9 @@ class MapsVm @Inject constructor(
     /**
      * Sets an interface that backs up the In App Review prompts.
      **/
-    fun setInAppReview(mapFragment: InAppReviewView) {
-        this.inAppReviewView = inAppReviewView
-    }
+    fun setInAppReview(inAppReviewView: InAppReviewView) { this.inAppReviewView = inAppReviewView }
 
-    fun showInAppReview() { inAppReviewView.showReviewFlow() }
+    private fun showInAppReview() { inAppReviewView.showReviewFlow() }
     // ********************************* Review Prompt *********************************************
 
     // ********************************* Service-States ********************************************

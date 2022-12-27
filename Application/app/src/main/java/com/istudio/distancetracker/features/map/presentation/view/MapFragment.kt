@@ -100,6 +100,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
         return false
     }
 
+    /**
+     * This will be triggered from the view model callback
+     */
     override fun showReviewFlow() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             if (reviewManager.isEligibleForReview()) {
@@ -217,10 +220,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
     /**
      * BUTTON-ACTION: Reset the map
      */
-    private fun onResetButtonClicked() {
-        // viewModel.mapReset()
-        showReviewFlow()
-    }
+    private fun onResetButtonClicked() { viewModel.mapReset() }
 
     /**
      * BUTTON-ACTION: Start button clicked
@@ -310,7 +310,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener, InApp
             initiateMapSync()
             setObservers()
             initNetworkObserver()
-            //viewModel.setInAppReview(MapFragment@this)
+            viewModel.setInAppReview(this)
         }
         setOnClickListeners()
     }
