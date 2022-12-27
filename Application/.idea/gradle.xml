@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-common" />
             <option value="$PROJECT_DIR$/core/core-preferences" />
+            <option value="$PROJECT_DIR$/core/core-ui" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/feat-inappreview" />
           </set>

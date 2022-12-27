@@ -15,8 +15,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.istudio.core_preferences.domain.InAppReviewPreferences
-import com.istudio.distancetracker.R
-import com.istudio.distancetracker.databinding.FragmentInAppReviewPromptBinding
+import com.istudio.feat_inappreview.R
+import com.istudio.feat_inappreview.databinding.FragmentInAppReviewPromptBinding
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import kotlinx.coroutines.launch
 

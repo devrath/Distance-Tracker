@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import com.istudio.distancetracker.R
+import com.istudio.core_common.R
 import kotlin.concurrent.timer
 
 object SnackBarDisplay {

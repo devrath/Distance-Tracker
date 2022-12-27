@@ -4,6 +4,7 @@ apply {
 
 dependencies {
     "implementation"(project(Modules.corePreferences))
+    "implementation"(project(Modules.coreCommon))
     "implementation"(Coroutines.coroutineLib)
     "implementation"(Google.playCore)
     "implementation"(AndroidX.constraint)

@@ -1,13 +1,11 @@
 package com.istudio.distancetracker.core.domain.models
 
 import android.os.Parcelable
-import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 /**
  * A data model class for User with required fields.
  */
-@JsonClass(generateAdapter = true)
 @Parcelize
 data class User(
     val id: String = "",

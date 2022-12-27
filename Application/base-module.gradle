@@ -51,8 +51,9 @@ dependencies {
     implementation CustomLogging.orhanobut
     implementation CustomLogging.timber
 
-    implementation Moshi.moshiRepo
-    kapt Moshi.moshiCodegen
+    //implementation Moshi.moshiRepo
+    implementation Gson.gson
+    //kapt Moshi.moshiCodegen
 
     implementation platform(Firebase.googleFirebase)
 

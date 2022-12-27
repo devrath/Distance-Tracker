@@ -1,4 +1,4 @@
-package com.mpl.androidapp.updater.downloadmanager.di.qualifiers
+package com.istudio.core_common.di.qualifiers
 
 import javax.inject.Qualifier
 

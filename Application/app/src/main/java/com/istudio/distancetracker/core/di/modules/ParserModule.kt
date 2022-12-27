@@ -1,9 +1,9 @@
 package com.istudio.distancetracker.core.di.modules
 
+import com.google.gson.Gson
 import com.istudio.distancetracker.core.domain.features.parser.ParserFeature
 import com.istudio.distancetracker.core.data.implementation.parser.ParserFeatureImpl
 import com.istudio.distancetracker.core.data.repository.parser.ParserRepository
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,17 +34,18 @@ object ParserModule {
      */
     @Provides
     @Singleton
-    fun provideParserFeature(parser: Moshi): ParserFeature {
+    fun provideParserFeature(parser: Gson): ParserFeature {
         return ParserFeatureImpl(parser)
     }
 
     /**
      * STEP-1: --->
-     * Provides a instance of Moshi
+     * Provides a instance of Gson
      * *********************************************
      * We don't inject the moshi instance directly - Instead we provide it to the implementation above
      */
+
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi = Moshi.Builder().build()
+    fun provideGson(): Gson = Gson()
 }
