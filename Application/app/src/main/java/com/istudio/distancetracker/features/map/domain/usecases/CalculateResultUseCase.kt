@@ -2,7 +2,7 @@ package com.istudio.distancetracker.features.map.domain.usecases
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
-import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
+import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
