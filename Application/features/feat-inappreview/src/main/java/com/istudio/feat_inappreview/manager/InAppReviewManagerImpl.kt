@@ -64,20 +64,15 @@ class InAppReviewManagerImpl  @Inject constructor(
      * They are eligible only if they haven't rated before and they haven't chosen the "never" option,
      * or if they asked to rate later and a week has passed.
      * */
-    override suspend fun isEligibleForReview(): Boolean = runBlocking {
+    override suspend fun isEligibleForReview(): Boolean  {
         val inAppReviewPreferencesValue = inAppReviewPreferences.hasUserChosenRateLater().first()
         val hasUserRatedApp = inAppReviewPreferences.hasUserRatedApp().first()
         // Has enough time passed
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime().first()
-        val enoughTimePassed  = withContext(Dispatchers.Default) {
-                abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(
-                    ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER
-                )
-            }
-
-        withContext(Dispatchers.Default) {
-            (!hasUserRatedApp && !inAppReviewPreferencesValue) || (inAppReviewPreferencesValue && enoughTimePassed)
-        }
+        val enoughTimePassed  =  abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(
+            ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER
+        )
+        return (!hasUserRatedApp && !inAppReviewPreferencesValue) || (inAppReviewPreferencesValue && enoughTimePassed)
     }
 
     /**
