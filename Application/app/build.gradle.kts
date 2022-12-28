@@ -87,14 +87,8 @@ dependencies {
 
     // ********************************** Firebase ************************************
     implementation(platform(Firebase.googleFirebase))
-    implementation(Firebase.firebaseKtx)
-    implementation(Firebase.firebaseDatabaseKtx)
-    implementation(Firebase.firebaseAnalytics)
-    implementation(Firebase.firebaseCrashlyticsKtx)
     implementation(Firebase.firebaseAnalyticsKtx)
-    implementation(Firebase.firebaseAuthKtx)
-    implementation(Firebase.firebaseFirestoreKtx)
-    implementation(Firebase.firebaseStorageKtx)
+    implementation(Firebase.firebaseKtx)
     // ********************************** Firebase ************************************
 
     // ********************************** Basic ***************************************
@@ -175,6 +169,7 @@ dependencies {
     implementation(project(Modules.featInAppReview))
     implementation(project(Modules.coreCommon))
     implementation(project(Modules.coreLogger))
+    implementation(project(Modules.coreLocation))
     // ********************************** Modules ************************************
 
 

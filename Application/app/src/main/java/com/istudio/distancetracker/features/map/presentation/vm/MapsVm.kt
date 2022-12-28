@@ -10,10 +10,10 @@ import com.google.android.gms.maps.model.Polyline
 import com.istudio.core_common.base.BaseViewModel
 import com.istudio.core_common.functional.UseCaseResult
 import com.istudio.core_common.ui.uiEvent.UiText
+import com.istudio.core_location.domain.LastLocationFeature
+import com.istudio.core_location.domain.LocationFeature
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
-import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
-import com.istudio.distancetracker.core.domain.features.location.LocationFeature
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates

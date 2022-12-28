@@ -6,4 +6,5 @@ object Modules {
     const val corePreferences = ":core:core-preferences"
     const val coreCommon = ":core:core-common"
     const val coreLogger = ":core:core-logger"
+    const val coreLocation = ":core:core-location"
 }

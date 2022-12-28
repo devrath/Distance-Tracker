@@ -1,12 +1,7 @@
-package com.istudio.distancetracker.core.data.implementation.location
+package com.istudio.core_location.data
 
-import android.content.Context
 import android.location.LocationManager
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
-import com.istudio.distancetracker.core.domain.features.location.LocationFeature
+import com.istudio.core_location.domain.LocationFeature
 
 class LocationFeatureImpl(
     private var loacationManager: LocationManager

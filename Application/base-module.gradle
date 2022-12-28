@@ -48,23 +48,12 @@ dependencies {
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
 
-    implementation CustomLogging.orhanobut
-    implementation CustomLogging.timber
-
     //implementation Moshi.moshiRepo
     implementation Gson.gson
     //kapt Moshi.moshiCodegen
 
     implementation platform(Firebase.googleFirebase)
-
-    implementation Firebase.firebaseKtx
-    implementation Firebase.firebaseDatabaseKtx
-    implementation Firebase.firebaseAnalytics
-    implementation Firebase.firebaseCrashlyticsKtx
     implementation Firebase.firebaseAnalyticsKtx
-    implementation Firebase.firebaseAuthKtx
-    implementation Firebase.firebaseFirestoreKtx
-    implementation Firebase.firebaseStorageKtx
 
     implementation Coroutines.coroutineLib
     implementation AndroidX.coreKtx

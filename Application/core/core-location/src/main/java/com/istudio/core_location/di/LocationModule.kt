@@ -1,16 +1,14 @@
-package com.istudio.distancetracker.core.di.modules
+package com.istudio.core_location.di
 
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.istudio.distancetracker.core.data.implementation.connectivity.ConnectivityFeatureImpl
-import com.istudio.distancetracker.core.data.implementation.location.LastLocationFeatureImpl
-import com.istudio.distancetracker.core.data.implementation.location.LocationFeatureImpl
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
-import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
-import com.istudio.distancetracker.core.domain.features.location.LocationFeature
+import com.istudio.core_location.data.LastLocationFeatureImpl
+import com.istudio.core_location.data.LocationFeatureImpl
+import com.istudio.core_location.domain.LastLocationFeature
+import com.istudio.core_location.domain.LocationFeature
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

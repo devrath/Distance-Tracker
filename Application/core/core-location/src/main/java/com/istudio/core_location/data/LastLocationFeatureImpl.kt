@@ -1,9 +1,9 @@
-package com.istudio.distancetracker.core.data.implementation.location
+package com.istudio.core_location.data
 
 import android.annotation.SuppressLint
 import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
+import com.istudio.core_location.domain.LastLocationFeature
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.asDeferred

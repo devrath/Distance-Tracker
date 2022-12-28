@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.core.domain.features.location
+package com.istudio.core_location.domain
 
 import android.location.Location
 import com.google.android.gms.maps.model.LatLng
