@@ -170,6 +170,7 @@ dependencies {
     implementation(project(Modules.coreCommon))
     implementation(project(Modules.coreLogger))
     implementation(project(Modules.coreLocation))
+    implementation(project(Modules.coreConnectivity))
     // ********************************** Modules ************************************
 
 

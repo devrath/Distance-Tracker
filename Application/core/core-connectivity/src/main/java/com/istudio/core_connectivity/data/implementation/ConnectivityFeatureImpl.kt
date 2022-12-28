@@ -1,10 +1,10 @@
-package com.istudio.distancetracker.core.data.implementation.connectivity
+package com.istudio.core_connectivity.data.implementation
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
+import com.istudio.core_connectivity.domain.ConnectivityFeature
 
 class ConnectivityFeatureImpl(
     private val context: Context

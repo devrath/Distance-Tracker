@@ -1,8 +1,8 @@
-package com.istudio.distancetracker.core.di.modules
+package com.istudio.core_connectivity.di
 
 import android.content.Context
-import com.istudio.distancetracker.core.data.implementation.connectivity.ConnectivityFeatureImpl
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
+import com.istudio.core_connectivity.data.implementation.ConnectivityFeatureImpl
+import com.istudio.core_connectivity.domain.ConnectivityFeature
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

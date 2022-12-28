@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-common" />
+            <option value="$PROJECT_DIR$/core/core-connectivity" />
             <option value="$PROJECT_DIR$/core/core-location" />
             <option value="$PROJECT_DIR$/core/core-logger" />
             <option value="$PROJECT_DIR$/core/core-preferences" />

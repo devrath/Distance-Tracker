@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.core.domain.features.connectivity
+package com.istudio.core_connectivity.domain
 
 interface ConnectivityFeature {
     fun checkConnectivity(): Boolean

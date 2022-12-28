@@ -13,7 +13,7 @@ import com.istudio.core_common.ui.uiEvent.UiText
 import com.istudio.core_location.domain.LastLocationFeature
 import com.istudio.core_location.domain.LocationFeature
 import com.istudio.core_logger.domain.LoggerFeature
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
+import com.istudio.core_connectivity.domain.ConnectivityFeature
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
