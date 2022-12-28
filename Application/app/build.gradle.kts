@@ -173,6 +173,7 @@ dependencies {
 
     // ********************************** Modules ************************************
     implementation(project(Modules.featInAppReview))
+    implementation(project(Modules.coreCommon))
     // ********************************** Modules ************************************
 
 

@@ -7,13 +7,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
+import com.istudio.core_common.base.BaseViewModel
+import com.istudio.core_common.functional.UseCaseResult
+import com.istudio.core_common.ui.uiEvent.UiText
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
 import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
 import com.istudio.distancetracker.core.domain.features.location.LocationFeature
 import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
-import com.istudio.distancetracker.core.platform.base.BaseViewModel
-import com.istudio.distancetracker.core.platform.functional.UseCaseResult
-import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates

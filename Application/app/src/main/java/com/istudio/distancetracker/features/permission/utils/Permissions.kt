@@ -11,8 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.istudio.core_common.extensions.openAppNotificationSettings
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.core.platform.extensions.openAppNotificationSettings
 import com.permissionx.guolindev.PermissionX
 
 object Permissions {
