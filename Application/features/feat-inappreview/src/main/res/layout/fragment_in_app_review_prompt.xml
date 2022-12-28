@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/inAppReviewPromptRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
     app:cardElevation="0dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:srcCompat="@drawable/ic_rate_review" />
+
+    <TextView
+        android:id="@+id/reviewPromptTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/defaultMargin"
+        android:gravity="center_horizontal"
+        android:text="@string/inAppReviewTitle"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/ratePromptTitleTextSize"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+    <TextView
+        android:id="@+id/reviewPromptText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:text="@string/inAppReviewMessage"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/ratePromptMessageTextSize"
+        app:layout_constraintEnd_toEndOf="@+id/reviewPromptTitle"
+        app:layout_constraintStart_toStartOf="@+id/reviewPromptTitle"
+        app:layout_constraintTop_toBottomOf="@+id/reviewPromptTitle" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/welcomeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/reviewPromptText"
+        app:layout_constraintStart_toStartOf="@+id/reviewPromptText"
+        app:layout_constraintTop_toBottomOf="@+id/reviewPromptText"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/rate_app_lotte" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_rate_review" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/leaveReview"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/inAppReviewRateNow"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/promptButtonTextSize"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/reviewLater"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
 
-        <TextView
-            android:id="@+id/reviewPromptTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin"
-            android:gravity="center_horizontal"
-            android:text="@string/inAppReviewTitle"
-            android:textSize="@dimen/ratePromptTitleTextSize" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reviewLater"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/inAppReviewRateLater"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/promptButtonTextSize"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/leaveReview"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
 
-        <TextView
-            android:id="@+id/reviewPromptText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/inAppReviewMessage"
-            android:textSize="@dimen/ratePromptMessageTextSize" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/welcomeImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/welcomeTextViewId"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/rate_app_lotte" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/leaveReview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:backgroundTint="@color/colorGreen"
-                android:textColor="@color/white"
-                android:text="@string/inAppReviewRateNow"
-                android:textSize="@dimen/promptButtonTextSize" />
-
-            <Button
-                android:id="@+id/reviewLater"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:backgroundTint="@color/colorRed"
-                android:textColor="@color/white"
-                android:text="@string/inAppReviewRateLater"
-                android:textSize="@dimen/promptButtonTextSize" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

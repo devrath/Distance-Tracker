@@ -37,6 +37,9 @@ class ReviewDialog : DialogFragment() {
     private val viewModel: ReviewDialogVm by viewModels()
 
     // ********************************** Life cycle methods ***************************************
+
+    override fun getTheme() = R.style.RoundedCornersDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
