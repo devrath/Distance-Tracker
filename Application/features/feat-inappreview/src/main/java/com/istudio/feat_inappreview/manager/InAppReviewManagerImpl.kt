@@ -35,10 +35,10 @@ class InAppReviewManagerImpl  @Inject constructor(
     @ApplicationContext private val context: Context,
     private val reviewManager: ReviewManager,
     private val inAppReviewPreferences: InAppReviewPreferences,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : CoroutineScope, InAppReviewManager {
 
-    override val coroutineContext: CoroutineContext get() = SupervisorJob() + ioDispatcher
+    override val coroutineContext: CoroutineContext get() = SupervisorJob() + dispatcher
 
     private var reviewInfo: ReviewInfo? = null
 
@@ -47,12 +47,16 @@ class InAppReviewManagerImpl  @Inject constructor(
      * The [ReviewInfo] is used to request the review flow later in the app.
      * */
     init {
-        CoroutineScope(Dispatchers.IO).launch {
-            if (isEligibleForReview()) {
+        CoroutineScope(coroutineContext).launch {
+            val isEligibleForReview = withContext(dispatcher){ isEligibleForReview() }
+
+            if (isEligibleForReview) {
                 reviewManager.requestReviewFlow().addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         reviewInfo = it.result
                     }
+                }.addOnFailureListener {
+
                 }
             }
         }
@@ -65,10 +69,13 @@ class InAppReviewManagerImpl  @Inject constructor(
      * or if they asked to rate later and a week has passed.
      * */
     override suspend fun isEligibleForReview(): Boolean  {
+        // Has user chosen rate later
         val inAppReviewPreferencesValue = inAppReviewPreferences.hasUserChosenRateLater().first()
+        // Has the user rated the app
         val hasUserRatedApp = inAppReviewPreferences.hasUserRatedApp().first()
-        // Has enough time passed
+        // Rate later time stamp from the time when user clicked cancel
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime().first()
+        // Has enough time has passed after clicking cancel
         val enoughTimePassed  =  abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(
             ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER
         )
