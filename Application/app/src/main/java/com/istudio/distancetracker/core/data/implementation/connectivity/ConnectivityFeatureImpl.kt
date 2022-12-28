@@ -5,8 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
-import com.istudio.distancetracker.core.domain.features.parser.ParserFeature
-import com.istudio.distancetracker.core.domain.models.User
 
 class ConnectivityFeatureImpl(
     private val context: Context
