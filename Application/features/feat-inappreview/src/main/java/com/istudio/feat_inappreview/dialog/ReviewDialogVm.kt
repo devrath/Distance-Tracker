@@ -45,15 +45,11 @@ class ReviewDialogVm @Inject constructor(
      * Set the later time stamp
      */
     fun rateLaterAction() {
-        cancelDialogAction()
-        viewModelScope.launch { _eventChannel.send(ReviewStates.RateLaterAction) }
-    }
-
-    fun cancelDialogAction() {
         viewModelScope.launch {
-            val time = withContext(Dispatchers.Default) { getLaterTime() }
+            val time = getLaterTime()
             preferences.setUserChosenRateLater(true)
             preferences.setRateLater(time)
+            _eventChannel.send(ReviewStates.RateLaterAction)
         }
     }
 

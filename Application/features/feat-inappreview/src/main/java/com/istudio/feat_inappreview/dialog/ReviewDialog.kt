@@ -58,7 +58,7 @@ class ReviewDialog : DialogFragment() {
      * If the user cancels the dialog, we process that as if they chose to "Rate Later".
      * */
     override fun onCancel(dialog: DialogInterface) {
-        viewModel.cancelDialogAction()
+        //viewModel.cancelDialogAction()
         super.onCancel(dialog)
     }
     // ********************************** Over-ridden methods **************************************

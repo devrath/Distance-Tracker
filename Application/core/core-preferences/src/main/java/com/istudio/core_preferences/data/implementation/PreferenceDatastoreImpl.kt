@@ -45,7 +45,7 @@ class PreferenceDatastoreImpl(
 
     /** *************************************************************** **/
     override suspend fun getRateLaterTime(): Flow<Long> {
-        return dataStore.getValueFlow(keyRefGetRateLaterTime, defaultValue = -1)
+        return dataStore.getValueFlow(keyRefGetRateLaterTime, defaultValue = 0)
     }
 
     override suspend fun setRateLater(time: Long) {
