@@ -16,4 +16,9 @@ interface InAppReviewManager {
      * Gives the information if the user should see the review flow/prompt.
      * */
     suspend fun isEligibleForReview(): Boolean
+
+    /**
+     * Cancels the coroutines if any are under the process
+     * */
+    fun cancelCoroutines(message: String)
 }

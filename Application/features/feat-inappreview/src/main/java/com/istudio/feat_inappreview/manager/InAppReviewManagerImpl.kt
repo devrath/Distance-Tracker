@@ -1,25 +1,22 @@
 package com.istudio.feat_inappreview.manager
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
-import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.di.qualifiers.IoDispatcher
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.feat_inappreview.ReviewFeatureConstants
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -33,15 +30,17 @@ import kotlin.math.abs
  * @property reviewInfo - The info for the app that enables In-App Review calls.
  * */
 class InAppReviewManagerImpl  @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val reviewManager: ReviewManager,
     private val inAppReviewPreferences: InAppReviewPreferences,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : CoroutineScope, InAppReviewManager {
 
-    override val coroutineContext: CoroutineContext get() = SupervisorJob() + dispatcher
-
     private var reviewInfo: ReviewInfo? = null
+
+    /**
+     * Exception Handler
+     * */
+    override val coroutineContext: CoroutineContext get() = coroutineContextHandling()
 
     /**
      * After the class is created, we request the [ReviewInfo] to pre-cache it if the user is eligible.
@@ -98,4 +97,23 @@ class InAppReviewManagerImpl  @Inject constructor(
             false
         }
     }
+
+    /**
+     * Cancels the coroutines if any are under the process
+     * */
+    override fun cancelCoroutines(message: String) {
+        when {
+            coroutineContext.isActive -> {
+                coroutineContext.cancel(CancellationException(message))
+            }
+        }
+    }
+
+
+    private fun coroutineContextHandling() =
+        SupervisorJob() + dispatcher + CoroutineExceptionHandler { _, e ->
+            println(
+                "exception handler: $e"
+            )
+        }
 }

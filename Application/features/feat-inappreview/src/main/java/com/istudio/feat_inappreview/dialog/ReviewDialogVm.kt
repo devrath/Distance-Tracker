@@ -65,4 +65,10 @@ class ReviewDialogVm @Inject constructor(
         return System.currentTimeMillis() + TimeUnit.DAYS.toMillis(ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER)
     }
 
+
+    override fun onCleared() {
+        super.onCleared()
+        inAppReviewManager.cancelCoroutines("View Model is cancelled")
+    }
+
 }
