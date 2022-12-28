@@ -42,8 +42,7 @@ import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
-import com.istudio.feat_inappreview.InAppReviewView
-import com.istudio.feat_inappreview.dialog.InAppReviewPromptDialog
+import com.istudio.feat_inappreview.dialog.ReviewDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -191,7 +190,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     }
                     is MapStates.AddMarker -> addMarker(event.location)
                     is MapStates.LaunchInAppReview -> {
-                        InAppReviewPromptDialog().show(childFragmentManager, null)
+                        ReviewDialog().show(childFragmentManager, null)
                     }
                 }
             }

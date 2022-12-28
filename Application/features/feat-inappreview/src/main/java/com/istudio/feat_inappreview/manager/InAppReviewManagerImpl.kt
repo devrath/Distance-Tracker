@@ -11,6 +11,7 @@ import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.di.qualifiers.IoDispatcher
 import com.istudio.core_preferences.data.repository.PreferenceRepository
 import com.istudio.core_preferences.domain.InAppReviewPreferences
+import com.istudio.feat_inappreview.ReviewFeatureConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -38,11 +39,6 @@ class InAppReviewManagerImpl  @Inject constructor(
 ) : CoroutineScope, InAppReviewManager {
 
     override val coroutineContext: CoroutineContext get() = SupervisorJob() + ioDispatcher
-
-    companion object {
-        private const val KEY_REVIEW = "reviewFlow"
-        private const val DAYS_FOR_REVIEW_REMINDER : Long = 14
-    }
 
     private var reviewInfo: ReviewInfo? = null
 
@@ -74,10 +70,15 @@ class InAppReviewManagerImpl  @Inject constructor(
         return (!hasUserRatedApp && !inAppReviewPreferencesValue) || (inAppReviewPreferencesValue && enoughTimePassed())
     }
 
+    /**
+     * Returns true if the time passed is enough after dismissing the dialog
+     *
+     * So we can prompt for the dialog once again
+     */
     private suspend fun enoughTimePassed(): Boolean {
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime().first()
-
-        return abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(DAYS_FOR_REVIEW_REMINDER)
+        return abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(
+            ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER)
     }
 
     /**

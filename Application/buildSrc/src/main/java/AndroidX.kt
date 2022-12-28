@@ -11,6 +11,9 @@ object AndroidX {
     private const val cardViewVersion = "1.0.0"
     const val cardView = "androidx.cardview:cardview:$cardViewVersion"
 
+    private const val fragmentVersion = "1.4.1"
+    const val fragment = "androidx.fragment:fragment:$fragmentVersion"
 
-
+    private const val fragmentKtxVersion = "1.4.1"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 }

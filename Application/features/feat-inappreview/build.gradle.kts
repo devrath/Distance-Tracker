@@ -10,5 +10,6 @@ dependencies {
     "implementation"(AndroidX.constraint)
     "implementation"(AndroidX.cardView)
     "implementation"(Lotte.lotteAnimation)
-    //"implementation"(Google.playCoreKtx)
+    "implementation"(AndroidX.fragment)
+    "implementation"(AndroidX.fragmentKtx)
 }

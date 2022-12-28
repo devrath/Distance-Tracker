@@ -1,9 +1,7 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -16,7 +14,6 @@ import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
 import com.istudio.distancetracker.core.platform.base.BaseViewModel
 import com.istudio.distancetracker.core.platform.functional.UseCaseResult
 import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
-import com.istudio.distancetracker.features.KeysFeatureNames
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
@@ -24,7 +21,6 @@ import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.Constants.preparePolyline
 import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
 import com.istudio.feat_inappreview.InAppReviewView
-import com.istudio.feat_inappreview.dialog.InAppReviewPromptDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
