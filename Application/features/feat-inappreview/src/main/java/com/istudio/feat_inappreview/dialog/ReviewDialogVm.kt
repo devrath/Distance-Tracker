@@ -1,16 +1,17 @@
 package com.istudio.feat_inappreview.dialog
 
 import android.app.Activity
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.istudio.core_common.base.BaseViewModel
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.feat_inappreview.ReviewFeatureConstants
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -50,10 +51,9 @@ class ReviewDialogVm @Inject constructor(
 
     fun cancelDialogAction() {
         viewModelScope.launch {
-            preferences.apply {
-                setUserChosenRateLater(true)
-                setRateLater(getLaterTime())
-            }
+            val time = withContext(Dispatchers.Default) { getLaterTime() }
+            preferences.setUserChosenRateLater(true)
+            preferences.setRateLater(time)
         }
     }
 
