@@ -5,9 +5,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -81,7 +83,22 @@ class ReviewDialog : DialogFragment() {
                 when (event) {
                     ReviewStates.RateLaterAction -> dismissAllowingStateLoss()
                     ReviewStates.LeaveReviewAction -> dismissAllowingStateLoss()
+                    ReviewStates.SendToPlayStoreScreen -> sendUserToPlayStore()
                 }
+            }
+        }
+    }
+
+    private fun sendUserToPlayStore() {
+        val cxt = context ?: return
+        val appPackageName = cxt.packageName
+        val markedUri = Uri.parse("market://details?id=$appPackageName")
+        val playStoreUri = Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+        cxt.apply {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, markedUri))
+            } catch (error: Error) {
+                startActivity(Intent(Intent.ACTION_VIEW, playStoreUri))
             }
         }
     }

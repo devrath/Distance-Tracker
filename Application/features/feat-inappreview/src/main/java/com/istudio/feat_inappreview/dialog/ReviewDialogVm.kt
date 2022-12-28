@@ -34,7 +34,15 @@ class ReviewDialogVm @Inject constructor(
      */
     fun onLeaveReviewTapped(context : Activity) {
         viewModelScope.launch { preferences.setUserRatedApp(true) }
-        inAppReviewManager.startReview(context)
+        viewModelScope.launch {
+            if(inAppReviewManager.startReview(context)){
+                // SUCCESS -> So just launch the rating dialog
+            }else{
+                // FAILURE -> So launch the play-store activity
+                _eventChannel.send(ReviewStates.SendToPlayStoreScreen)
+            }
+        }
+
         viewModelScope.launch { _eventChannel.send(ReviewStates.LeaveReviewAction) }
     }
 

@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -87,43 +88,14 @@ class InAppReviewManagerImpl  @Inject constructor(
      *
      * @param activity - The Activity to which the lifecycle is attached.
      * */
-    override fun startReview(activity: Activity) {
-        if (reviewInfo != null) {
-            reviewInfo?.let {
-                reviewManager.launchReviewFlow(activity, it).addOnCompleteListener { reviewFlow ->
-                    onReviewFlowLaunchCompleted(reviewFlow)
-                }
-            }
+    override suspend fun startReview(activity: Activity): Boolean {
+        return if (reviewInfo != null) {
+            val reviewDeferred = withContext(coroutineContext){
+                async { reviewManager.launchReviewFlow(activity, reviewInfo!!) }
+            }.await()
+            reviewDeferred.isSuccessful
         } else {
-            sendUserToPlayStore()
-        }
-    }
-
-    private fun onReviewFlowLaunchCompleted(reviewFlow: Task<Void>) {
-        if (reviewFlow.isSuccessful) {
-           // logSuccess()
-        } else {
-            sendUserToPlayStore()
-        }
-    }
-
-    private fun sendUserToPlayStore() {
-        val appPackageName = context.packageName
-
-        try {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=$appPackageName")
-                )
-            )
-        } catch (error: Error) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
-                )
-            )
+            false
         }
     }
 }
