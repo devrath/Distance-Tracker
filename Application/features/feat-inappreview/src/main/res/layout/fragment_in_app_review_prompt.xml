@@ -49,7 +49,7 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/welcomeImageView"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/reviewPromptText"
         app:layout_constraintStart_toStartOf="@+id/reviewPromptText"
@@ -58,7 +58,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/rate_app_lotte" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/leaveReview"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -68,13 +68,14 @@
         android:text="@string/inAppReviewRateNow"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/promptButtonTextSize"
+        android:background="@drawable/review_action_border"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintEnd_toStartOf="@+id/reviewLater"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/reviewLater"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -84,6 +85,7 @@
         android:text="@string/inAppReviewRateLater"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/promptButtonTextSize"
+        android:background="@drawable/not_now_action_border"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
