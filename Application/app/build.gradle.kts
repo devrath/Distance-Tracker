@@ -12,6 +12,11 @@ plugins {
     id("java-test-fixtures")
 }
 
+// CODE-QUALITY:-> Spotless
+apply {
+    from("$rootDir/buildSrc/scripts/spotless.gradle")
+}
+
 android {
     compileSdk = ProjectConfig.compileSdk
 

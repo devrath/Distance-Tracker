@@ -14,6 +14,7 @@ buildscript {
         classpath(Build.ktLintPlugin)
         classpath(Build.navSafeArgs)
         classpath(Build.secretsGradle)
+        classpath(Build.spotlessPlugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,6 +22,7 @@ buildscript {
 
 subprojects {
     apply(plugin = Build.BuildPlugins.ktLint) // Version should be inherited from parent
+    apply(plugin = Build.BuildPlugins.spotless) // Version should be inherited from parent
 
     repositories {
         google()

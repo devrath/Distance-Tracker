@@ -24,6 +24,10 @@ object Build {
     private const val secretsGradleVersion = "2.0.1"
     const val secretsGradle = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:$secretsGradleVersion"
 
+    private const val spotlessVersion = "6.12.0"
+    const val spotlessPlugin = "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion"
+
+
     object BuildPlugins {
         const val androidLibrary = "com.android.library"
         const val androidApplication = "com.android.application"
@@ -38,6 +42,7 @@ object Build {
         const val googleServices = "com.google.gms.google-services"
         const val crashlytics = "com.google.firebase.crashlytics"
         const val ktLint = "org.jlleitschuh.gradle.ktlint"
+        const val spotless = "com.diffplug.spotless"
 
         const val kotlinAndroidExtensions = "kotlin-android-extensions"
     }
