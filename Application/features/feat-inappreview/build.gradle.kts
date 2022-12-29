@@ -12,4 +12,9 @@ dependencies {
     "implementation"(Lotte.lotteAnimation)
     "implementation"(AndroidX.fragment)
     "implementation"(AndroidX.fragmentKtx)
+
+
+    // ********************************** Modules ************************************
+    "implementation"(project(Modules.coreUi))
+    // ********************************** Modules ************************************
 }

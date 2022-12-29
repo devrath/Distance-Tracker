@@ -4,6 +4,7 @@ object Modules {
     const val features = ":features"
     const val featInAppReview = ":features:feat-inappreview"
     const val corePreferences = ":core:core-preferences"
+    const val coreUi = ":core:core-ui"
     const val coreCommon = ":core:core-common"
     const val coreLogger = ":core:core-logger"
     const val coreLocation = ":core:core-location"

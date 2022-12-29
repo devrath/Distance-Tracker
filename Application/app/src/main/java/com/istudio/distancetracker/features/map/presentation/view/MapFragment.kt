@@ -151,10 +151,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      */
     private fun setOnClickListeners() {
         binding.mapMasterViewId.apply {
-            setStartButtonClickListener {
-                //startButtonAction()
-                ReviewDialog().show(childFragmentManager, null)
-            }
+            setStartButtonClickListener { startButtonAction() }
             setStopButtonClickListener { stopButtonClicked() }
             setResetButtonClickListener { onResetButtonClicked() }
             setActLstButtonClickListener { onActivityListButtonClicked() }
