@@ -31,7 +31,9 @@ This application is used to track the user distance traveled and the time taken 
 | [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. | |
 | [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. | |
 
+--------
 
+# **`𝙻𝚘𝚌𝚊𝚝𝚒𝚘𝚗 𝚃𝚛𝚊𝚌𝚔𝚒𝚗𝚐`** 🧭
 
 ## Set-Up 👣
 
