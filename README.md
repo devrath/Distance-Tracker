@@ -35,7 +35,7 @@ This application is used to track the user distance traveled and the time taken 
 
 # **`𝙻𝚘𝚌𝚊𝚝𝚒𝚘𝚗 𝚃𝚛𝚊𝚌𝚔𝚒𝚗𝚐`** 🧭
 
-| [`Setup`]() |
+| [`Setup`](https://github.com/devrath/Distance-Tracker/blob/main/README.md#%F0%9D%9A%82%F0%9D%9A%8E%F0%9D%9A%9D-%F0%9D%9A%84%F0%9D%9A%99-) |
 
 
 
