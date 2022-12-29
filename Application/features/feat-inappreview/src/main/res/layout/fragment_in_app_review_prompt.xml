@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inAppReviewPromptRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:srcCompat="@drawable/ic_rate_review"
+        android:contentDescription="@string/inAppReviewRateNow" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/reviewPromptTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/defaultMargin"
+        android:gravity="center_horizontal"
+        android:text="@string/inAppReviewTitle"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/ratePromptTitleTextSize"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/reviewPromptText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="@string/inAppReviewMessage"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/ratePromptMessageTextSize"
+        android:textStyle="normal"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintEnd_toEndOf="@+id/reviewPromptTitle"
+        app:layout_constraintStart_toStartOf="@+id/reviewPromptTitle"
+        app:layout_constraintTop_toBottomOf="@+id/reviewPromptTitle" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/welcomeImageView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/reviewPromptText"
+        app:layout_constraintStart_toStartOf="@+id/reviewPromptText"
+        app:layout_constraintTop_toBottomOf="@+id/reviewPromptText"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/rate_app_lotte" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/leaveReview"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/review_action_border"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/inAppReviewRateNow"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/promptButtonTextSize"
+        android:textStyle="normal"
+        android:fontFamily="@font/roboto_medium"
+        app:layout_constraintEnd_toStartOf="@+id/reviewLater"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/reviewLater"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/inAppReviewRateLater"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/promptButtonTextSize"
+        android:textStyle="normal"
+        android:fontFamily="@font/roboto_medium"
+        android:background="@drawable/not_now_action_border"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/leaveReview"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

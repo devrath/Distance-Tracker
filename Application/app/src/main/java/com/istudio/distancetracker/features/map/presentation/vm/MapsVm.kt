@@ -1,29 +1,32 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
-import com.istudio.distancetracker.core.domain.features.connectivity.ConnectivityFeature
-import com.istudio.distancetracker.core.domain.features.location.LastLocationFeature
-import com.istudio.distancetracker.core.domain.features.location.LocationFeature
-import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
-import com.istudio.distancetracker.core.platform.base.BaseViewModel
-import com.istudio.distancetracker.core.platform.functional.UseCaseResult
-import com.istudio.distancetracker.core.platform.ui.uiEvent.UiText
-import com.istudio.distancetracker.features.KeysFeatureNames
+import com.istudio.core_common.base.BaseViewModel
+import com.istudio.core_common.functional.UseCaseResult
+import com.istudio.core_common.ui.uiEvent.UiText
+import com.istudio.core_location.domain.LastLocationFeature
+import com.istudio.core_location.domain.LocationFeature
+import com.istudio.core_logger.domain.LoggerFeature
+import com.istudio.core_connectivity.domain.ConnectivityFeature
+import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.Constants.FOLLOW_POLYLINE_UPDATE_DURATION
 import com.istudio.distancetracker.Constants.preparePolyline
 import com.istudio.distancetracker.features.KeysFeatureNames.FEATURE_MAP
+import com.istudio.feat_inappreview.InAppReviewView
+import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,6 +38,10 @@ class MapsVm @Inject constructor(
     private var connectivity: ConnectivityFeature,
     private var log: LoggerFeature,
     private var lastLocationFeature: LastLocationFeature,
+    // Feature: In-App Review
+    private var reviewManager: InAppReviewManager,
+    // Preferences used to update the rate app prompt flags.
+    var preferences: InAppReviewPreferences,
 ) : BaseViewModel() {
 
     /**
@@ -55,6 +62,8 @@ class MapsVm @Inject constructor(
     var polylineList = mutableListOf<Polyline>()
     var markerList = mutableListOf<Marker>()
 
+
+    private lateinit var inAppReviewView: InAppReviewView
 
 
     private fun drawPolyline() {
@@ -88,6 +97,7 @@ class MapsVm @Inject constructor(
                 resetViewModel()
             }
         }
+        showInAppReview()
     }
 
     /**
@@ -134,6 +144,18 @@ class MapsVm @Inject constructor(
 
     fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
 
+    // ********************************* Review Prompt *********************************************
+    private fun showInAppReview() {
+        viewModelScope.launch {
+            when {
+                reviewManager.isEligibleForReview() -> {
+                    viewModelScope.launch { _eventChannel.send(MapStates.LaunchInAppReview) }
+                }
+            }
+        }
+    }
+    // ********************************* Review Prompt *********************************************
+
     // ********************************* Service-States ********************************************
     fun trackerServiceInProgress(locations: MutableList<LatLng>?) {
         locations?.let {
@@ -167,6 +189,17 @@ class MapsVm @Inject constructor(
     }
     // ********************************* Service-States ********************************************
 
+    // ********************************* Preference-States *****************************************
+
+    fun setFlagTrackerIsUsed() {
+        viewModelScope.launch {
+            var number = preferences.noOfDistanceTracked().first()
+            number++
+            preferences.setNoOfDistanceTracked(number)
+        }
+    }
+    // ********************************* Preference-States *****************************************
+
     /**
      * ERROR HANDLING: For the Use cases
      */
@@ -175,5 +208,4 @@ class MapsVm @Inject constructor(
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _eventChannel.send(MapStates.ShowErrorMessage(uiEvent))
     }
-
 }

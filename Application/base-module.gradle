@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdk ProjectConfig.compileSdk
@@ -30,29 +31,29 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures { viewBinding = true }
 }
 
 dependencies {
-    //implementation Build.kotlinStdlibPlugin
+
+    implementation(Coroutines.coroutinePlayServicesLib)
+
+    implementation(LifeCycle.lifecycleExtensions)
+    implementation(LifeCycle.lifecycleLiveData)
+    implementation(LifeCycle.lifecycleRuntimeKtx)
+    implementation(Google.material)
+
+    implementation(Google.material)
+
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
 
-    implementation CustomLogging.orhanobut
-    implementation CustomLogging.timber
-
-    implementation Moshi.moshiRepo
-    kapt Moshi.moshiCodegen
+    //implementation Moshi.moshiRepo
+    implementation Gson.gson
+    //kapt Moshi.moshiCodegen
 
     implementation platform(Firebase.googleFirebase)
-
-    implementation Firebase.firebaseKtx
-    implementation Firebase.firebaseDatabaseKtx
-    implementation Firebase.firebaseAnalytics
-    implementation Firebase.firebaseCrashlyticsKtx
     implementation Firebase.firebaseAnalyticsKtx
-    implementation Firebase.firebaseAuthKtx
-    implementation Firebase.firebaseFirestoreKtx
-    implementation Firebase.firebaseStorageKtx
 
     implementation Coroutines.coroutineLib
     implementation AndroidX.coreKtx

@@ -23,10 +23,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.istudio.core_common.extensions.SnackBarDisplay
+import com.istudio.core_common.extensions.showSnackbar
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.core.platform.extensions.SnackBarDisplay
-import com.istudio.distancetracker.core.platform.extensions.showSnackbar
-import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.NetworkObserver
@@ -39,13 +38,17 @@ import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
+import com.istudio.feat_inappreview.dialog.ReviewDialog
+import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -58,6 +61,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private lateinit var networkObserver: NetworkObserver
 
     private val viewModel: MapsVm by viewModels()
+
+    /**
+     * Used to launch the In App Review flow if the user should see it.
+     * */
+    @Inject
+    lateinit var reviewManager: InAppReviewManager
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -180,6 +189,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                         viewModel.addPolylineToList(polyline)
                     }
                     is MapStates.AddMarker -> addMarker(event.location)
+                    is MapStates.LaunchInAppReview -> {
+                        ReviewDialog().show(childFragmentManager, null)
+                    }
                 }
             }
         }
@@ -217,6 +229,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      */
     private fun stopButtonClicked() {
         stopForegroundService()
+        viewModel.setFlagTrackerIsUsed()
         binding.mapMasterViewId.stoppedUiState()
     }
 

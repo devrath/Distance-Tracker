@@ -87,14 +87,8 @@ dependencies {
 
     // ********************************** Firebase ************************************
     implementation(platform(Firebase.googleFirebase))
-    implementation(Firebase.firebaseKtx)
-    implementation(Firebase.firebaseDatabaseKtx)
-    implementation(Firebase.firebaseAnalytics)
-    implementation(Firebase.firebaseCrashlyticsKtx)
     implementation(Firebase.firebaseAnalyticsKtx)
-    implementation(Firebase.firebaseAuthKtx)
-    implementation(Firebase.firebaseFirestoreKtx)
-    implementation(Firebase.firebaseStorageKtx)
+    implementation(Firebase.firebaseKtx)
     // ********************************** Firebase ************************************
 
     // ********************************** Basic ***************************************
@@ -107,7 +101,8 @@ dependencies {
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
     implementation(DataStorePreferences.datastorePreferences)
-    implementation(Moshi.moshiRepo)
+    //implementation(Moshi.moshiRepo)
+    implementation(Gson.gson)
     implementation(CustomLogging.orhanobut)
     implementation(CustomLogging.timber)
     implementation(Coroutines.coroutineAndroidLib)
@@ -170,10 +165,14 @@ dependencies {
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     // ************************* Instrumentation Testing ******************************
 
+    // ********************************** Modules ************************************
+    implementation(project(Modules.featInAppReview))
+    implementation(project(Modules.coreCommon))
+    implementation(project(Modules.coreLogger))
+    implementation(project(Modules.coreLocation))
+    implementation(project(Modules.coreConnectivity))
+    implementation(project(Modules.corePreferences))
+    // ********************************** Modules ************************************
 
-
-
-    // Injecting fakes
-    //androidTestImplementation(project(Modules.coreMock))
 
 }

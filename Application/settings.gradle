@@ -1,2 +1,11 @@
-include ':app'
 rootProject.name = "Distance Tracker"
+include ':app'
+include ':core'
+include ':features'
+include ':features:feat-inappreview'
+include ':core:core-preferences'
+include ':core:core-common'
+include ':core:core-ui'
+include ':core:core-logger'
+include ':core:core-location'
+include ':core:core-connectivity'

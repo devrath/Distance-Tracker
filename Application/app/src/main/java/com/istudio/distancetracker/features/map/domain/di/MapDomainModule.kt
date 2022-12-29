@@ -1,6 +1,6 @@
 package com.istudio.distancetracker.features.map.domain.di
 
-import com.istudio.distancetracker.core.domain.features.logger.LoggerFeature
+import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.usecases.CalculateResultUseCase
 import dagger.Module

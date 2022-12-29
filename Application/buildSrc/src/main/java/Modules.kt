@@ -1,22 +1,12 @@
 object Modules {
     const val app = ":app"
-
     const val core = ":core"
-    const val coreUi = ":core-ui"
-
-    const val coreMock = ":core-mock"
-
-    // -------------------- Login -------------------------->
-    const val featureLogin = ":features:login"
-    const val featureLoginData = ":features:login:login_data"
-    const val featureLoginDomain = ":features:login:login_domain"
-    const val featureLoginPresentation = ":features:login:login_presentation"
-    // -------------------- Login -------------------------->
-
-    // -------------------- Common ------------------------>
-    const val featureCommon = ":features:common"
-    const val featureCommonData = ":features:common:common_data"
-    const val featureCommonDomain = ":features:common:common_domain"
-    // -------------------- Common ------------------------>
-
+    const val features = ":features"
+    const val featInAppReview = ":features:feat-inappreview"
+    const val corePreferences = ":core:core-preferences"
+    const val coreUi = ":core:core-ui"
+    const val coreCommon = ":core:core-common"
+    const val coreLogger = ":core:core-logger"
+    const val coreLocation = ":core:core-location"
+    const val coreConnectivity = ":core:core-connectivity"
 }
