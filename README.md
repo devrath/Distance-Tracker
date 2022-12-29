@@ -22,6 +22,17 @@ This application is used to track the user distance traveled and the time taken 
 </div>
 
 
+## **`Features in the modules`** 🧱
+
+| **`Features with Description`** | 
+| -------------- |
+| **`Location-Tracking`** : With this feature users can start the tracking from a source and travel to destination. Then measure the `distance travelled` and `time taken` for the journey with a visual display on the map using hte `polyline`. Users will be able to `track the distance` even when the app is not in the foreground or background using a `foreground service`. |
+| [**`Splash API`**](https://developer.android.com/develop/ui/views/launch/splash-screen): With this API there is no need of creating a separate activity to customise the splash screen. The system will automatically create one for you. It also allows you to have a new launch animation for your apps and ability to perform a long running operation. |
+| [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. |
+| [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. |
+
+
+
 ## Set-Up 👣
 
 🔰 `Steps for creating a debug key for map-API`
