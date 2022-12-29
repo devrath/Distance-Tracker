@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/ic_rate_review"
         android:contentDescription="@string/inAppReviewRateNow" />
 
-    <com.istudio.core_ui.customviews.text.TextViewBold
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/reviewPromptTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,12 +30,13 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/ratePromptTitleTextSize"
         android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-    <com.istudio.core_ui.customviews.text.TextViewRegular
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/reviewPromptText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/ratePromptMessageTextSize"
         android:textStyle="normal"
+        android:fontFamily="@font/roboto"
         app:layout_constraintEnd_toEndOf="@+id/reviewPromptTitle"
         app:layout_constraintStart_toStartOf="@+id/reviewPromptTitle"
         app:layout_constraintTop_toBottomOf="@+id/reviewPromptTitle" />
@@ -61,7 +63,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/rate_app_lotte" />
 
-    <com.istudio.core_ui.customviews.text.TextViewMedium
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/leaveReview"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -73,13 +75,14 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/promptButtonTextSize"
         android:textStyle="normal"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toStartOf="@+id/reviewLater"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeImageView" />
 
-    <com.istudio.core_ui.customviews.text.TextViewMedium
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/reviewLater"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -90,6 +93,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/promptButtonTextSize"
         android:textStyle="normal"
+        android:fontFamily="@font/roboto_medium"
         android:background="@drawable/not_now_action_border"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
