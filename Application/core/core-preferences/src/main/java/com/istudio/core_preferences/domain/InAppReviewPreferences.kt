@@ -51,6 +51,20 @@ interface InAppReviewPreferences {
      * */
     suspend fun setRateLater(time: Long)
 
+
+    /**
+     * @return The number of times the distance been tracked
+     * */
+    suspend fun noOfDistanceTracked(): Flow<Int>
+
+
+    /**
+     * Stores the number of times the distance been tracked.
+     *
+     * @param number - set the number of times
+     * */
+    suspend fun setNoOfDistanceTracked(number: Int)
+
     /**
      * Clears out the preferences.
      *

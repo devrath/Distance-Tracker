@@ -1,6 +1,7 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -14,6 +15,7 @@ import com.istudio.core_location.domain.LastLocationFeature
 import com.istudio.core_location.domain.LocationFeature
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.core_connectivity.domain.ConnectivityFeature
+import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
@@ -24,6 +26,7 @@ import com.istudio.feat_inappreview.InAppReviewView
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,7 +39,9 @@ class MapsVm @Inject constructor(
     private var log: LoggerFeature,
     private var lastLocationFeature: LastLocationFeature,
     // Feature: In-App Review
-    private var reviewManager: InAppReviewManager
+    private var reviewManager: InAppReviewManager,
+    // Preferences used to update the rate app prompt flags.
+    var preferences: InAppReviewPreferences,
 ) : BaseViewModel() {
 
     /**
@@ -183,6 +188,17 @@ class MapsVm @Inject constructor(
         }
     }
     // ********************************* Service-States ********************************************
+
+    // ********************************* Preference-States *****************************************
+
+    fun setFlagTrackerIsUsed() {
+        viewModelScope.launch {
+            var number = preferences.noOfDistanceTracked().first()
+            number++
+            preferences.setNoOfDistanceTracked(number)
+        }
+    }
+    // ********************************* Preference-States *****************************************
 
     /**
      * ERROR HANDLING: For the Use cases

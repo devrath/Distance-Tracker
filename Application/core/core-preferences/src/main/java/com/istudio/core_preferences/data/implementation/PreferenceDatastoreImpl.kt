@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences
 import com.istudio.core_preferences.domain.InAppReviewPreferences
@@ -21,6 +22,7 @@ class PreferenceDatastoreImpl(
         private val keyRefHasUserRatedTheApp = booleanPreferencesKey(KeysPreferences.keyHasUserRatedApp)
         private val keyRefHasUserChosenRateLater = booleanPreferencesKey(KeysPreferences.keyHasUserChosenRateLater)
         private val keyRefGetRateLaterTime = longPreferencesKey(KeysPreferences.keyGetRateLaterTime)
+        private val keyNoOfDistanceTracked = intPreferencesKey(KeysPreferences.keyNoOfDistanceTracked)
     }
 
     /** *************************************************************** **/
@@ -53,7 +55,19 @@ class PreferenceDatastoreImpl(
     }
     /** *************************************************************** **/
 
+    /** *************************************************************** **/
+    override suspend fun noOfDistanceTracked(): Flow<Int> {
+        return dataStore.getValueFlow(keyNoOfDistanceTracked, defaultValue = 0)
+    }
+
+    override suspend fun setNoOfDistanceTracked(number: Int) {
+        dataStore.edit { it[keyNoOfDistanceTracked] = number }
+    }
+    /** *************************************************************** **/
+
+    /** *************************************************************** **/
     override suspend fun clearIfUserDidNotRate() { dataStore.edit { it.clear() } }
+    /** *************************************************************** **/
 
 
     private fun <T> DataStore<Preferences>.getValueFlow(

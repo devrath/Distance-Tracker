@@ -75,12 +75,22 @@ class InAppReviewManagerImpl  @Inject constructor(
         val hasUserRatedApp = inAppReviewPreferences.hasUserRatedApp().first()
         // Rate later time stamp from the time when user clicked cancel
         val rateLaterTimestamp = inAppReviewPreferences.getRateLaterTime().first()
+        // Get the number of times user has rated the app
+        val noOfDistanceTracked = inAppReviewPreferences.noOfDistanceTracked().first()
         // Has enough time has passed after clicking cancel
         val enoughTimePassed  =  abs(rateLaterTimestamp - System.currentTimeMillis()) >= TimeUnit.DAYS.toMillis(
             ReviewFeatureConstants.DAYS_FOR_REVIEW_REMINDER
         )
-        return (!hasUserRatedApp && !inAppReviewPreferencesValue) || (inAppReviewPreferencesValue && enoughTimePassed)
+
+        val firstSetOfValues = (!hasUserRatedApp && !inAppReviewPreferencesValue) || (inAppReviewPreferencesValue && enoughTimePassed)
+        val secondSetOfValues = isTimesRatedValidForReview(noOfDistanceTracked)
+        return firstSetOfValues && secondSetOfValues
     }
+
+    /**
+     * If user has used the feature at least more than or equal to three times
+     */
+    private fun isTimesRatedValidForReview(noOfDistanceTracked: Int) = noOfDistanceTracked>=3
 
     /**
      * Attempts to start review flow if the [reviewInfo] is available and the user is eligible.

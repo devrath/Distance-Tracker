@@ -229,6 +229,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      */
     private fun stopButtonClicked() {
         stopForegroundService()
+        viewModel.setFlagTrackerIsUsed()
         binding.mapMasterViewId.stoppedUiState()
     }
 
