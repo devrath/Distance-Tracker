@@ -12,17 +12,7 @@
 
 
 ## **`𝙳𝚎𝚖𝚘 𝚘𝚏 𝚝𝚑𝚎 𝚙𝚛𝚘𝚓𝚎𝚌𝚝`** 💡
-This application is used to track the user distance traveled and the time taken to travel the distance
-<div align="center">
-  
-`Demo` |
---- |
-<img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/Demo.gif" width="160" height="330"/> |
-  
-</div>
-
-
-## **`𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜 𝚘𝚏 𝚝𝚑𝚎 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗`** 🧱
+This application is used to track the user distance traveled and the time taken to travel the distance.
 
 | **`Features with Description`** | **`Wiki`** | **`Demo`** |
 | ------------------------------- | ---------- | ---------- |
