@@ -22,14 +22,14 @@ This application is used to track the user distance traveled and the time taken 
 </div>
 
 
-## **`Features in the modules`** 🧱
+## **`𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜 𝚘𝚏 𝚝𝚑𝚎 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗`** 🧱
 
-| **`Features with Description`** | 
-| -------------- |
-| **`Location-Tracking`** : With this feature users can start the tracking from a source and travel to destination. Then measure the `distance travelled` and `time taken` for the journey with a visual display on the map using hte `polyline`. Users will be able to `track the distance` even when the app is not in the foreground or background using a `foreground service`. |
-| [**`Splash API`**](https://developer.android.com/develop/ui/views/launch/splash-screen): With this API there is no need of creating a separate activity to customise the splash screen. The system will automatically create one for you. It also allows you to have a new launch animation for your apps and ability to perform a long running operation. |
-| [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. |
-| [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. |
+| **`Features with Description`** | **`Demo`** |
+| ------------------------------- | ---------- |
+| **`Location-Tracking`** : With this feature users can start the tracking from a source and travel to destination. Then measure the `distance travelled` and `time taken` for the journey with a visual display on the map using hte `polyline`. Users will be able to `track the distance` even when the app is not in the foreground or background using a `foreground service`. | <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/Demo.gif" width="160" height="330"/> |
+| [**`Splash API`**](https://developer.android.com/develop/ui/views/launch/splash-screen): With this API there is no need of creating a separate activity to customise the splash screen. The system will automatically create one for you. It also allows you to have a new launch animation for your apps and ability to perform a long running operation. | |
+| [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. | |
+| [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. | |
 
 
 
@@ -62,7 +62,7 @@ This application is used to track the user distance traveled and the time taken 
 * Since the project uses firebase to register crashes we need to create a firebase account.
 * Place the google-services.json in the project app level.
 ```  
-## **`𝙰𝚋𝚘𝚞𝚝 𝚙𝚎𝚛𝚖𝚒𝚜𝚜𝚒𝚘𝚗𝚜 𝚞𝚜𝚎𝚍 𝚏𝚘𝚛 𝚝𝚑𝚎 𝚊𝚙𝚙`** 🔑
+## **`𝙰𝚋𝚘𝚞𝚝 𝚙𝚎𝚛𝚖𝚒𝚜𝚜𝚒𝚘𝚗𝚜 𝚞𝚜𝚎𝚍 𝚏𝚘𝚛 𝚝𝚑𝚎 𝚊𝚙𝚙 𝚏𝚘𝚛 𝚕𝚘𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚛𝚊𝚌𝚔𝚒𝚗𝚐`** 🔑
 ▪️ In android sharing user location is very delicate so a series of permissions need to be provided from user </br>
 ▪️ There are two scenarios to handle when it comes to runtime permissions `ACCESS_FINE_LOCATION`, `ACCESS_BACKGROUND_LOCATION`</br>
 
