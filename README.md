@@ -59,6 +59,15 @@ To maintain the style and quality of the code, are used the bellow static analys
 | [spotless](https://github.com/diffplug/spotless)        | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply` |
 | [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint)         | `./gradlew lint`          | -                         |
 
+## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔`** 🏗️️ 
+
+| What            | How                        |
+|----------------	|------------------------------	|
+| 🎭 𝚄𝚜𝚎𝚛 𝙸𝚗𝚝𝚎𝚛𝚏𝚊𝚌𝚎 (𝙰𝚗𝚍𝚛𝚘𝚒𝚍)   | [𝙹𝚎𝚝𝚙𝚊𝚌𝚔 𝙲𝚘𝚖𝚙𝚘𝚜𝚎](https://developer.android.com/jetpack/compose) , [𝙰𝚌𝚝𝚒𝚟𝚒𝚝𝚢+𝚇𝙼𝙻](https://developer.android.com/develop/ui/views/layout/declaring-layout)               |
+| 🏗 𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎    | [𝙲𝚕𝚎𝚊𝚗 𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)                            |
+| 💉 𝙳𝙸 (𝙰𝚗𝚍𝚛𝚘𝚒𝚍)                | [𝙷𝚒𝚕𝚝](https://developer.android.com/training/dependency-injection/hilt-android)                        |
+| 🌊 𝙰𝚜𝚢𝚗𝚌            | [𝙲𝚘𝚛𝚘𝚞𝚝𝚒𝚗𝚎𝚜](https://kotlinlang.org/docs/coroutines-overview.html) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)                |
+| 🌐 𝙽𝚎𝚝𝚠𝚘𝚛𝚔𝚒𝚗𝚐        | [𝙵𝚒𝚛𝚎𝚋𝚊𝚜𝚎](https://firebase.google.com/)                        |
 
 ## **`𝙲𝚘𝚗𝚝𝚛𝚒𝚋𝚞𝚝𝚎`** 🙋‍♂️
 Read [contribution guidelines](CONTRIBUTING.md) for more information regarding contribution.
