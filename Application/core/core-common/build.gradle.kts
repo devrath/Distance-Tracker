@@ -3,6 +3,6 @@ apply {
 }
 
 dependencies {
-    //"implementation"(project(Modules.core))
+    // "implementation"(project(Modules.core))
     "implementation"(Coroutines.coroutineLib)
 }

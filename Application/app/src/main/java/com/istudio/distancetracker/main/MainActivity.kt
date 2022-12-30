@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         setContentView(R.layout.activity_main)
         setNavController()
-        //checkForUpdates()
-        openScreen()
+        checkForUpdates()
+        //openScreen()
     }
 
     /**
