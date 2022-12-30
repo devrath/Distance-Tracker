@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.service
+package com.istudio.core_connectivity.service
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

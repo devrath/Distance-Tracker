@@ -25,11 +25,11 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
+import com.istudio.core_connectivity.service.NetworkObserver
+import com.istudio.core_connectivity.service.NetworkState
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
 import com.istudio.distancetracker.model.Result
-import com.istudio.distancetracker.service.NetworkObserver
-import com.istudio.distancetracker.service.NetworkState
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
