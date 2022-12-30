@@ -59,7 +59,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | [spotless](https://github.com/diffplug/spotless)        | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply` |
 | [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint)         | `./gradlew lint`          | -                         |
 
-## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔**`** 🏗️️ 
+## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔`** 🏗️️ 
 
 | What            | How                        |
 |----------------	|------------------------------	|
