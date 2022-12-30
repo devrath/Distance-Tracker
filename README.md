@@ -1,7 +1,9 @@
 ![cover](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Banner/banner.jpeg)
 
 
-<img src="https://github.com/devrath/devrath/blob/master/images/kotlin_logo.png" align="right" title="Kotlin Logo" width="120">
+
+<a href="https://play.google.com/store/apps/details?id=com.istudio.distancetracker"><img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play.png" align="right"></a>
+
 
 # Distance-Tracker 🧞‍
 [![Android Best practices](https://img.shields.io/badge/Android-best--practices-red)](https://www.android.com/intl/en_in/what-is-android/) [![Kotlin](https://img.shields.io/badge/Kotlin-1.6.10-brightgreen)](https://kotlinlang.org/) [![Coroutines](https://img.shields.io/badge/Coroutines-1.6.0-red)](https://kotlinlang.org/docs/reference/coroutines-overview.html) [![DaggerHilt](https://img.shields.io/badge/DaggerHilt-2.40-blue)](https://developer.android.com/training/dependency-injection/hilt-android) [![Firebase](https://img.shields.io/badge/Firebase-30.2.0-blueviolet)](https://firebase.google.com/) [![Timber](https://img.shields.io/badge/Timber-5.0.1-blue)](https://github.com/JakeWharton/timber) [![Orhanobut](https://img.shields.io/badge/orhanobut-2.2.0-lightgrey)](https://github.com/orhanobut/logger) [![Google Material](https://img.shields.io/badge/Google%20Material-1.4.0-3D3635)](https://material.io/develop/android/docs/getting-started) [![Crashlytics](https://img.shields.io/badge/Crashlytics-2.9.1-3B9C9C)](https://firebase.google.com/docs/crashlytics) [![Fused Location Service](https://img.shields.io/badge/Location-fused--location--service-orange)](https://developers.google.com/location-context/fused-location-provider)    
@@ -59,7 +61,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | [spotless](https://github.com/diffplug/spotless)        | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply` |
 | [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint)         | `./gradlew lint`          | -                         |
 
-## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔**`** 🏗️️ 
+## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔`** 🏗️️ 
 
 | What            | How                        |
 |----------------	|------------------------------	|
@@ -69,7 +71,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | 🌊 𝙰𝚜𝚢𝚗𝚌            | [𝙲𝚘𝚛𝚘𝚞𝚝𝚒𝚗𝚎𝚜](https://kotlinlang.org/docs/coroutines-overview.html) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)                |
 | 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBN8WeUfoN8Ln5XfcNlF83mZZbJjiboM1DU95jgGawDZ5pfegpNQWOMaAtt0EALw_wcB&gclsrc=aw.ds)                       |
 
-
+## **`𝙿𝚕𝚊𝚢𝚜𝚝𝚘𝚛𝚎 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍`** 🧰
 [![Playstore](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play.png)](https://play.google.com/store/apps/details?id=com.istudio.distancetracker)
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** 💰
