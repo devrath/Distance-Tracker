@@ -31,6 +31,7 @@ This application is used to track the user distance traveled and the time taken 
 | [**`Splash API`**](https://developer.android.com/develop/ui/views/launch/splash-screen): With this API there is no need of creating a separate activity to customise the splash screen. The system will automatically create one for you. It also allows you to have a new launch animation for your apps and ability to perform a long running operation. |  |  |
 | [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. |  |  |
 | [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. |  |  |
+| **`Network Observer`**: This is used to observe the network change if connected/disconnected to user |  | <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/network_observer.gif" width="160" height="330"/> |
 
 ### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
 
