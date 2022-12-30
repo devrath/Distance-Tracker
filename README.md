@@ -75,6 +75,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 <a href="https://play.google.com/store/apps/details?id=com.istudio.distancetracker"><img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play.png" height="75"></a>
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
+If you feel like support me a coffee for my efforts, I would greatly appreciate it.
 <a href="https://www.buymeacoffee.com/devrath" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## **`𝙲𝚘𝚗𝚝𝚛𝚒𝚋𝚞𝚝𝚎`** 🙋‍♂️
