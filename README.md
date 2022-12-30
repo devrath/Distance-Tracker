@@ -67,7 +67,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | 🏗 𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎    | [𝙲𝚕𝚎𝚊𝚗 𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)                            |
 | 💉 𝙳𝙸 (𝙰𝚗𝚍𝚛𝚘𝚒𝚍)                | [𝙷𝚒𝚕𝚝](https://developer.android.com/training/dependency-injection/hilt-android)                        |
 | 🌊 𝙰𝚜𝚢𝚗𝚌            | [𝙲𝚘𝚛𝚘𝚞𝚝𝚒𝚗𝚎𝚜](https://kotlinlang.org/docs/coroutines-overview.html) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)                |
-| 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖]([https://firebase.google.com/](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBO88e5WCiOw1pED9Hpn0idYr7aswZqln22ImbUEsE2YsHOIy7hJN1gaAruDEALw_wcB&gclsrc=aw.ds)                       |
+| 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBN8WeUfoN8Ln5XfcNlF83mZZbJjiboM1DU95jgGawDZ5pfegpNQWOMaAtt0EALw_wcB&gclsrc=aw.ds)                       |
 
 ## **`𝙲𝚘𝚗𝚝𝚛𝚒𝚋𝚞𝚝𝚎`** 🙋‍♂️
 Read [contribution guidelines](CONTRIBUTING.md) for more information regarding contribution.
