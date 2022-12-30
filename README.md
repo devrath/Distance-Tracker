@@ -72,7 +72,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBN8WeUfoN8Ln5XfcNlF83mZZbJjiboM1DU95jgGawDZ5pfegpNQWOMaAtt0EALw_wcB&gclsrc=aw.ds)                       |
 
 ## **`𝙿𝚕𝚊𝚢𝚜𝚝𝚘𝚛𝚎 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍`** 🧰
-[![Playstore](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/playstore.png)](https://play.google.com/store/apps/details?id=com.istudio.distancetracker)
+[![Playstore](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play-store.png)](https://play.google.com/store/apps/details?id=com.istudio.distancetracker)
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** 💰
 <a href="https://www.buymeacoffee.com/devrath" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
