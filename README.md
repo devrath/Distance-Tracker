@@ -59,7 +59,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | [spotless](https://github.com/diffplug/spotless)        | [/.spotless](https://github.com/VMadalin/kotlin-sample-app/tree/master/.spotless) | `./gradlew spotlessCheck` | `./gradlew spotlessApply` |
 | [lint](https://developer.android.com/studio/write/lint) | [/.lint](https://github.com/VMadalin/kotlin-sample-app/tree/master/.lint)         | `./gradlew lint`          | -                         |
 
-## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔`** 🏗️️ 
+## **`𝚃𝚎𝚌𝚑 𝚜𝚝𝚊𝚌𝚔**`** 🏗️️ 
 
 | What            | How                        |
 |----------------	|------------------------------	|
@@ -68,6 +68,9 @@ To maintain the style and quality of the code, are used the bellow static analys
 | 💉 𝙳𝙸 (𝙰𝚗𝚍𝚛𝚘𝚒𝚍)                | [𝙷𝚒𝚕𝚝](https://developer.android.com/training/dependency-injection/hilt-android)                        |
 | 🌊 𝙰𝚜𝚢𝚗𝚌            | [𝙲𝚘𝚛𝚘𝚞𝚝𝚒𝚗𝚎𝚜](https://kotlinlang.org/docs/coroutines-overview.html) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)                |
 | 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBN8WeUfoN8Ln5XfcNlF83mZZbJjiboM1DU95jgGawDZ5pfegpNQWOMaAtt0EALw_wcB&gclsrc=aw.ds)                       |
+
+## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** 💰
+<a href="https://www.buymeacoffee.com/devrath" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## **`𝙲𝚘𝚗𝚝𝚛𝚒𝚋𝚞𝚝𝚎`** 🙋‍♂️
 Read [contribution guidelines](CONTRIBUTING.md) for more information regarding contribution.
