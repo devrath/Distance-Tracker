@@ -30,7 +30,7 @@ This application is used to track the user distance traveled and the time taken 
 
 ### `𝙲𝚘𝚍𝚎 𝚜𝚝𝚢𝚕𝚎`🪀
 
-To maintain the style and quality of the code, are used the bellow static analysis tools. All of them use properly configuration and you find them in the project root directory `.{toolName}`.
+To maintain the style and quality of the code, are used the bellow static analysis tools. 
 
 | Tools                                                   | Config file                                                                       | Check command             | Fix command               |
 |---------------------------------------------------------|----------------------------------------------------------------------------------:|---------------------------|---------------------------|
