@@ -28,7 +28,7 @@ This application is used to track the user distance traveled and the time taken 
 | [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. |  |  |
 | [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. |  |  |
 
-### Code style
+### `𝙲𝚘𝚍𝚎 𝚜𝚝𝚢𝚕𝚎`🪀
 
 To maintain the style and quality of the code, are used the bellow static analysis tools. All of them use properly configuration and you find them in the project root directory `.{toolName}`.
 
