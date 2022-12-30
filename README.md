@@ -32,6 +32,21 @@ This application is used to track the user distance traveled and the time taken 
 | [**`In-App updates`**](https://developer.android.com/guide/playcore/in-app-updates): Using this API, users will be able to update the application in the background in an eligant way thus keeping the app always up-to-date. |  |  |
 | [**`App-reviews`**](https://developer.android.com/guide/playcore/in-app-review): This API lets you prompt users to submit `Play Store ratings` and `reviews` without the inconvenience of leaving your app. |  |  |
 
+### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
+
+* [Jetpack-Androidx](https://developer.android.com/jetpack/androidx): Major improvement to the original Android Support Library, which is no longer maintained.
+* [View-Binding](https://developer.android.com/topic/libraries/view-binding): Allows you to more easily write code that interacts with views. An instance of a binding class contains direct references to all views that have an ID in the corresponding layout.
+* [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle): Perform actions in response to a change in the lifecycle status of another component, such as activities and fragments.
+* [LiveData](https://developer.android.com/topic/libraries/architecture/livedata): lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services.
+* [Navigation](https://developer.android.com/guide/navigation/): helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer.
+* [Timber](https://github.com/JakeWharton/timber): a logger with a small, extensible API which provides utility on top of Android's normal Log class.
+* [DataStore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAiAkrWdBhBkEiwAZ9cdcJQtRe-hDXI0aPKf4u8n0EfU-xh1ODfQ80ImOVEPKgRHaVmwGCrb-xoCJQwQAvD_BwE&gclsrc=aw.ds): iData storage solution that allows you to store key-value pairs.
+* [Fused location provider](https://developers.google.com/location-context/fused-location-provider): Get location data for your app based on combined signals from the device sensors using a battery-efficient API.
+* [Google play core](https://developer.android.com/guide/playcore): Download additional language resources, Manage delivery of feature modules, Manage delivery of asset packs, Trigger in-app updates, Request in-app reviews
+
+
+
+
 ### `𝙲𝚘𝚍𝚎 𝚜𝚝𝚢𝚕𝚎`🪀
 
 To maintain the style and quality of the code, are used the bellow static analysis tools. 
