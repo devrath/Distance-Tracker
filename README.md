@@ -43,7 +43,7 @@ This application is used to track the user distance traveled and the time taken 
 * [DataStore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAiAkrWdBhBkEiwAZ9cdcJQtRe-hDXI0aPKf4u8n0EfU-xh1ODfQ80ImOVEPKgRHaVmwGCrb-xoCJQwQAvD_BwE&gclsrc=aw.ds): iData storage solution that allows you to store key-value pairs.
 * [Fused location provider](https://developers.google.com/location-context/fused-location-provider): Get location data for your app based on combined signals from the device sensors using a battery-efficient API.
 * [Google play core](https://developer.android.com/guide/playcore): Download additional language resources, Manage delivery of feature modules, Manage delivery of asset packs, Trigger in-app updates, Request in-app reviews
-
+* [Coroutines](https://developer.android.com/kotlin/coroutines?gclid=CjwKCAiAkrWdBhBkEiwAZ9cdcD5t8r7gogrF9MOUjglqJc0sx55z13IfZldSaHt8Wm1c2qLg7gwSlBoCKq8QAvD_BwE&gclsrc=aw.ds): A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously
 
 
 
