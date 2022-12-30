@@ -13,7 +13,6 @@ dependencies {
     "implementation"(AndroidX.fragment)
     "implementation"(AndroidX.fragmentKtx)
 
-
     // ********************************** Modules ************************************
     "implementation"(project(Modules.coreUi))
     // ********************************** Modules ************************************

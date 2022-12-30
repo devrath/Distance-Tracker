@@ -48,11 +48,11 @@ android {
     productFlavors {
         create(FlavourUtils.ProductFlavors.DEV) {
             dimension = FlavourUtils.FlavorDimensions.DEFAULT
-            //applicationIdSuffix = ".${FlavourUtils.ProductFlavors.DEV}"
+            // applicationIdSuffix = ".${FlavourUtils.ProductFlavors.DEV}"
         }
         create(FlavourUtils.ProductFlavors.PUBLIC) {
             dimension = FlavourUtils.FlavorDimensions.DEFAULT
-            //signingConfig =
+            // signingConfig =
         }
     }
     /** ************************* FLAVOURS ************************* **/
@@ -89,7 +89,6 @@ dependencies {
     debugImplementation(Compose.uiTooling)
     // ********************************** Compose ************************************
 
-
     // ********************************** Firebase ************************************
     implementation(platform(Firebase.googleFirebase))
     implementation(Firebase.firebaseAnalyticsKtx)
@@ -106,7 +105,7 @@ dependencies {
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
     implementation(DataStorePreferences.datastorePreferences)
-    //implementation(Moshi.moshiRepo)
+    // implementation(Moshi.moshiRepo)
     implementation(Gson.gson)
     implementation(CustomLogging.orhanobut)
     implementation(CustomLogging.timber)
@@ -178,6 +177,4 @@ dependencies {
     implementation(project(Modules.coreConnectivity))
     implementation(project(Modules.corePreferences))
     // ********************************** Modules ************************************
-
-
 }

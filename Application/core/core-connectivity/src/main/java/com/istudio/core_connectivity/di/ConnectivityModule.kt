@@ -23,5 +23,4 @@ object ConnectivityModule {
     fun provideConnectivityImplementation(@ApplicationContext appContext: Context): ConnectivityFeature {
         return ConnectivityFeatureImpl(appContext)
     }
-
 }

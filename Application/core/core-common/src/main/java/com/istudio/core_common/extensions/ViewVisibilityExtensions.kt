@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.view.View
 import android.widget.Button
 
-
 /** Set the View visibility to VISIBLE and eventually animate the View alpha till 100% */
 fun View.visible(animate: Boolean = true) {
     if (animate) {
@@ -53,18 +52,18 @@ private fun View.hide(hidingStrategy: Int, animate: Boolean = true) {
     }
 }
 
-fun View.show(){
+fun View.show() {
     this.visibility = View.VISIBLE
 }
 
-fun View.hide(){
+fun View.hide() {
     this.visibility = View.INVISIBLE
 }
 
-fun Button.enable(){
+fun Button.enable() {
     this.isEnabled = true
 }
 
-fun Button.disable(){
+fun Button.disable() {
     this.isEnabled = false
 }
