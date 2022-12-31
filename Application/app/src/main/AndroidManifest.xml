@@ -55,7 +55,7 @@
         </activity>-->
 
         <activity
-            android:name=".main.UserLogsActivity"
+            android:name="com.istudio.feat_user_journey.UserJourneyActivity"
             android:theme="@style/Theme.DistanceTrackerApp"
             android:exported="true">
             <intent-filter>
