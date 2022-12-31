@@ -65,7 +65,7 @@ interface ToDoDao {
         "description LIKE :searchQuery")
     fun searchDatabase(searchQuery:String) : Flow<List<ToDoTask>>
 
-     
+
     @Query("SELECT * FROM todo_table " +
         "ORDER BY " +
         "CASE " +
