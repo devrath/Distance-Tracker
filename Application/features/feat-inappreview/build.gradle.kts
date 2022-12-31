@@ -3,8 +3,6 @@ apply {
 }
 
 dependencies {
-    "implementation"(project(Modules.corePreferences))
-    "implementation"(project(Modules.coreCommon))
     "implementation"(Coroutines.coroutineLib)
     "implementation"(Google.playCore)
     "implementation"(AndroidX.constraint)
@@ -15,5 +13,7 @@ dependencies {
 
     // ********************************** Modules ************************************
     "implementation"(project(Modules.coreUi))
+    "implementation"(project(Modules.corePreferences))
+    "implementation"(project(Modules.coreCommon))
     // ********************************** Modules ************************************
 }
