@@ -4,7 +4,7 @@ apply {
 
 dependencies {
     "implementation"(Room.roomKtx)
-    "implementation"(Room.roomCompiler)
+    //"implementation"(Room.roomCompiler)
     "implementation"(Room.roomRuntime)
 
     // ********************************** Modules ************************************
