@@ -1,4 +1,4 @@
-package com.istudio.feat_user_journey.data
+package com.istudio.core_database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

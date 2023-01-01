@@ -1,4 +1,4 @@
-package com.istudio.feat_user_journey.data
+package com.istudio.core_database
 
 import androidx.room.Dao
 import androidx.room.Delete
