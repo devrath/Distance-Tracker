@@ -1,4 +1,6 @@
 package com.istudio.feat_user_journey.vm
 
-class SharedViewModel {
+import androidx.lifecycle.ViewModel
+
+class SharedViewModel() : ViewModel() {
 }

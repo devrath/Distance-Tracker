@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".UserJourneyActivity"
+            android:name=".view.UserJourneyActivity"
             android:label="@string/title_activity_user_journey"
             android:theme="@style/Theme.DistanceTracker"
             android:exported="true">

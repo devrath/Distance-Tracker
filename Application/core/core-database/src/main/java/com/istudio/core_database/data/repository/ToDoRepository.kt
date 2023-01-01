@@ -2,9 +2,10 @@ package com.istudio.core_database.data.repository
 
 import com.istudio.core_database.data.implementation.ToDoDaoImpl
 import com.istudio.core_database.models.ToDoTask
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 
-
+@ViewModelScoped
 open class ToDoRepository(
     private val toDoDaoImpl: ToDoDaoImpl
 ) {

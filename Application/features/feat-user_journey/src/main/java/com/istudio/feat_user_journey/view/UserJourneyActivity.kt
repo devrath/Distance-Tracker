@@ -1,4 +1,4 @@
-package com.istudio.feat_user_journey
+package com.istudio.feat_user_journey.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

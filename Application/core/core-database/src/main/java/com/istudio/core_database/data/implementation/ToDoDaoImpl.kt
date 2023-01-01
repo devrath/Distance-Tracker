@@ -2,9 +2,11 @@ package com.istudio.core_database.data.implementation
 
 import com.istudio.core_database.domain.dao.ToDoDao
 import com.istudio.core_database.models.ToDoTask
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+@ViewModelScoped
 class ToDoDaoImpl @Inject constructor(
     private val toDoDao: ToDoDao
 ) : ToDoDao {
