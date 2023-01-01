@@ -1,4 +1,4 @@
-package com.istudio.core_database.dao
+package com.istudio.core_database.domain.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

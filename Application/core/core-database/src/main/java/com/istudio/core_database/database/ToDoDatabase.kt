@@ -2,7 +2,7 @@ package com.istudio.core_database.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.istudio.core_database.dao.ToDoDao
+import com.istudio.core_database.domain.dao.ToDoDao
 import com.istudio.core_database.models.ToDoTask
 
 @Database(
