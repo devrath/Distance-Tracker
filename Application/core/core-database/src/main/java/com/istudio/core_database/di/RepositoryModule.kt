@@ -11,11 +11,11 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object RepositoryModule {
 
-    @Singleton
     @Provides
+    @ViewModelScoped
     fun provideToDoDaoRepository(toDoDaoImpl: ToDoDaoImpl) : ToDoRepository {
         return ToDoRepository(toDoDaoImpl)
     }
