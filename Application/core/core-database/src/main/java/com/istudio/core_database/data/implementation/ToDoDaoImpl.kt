@@ -6,7 +6,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@ViewModelScoped
 class ToDoDaoImpl @Inject constructor(
     private val toDoDao: ToDoDao
 ) : ToDoDao {
