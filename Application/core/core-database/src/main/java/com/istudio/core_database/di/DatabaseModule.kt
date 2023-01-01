@@ -1,9 +1,9 @@
-package com.istudio.feat_user_journey.di
+package com.istudio.core_database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.istudio.feat_user_journey.data.ToDoDatabase
-import com.istudio.feat_user_journey.utils.Constants.DATABASE_NAME
+import com.istudio.core_database.Constants.DATABASE_NAME
+import com.istudio.core_database.database.ToDoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

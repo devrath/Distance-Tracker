@@ -10,4 +10,5 @@ object Modules {
     const val coreLogger = ":core:core-logger"
     const val coreLocation = ":core:core-location"
     const val coreConnectivity = ":core:core-connectivity"
+    const val coreDatabase = ":core:core-database"
 }

@@ -1,4 +1,4 @@
-package com.istudio.core_database
+package com.istudio.core_database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.istudio.feat_user_journey.data.models.ToDoTask
+import com.istudio.core_database.models.ToDoTask
 import kotlinx.coroutines.flow.Flow
 
 /**

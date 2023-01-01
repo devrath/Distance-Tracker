@@ -1,4 +1,4 @@
-package com.istudio.feat_user_journey.ui.theme
+package com.istudio.core_ui.composeUi.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

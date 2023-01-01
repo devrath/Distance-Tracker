@@ -1,4 +1,4 @@
-package com.istudio.feat_user_journey.utils
+package com.istudio.core_database
 
 object Constants {
 

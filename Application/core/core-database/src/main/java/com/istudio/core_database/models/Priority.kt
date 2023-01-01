@@ -1,10 +1,10 @@
-package com.istudio.feat_user_journey.data.models
+package com.istudio.core_database.models
 
 import androidx.compose.ui.graphics.Color
-import com.istudio.feat_user_journey.ui.theme.HighPriorityColor
-import com.istudio.feat_user_journey.ui.theme.LowPriorityColor
-import com.istudio.feat_user_journey.ui.theme.MediumPriorityColor
-import com.istudio.feat_user_journey.ui.theme.NonePriorityColor
+import com.istudio.core_ui.composeUi.theme.HighPriorityColor
+import com.istudio.core_ui.composeUi.theme.LowPriorityColor
+import com.istudio.core_ui.composeUi.theme.MediumPriorityColor
+import com.istudio.core_ui.composeUi.theme.NonePriorityColor
 
 enum class Priority(val color : Color) {
     HIGH(HighPriorityColor),
