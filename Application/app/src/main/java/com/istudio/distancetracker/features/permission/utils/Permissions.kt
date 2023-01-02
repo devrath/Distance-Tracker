@@ -12,7 +12,7 @@ import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.istudio.core_common.extensions.openAppNotificationSettings
-import com.istudio.distancetracker.R
+import com.istudio.core_ui.R
 import com.permissionx.guolindev.PermissionX
 
 object Permissions {

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.istudio.core_common.extensions.gone
 import com.istudio.core_common.extensions.visible
-import com.istudio.distancetracker.R
+import com.istudio.core_ui.R
 import com.istudio.distancetracker.databinding.IncludeCustErrorViewBinding
 
 class MapErrorView @JvmOverloads constructor(
