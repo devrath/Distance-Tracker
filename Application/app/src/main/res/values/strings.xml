@@ -1,17 +1,9 @@
 <resources>
     <string name="app_name">Distance Tracker</string>
-    // Permission Fragment
-    <string name="continue_text">Continue</string>
-    <string name="permission_description">In order to use the application, Please provide the runtime permissions</string>
-    <string name="permission_required">Permission Required</string>
 
-    // Maps Fragment
-    <string name="reset">Reset</string>
-    <string name="stop">Stop</string>
-    <string name="start">Start</string>
-    <string name="go">GO</string>
-    <string name="tap_on_my_location_button">Tap on My Location Button.</string>
-    <string name="_3">3</string>
+
+
+
 
     // Result Fragment
     <string name="distance">Distance</string>

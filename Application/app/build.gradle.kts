@@ -177,5 +177,6 @@ dependencies {
     implementation(project(Modules.coreLocation))
     implementation(project(Modules.coreConnectivity))
     implementation(project(Modules.corePreferences))
+    implementation(project(Modules.coreUi))
     // ********************************** Modules ************************************
 }
