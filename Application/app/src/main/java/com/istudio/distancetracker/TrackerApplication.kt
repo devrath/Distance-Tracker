@@ -25,19 +25,19 @@ class TrackerApplication: Application() {
             // New logger
             ApplicationLoggerConfig(this).initializeLogging(isEnabled = true)
         }
+        setCurrentUiMode()
+    }
 
+    private fun setCurrentUiMode() {
         with(ProcessLifecycleOwner.get()) {
             lifecycleScope.launch {
-                val prefValue = preferences.getUiModeState().first()
-
-                val nightMode = when (prefValue) {
+                val currentMode = when (preferences.getUiModeState().first()) {
                     Mode.LIGHT.ordinal -> AppCompatDelegate.MODE_NIGHT_NO
                     Mode.DARK.ordinal -> AppCompatDelegate.MODE_NIGHT_YES
                     Mode.SYSTEM.ordinal -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                     else -> AppCompatDelegate.MODE_NIGHT_NO
                 }
-
-                AppCompatDelegate.setDefaultNightMode(nightMode)
+                AppCompatDelegate.setDefaultNightMode(currentMode)
             }
         }
     }
