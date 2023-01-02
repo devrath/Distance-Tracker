@@ -7,6 +7,7 @@ import androidx.navigation.navArgument
 import com.istudio.feat_user_journey.navigation.ScreenKeys.LIST_ARGUMENT_KEY
 import com.istudio.feat_user_journey.navigation.ScreenKeys.LIST_SCREEN
 import com.istudio.feat_user_journey.navigation.ScreenKeys.TASK_ARGUMENT_KEY
+import com.istudio.feat_user_journey.screens.list.ListScreen
 
 fun NavGraphBuilder.listComposable(
     navigateToTaskScreen: (Int) -> Unit
@@ -18,6 +19,6 @@ fun NavGraphBuilder.listComposable(
                 type = NavType.StringType
             })
     ){
-
+        ListScreen(navigateToTaskScreen=navigateToTaskScreen)
     }
 }
