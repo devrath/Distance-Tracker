@@ -3,7 +3,17 @@ package com.istudio.core_preferences.data.repository
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import kotlinx.coroutines.flow.Flow
 
-class PreferenceRepository(private val preference: InAppReviewPreferences) {
+class PreferenceRepository(
+    private val preference: InAppReviewPreferences,
+) {
+
+    suspend fun saveUiModeState(mode: Int) {
+        preference.setUiModeForApp(mode)
+    }
+
+    suspend fun getUiModeState(): Flow<Int> {
+        return preference.getUiModeForApp()
+    }
 
     suspend fun saveOnBoardingState(hasRated: Boolean) {
         preference.setUserRatedApp(hasRated)

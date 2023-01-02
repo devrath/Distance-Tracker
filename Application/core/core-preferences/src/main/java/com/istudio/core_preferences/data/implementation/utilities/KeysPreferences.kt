@@ -9,5 +9,7 @@ object KeysPreferences {
     const val keyHasUserChosenRateLater = "hasUserChosenRateLater"
     const val keyGetRateLaterTime = "getRateLaterTime"
     const val keyNoOfDistanceTracked = "noOfDistanceTracked"
+    const val keyUiModeOfApp = "uiModeOfApp"
+
 
 }

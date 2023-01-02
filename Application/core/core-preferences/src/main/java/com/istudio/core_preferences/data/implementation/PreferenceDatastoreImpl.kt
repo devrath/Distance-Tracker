@@ -23,6 +23,16 @@ class PreferenceDatastoreImpl(
         private val keyRefHasUserChosenRateLater = booleanPreferencesKey(KeysPreferences.keyHasUserChosenRateLater)
         private val keyRefGetRateLaterTime = longPreferencesKey(KeysPreferences.keyGetRateLaterTime)
         private val keyNoOfDistanceTracked = intPreferencesKey(KeysPreferences.keyNoOfDistanceTracked)
+        private val keyUiModeOfApp = intPreferencesKey(KeysPreferences.keyUiModeOfApp)
+    }
+
+
+    override suspend fun getUiModeForApp(): Flow<Int> {
+        return dataStore.getValueFlow(keyUiModeOfApp,0)
+    }
+
+    override suspend fun setUiModeForApp(mode: Int) {
+        dataStore.edit { it[keyUiModeOfApp] = mode }
     }
 
     /** *************************************************************** **/

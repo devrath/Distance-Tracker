@@ -74,4 +74,17 @@ interface InAppReviewPreferences {
      * This should be used only if the user didn't rate the app before.
      * */
     suspend fun clearIfUserDidNotRate()
+
+
+    /**
+     * @return the string value for the current UI mode of application saved
+     * */
+    suspend fun getUiModeForApp(): Flow<Int>
+
+    /**
+     * Stores UI mode of the app in the Shared preferences
+     *
+     * @param mode - User saves the UI mode selected
+     * */
+    suspend fun setUiModeForApp(mode: Int)
 }
