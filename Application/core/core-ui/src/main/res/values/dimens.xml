@@ -12,4 +12,19 @@
     <dimen name="result_view_time_text_size">30sp</dimen>
     <dimen name="continue_button_margin_bottom">20dp</dimen>
 
+    <dimen name="defaultMargin">16dp</dimen>
+    <dimen name="largeMargin">32dp</dimen>
+    <dimen name="smallMargin">6dp</dimen>
+    <dimen name="ratingPromptMargin">40dp</dimen>
+    <dimen name="buttonSize">40dp</dimen>
+    <dimen name="reviewPromptImageHeight">150dp</dimen>
+    <dimen name="ratePromptMessageTextSize">16sp</dimen>
+    <dimen name="ratePromptTitleTextSize">20sp</dimen>
+    <dimen name="ratePromptFaceSize">50dp</dimen>
+    <dimen name="promptProgressMargin">12dp</dimen>
+    <dimen name="promptButtonTextSize">12sp</dimen>
+    <dimen name="ratePromptWidth">300dp</dimen>
+    <dimen name="ratePromptHeight">350dp</dimen>
+    <dimen name="buttonMarginTop">12dp</dimen>
+
 </resources>

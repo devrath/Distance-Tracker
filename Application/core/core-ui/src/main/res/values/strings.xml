@@ -40,5 +40,13 @@
     <string name="network_is_unavailable">Network connection is lost</string>
     <string name="statistics">Statistics</string>
 
+
+    <string name="inAppReviewRateLater">Not now</string>
+    <string name="inAppReviewRateNow">Review</string>
+    <string name="inAppReviewMessage">Next, take a moment and rate your experience with the app.</string>
+    <string name="inAppReviewTitle">Enjoying Application ?</string>
+
+
+
     <string name="str_add_button">Add Button</string>
 </resources>

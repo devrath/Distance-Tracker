@@ -1,5 +1,0 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="RoundedCornersDialog" parent="@style/Theme.MaterialComponents.Dialog">
-        <item name="dialogCornerRadius">16dp</item>
-    </style>
-</resources>

@@ -4,5 +4,6 @@ apply {
 
 dependencies {
     // "implementation"(project(Modules.core))
-    // "implementation"(Coroutines.coroutineLib)
+    "implementation"(SplashScreen.splashAndroidApi)
+
 }

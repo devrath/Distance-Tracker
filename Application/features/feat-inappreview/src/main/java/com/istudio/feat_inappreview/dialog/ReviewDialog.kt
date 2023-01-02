@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.istudio.core_preferences.domain.InAppReviewPreferences
-import com.istudio.feat_inappreview.R
+import com.istudio.core_ui.R
 import com.istudio.feat_inappreview.databinding.FragmentInAppReviewPromptBinding
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import kotlinx.coroutines.launch
