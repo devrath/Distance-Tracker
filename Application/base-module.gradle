@@ -32,13 +32,33 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    kotlinOptions { jvmTarget = ProjectConfig.jvmTarget }
     buildFeatures { viewBinding = true }
+    buildFeatures { compose = true }
+    composeOptions { kotlinCompilerExtensionVersion = Compose.composeVersion }
+    packagingOptions {
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/licenses/ASM")
+    }
 }
 
 dependencies {
+
+    // ********************************** Compose ************************************
+    implementation(Compose.compiler)
+    implementation(Compose.ui)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.hiltNavigationCompose)
+    implementation(Compose.material)
+    implementation(Compose.runtime)
+    implementation(Compose.navigation)
+    implementation(Compose.viewModelCompose)
+    implementation(Compose.activityCompose)
+    implementation(Compose.uiToolingPreview)
+    debugImplementation(Compose.uiTooling)
+    // ********************************** Compose ************************************
 
     implementation(Coroutines.coroutinePlayServicesLib)
 

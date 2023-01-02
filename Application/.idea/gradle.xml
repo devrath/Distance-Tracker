@@ -16,12 +16,14 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-common" />
             <option value="$PROJECT_DIR$/core/core-connectivity" />
+            <option value="$PROJECT_DIR$/core/core-database" />
             <option value="$PROJECT_DIR$/core/core-location" />
             <option value="$PROJECT_DIR$/core/core-logger" />
             <option value="$PROJECT_DIR$/core/core-preferences" />
             <option value="$PROJECT_DIR$/core/core-ui" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/feat-inappreview" />
+            <option value="$PROJECT_DIR$/features/feat-user_journey" />
           </set>
         </option>
       </GradleProjectSettings>
