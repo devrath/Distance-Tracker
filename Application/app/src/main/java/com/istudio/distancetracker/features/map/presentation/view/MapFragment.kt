@@ -170,7 +170,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             }
             setUiModeFabButtonClickListener{
                 lifecycleScope.launch {
-                    // Set the UI Mode
+                    // INITIATE:-> Set the UI Mode for application
                     AppCompatDelegate.setDefaultNightMode(viewModel.toggleUiMode())
                     // Save the UI Mode to preferences
                     viewModel.saveToggledUiMode()

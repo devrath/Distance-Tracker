@@ -1,15 +1,10 @@
 package com.istudio.distancetracker.main
 
-import android.animation.ObjectAnimator
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewTreeObserver
-import android.view.animation.DecelerateInterpolator
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.animation.doOnEnd
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +17,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.extensions.toast
+import com.istudio.core_common.navigation.NavigationUtils
 import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
@@ -29,13 +25,14 @@ import com.istudio.distancetracker.databinding.ActivityMainBinding
 import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     private lateinit var navController: NavController
 
+    // ********************************** Life cycle methods ***************************************
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -46,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         //openScreen()
     }
 
+    override fun recreate() {
+        animateForUiModeChange()
+    }
+    // ********************************** Life cycle methods ***************************************
+
+    // ********************************** User defined functions ************************************
     /**
      * Set the nav controller for the screen
      */
@@ -54,9 +57,27 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
     }
 
+    /**
+     * Open the Map screen
+     */
     private fun openScreen() {
-        if (Permissions.hasLocationPermission(this@MainActivity)) { navController.navigate(R.id.action_permissionFragment_to_mapFragment) }
+        if (Permissions.hasLocationPermission(this@MainActivity)) {
+            NavigationUtils.navigateSafe(navController, R.id.action_permissionFragment_to_mapFragment, null);
+        }
     }
+
+    /**
+     * This lets user to recreate the activity via animation when we switch the UI-modes
+     */
+    private fun animateForUiModeChange() {
+        finish()
+        val fadeIn = com.istudio.core_ui.R.anim.fade_in
+        val fadeOut = com.istudio.core_ui.R.anim.fade_out
+        overridePendingTransition(fadeIn, fadeOut);
+        startActivity(intent);
+        overridePendingTransition(fadeIn, fadeOut);
+    }
+    // ********************************** User defined functions ************************************
 
     /** ******************************** APPLICATION UPDATE  *********************************** **/
     private fun checkForUpdates() {
@@ -124,11 +145,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     /** ******************************** APPLICATION UPDATE  *********************************** **/
-
-    override fun recreate() {
-        finish()
-        startActivity(intent)
-        // https://stackoverflow.com/questions/30174042/how-to-switch-themes-night-mode-without-restarting-the-activity
-    }
-
 }

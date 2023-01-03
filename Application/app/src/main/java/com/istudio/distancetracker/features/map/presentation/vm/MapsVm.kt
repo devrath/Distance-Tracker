@@ -211,6 +211,11 @@ class MapsVm @Inject constructor(
         else { return true }
     }
 
+    /**
+     * How this works:
+     * ***************
+     * If the dark mode is currently present in app return light mode value else dark mode value
+     */
     suspend fun toggleUiMode(): Int {
         return if(isDarkMode()){
             // Set light mode
@@ -221,7 +226,12 @@ class MapsVm @Inject constructor(
         }
     }
 
-
+    /**
+     * How this works:
+     * ***************
+     * User would have initiated -> Change UI mode, So new UI mode will be the changed one
+     * Thus if its dark-mode we set the flag new mode as light mode else dark mode
+     */
     suspend fun saveToggledUiMode() {
         if(isDarkMode()){
             // Set light mode

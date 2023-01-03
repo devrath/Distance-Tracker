@@ -21,13 +21,26 @@ class TrackerApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-            // New logger
-            ApplicationLoggerConfig(this).initializeLogging(isEnabled = true)
-        }
+        setLogger()
         setCurrentUiMode()
     }
 
+    /**
+     * Set the logger for the application
+     * *************
+     * Description: This ensures logs are only printed in debug mode and in prod build the logs are not printed
+     */
+    private fun setLogger() {
+        if (BuildConfig.DEBUG) {
+            ApplicationLoggerConfig(this).initializeLogging(isEnabled = true)
+        }
+    }
+
+    /**
+     * Set the UI-MODE for the application for current session
+     * *************
+     * Description: This ensures logs are only printed in debug mode and in prod build the logs are not printed
+     */
     private fun setCurrentUiMode() {
         with(ProcessLifecycleOwner.get()) {
             lifecycleScope.launch {
