@@ -27,6 +27,9 @@ class MapDisplayView @JvmOverloads constructor(
     private var binding =
         IncludeCustMapViewBinding.inflate(LayoutInflater.from(context), this, true)
 
+    // to check whether sub FABs are visible or not
+    private var isAllFabsVisible: Boolean = false
+
     fun displayStartButton() {
         binding.apply {
             resetButton.gone(animate = false)
@@ -113,6 +116,43 @@ class MapDisplayView @JvmOverloads constructor(
             )
         btnMyLocation.apply { callOnClick(); }
     }
+
+    fun initialActionButtonSetUpForMap() {
+        // Now set all the FABs and all the action name
+        // texts as GONE
+        binding.addAlarmFab.visibility = View.GONE;
+        //mAddPersonFab.setVisibility(View.GONE);
+        binding.addAlarmActionText.visibility = View.GONE;
+       // binding.addPersonActionText.visibility = View.GONE;
+        // make the boolean variable as false, as all the
+        // action name texts and all the sub FABs are
+        // invisible
+        isAllFabsVisible = false;
+        // Set the Extended floating action button to
+        // shrinked state initially
+        binding.addFab.shrink();
+    }
+
+    fun actionButtonClick() {
+        if (!isAllFabsVisible) {
+            binding.addAlarmFab.show();
+            //mAddPersonFab.show();
+            binding.addAlarmActionText.visibility = View.VISIBLE;
+            //addPersonActionText.setVisibility(View.VISIBLE);
+            binding.addFab.extend();
+            isAllFabsVisible = true;
+        } else {
+            binding.addAlarmFab.hide();
+            //mAddPersonFab.hide();
+            binding.addAlarmActionText.visibility = View.GONE;
+            //addPersonActionText.setVisibility(View.GONE);
+            binding.addFab.shrink();
+            isAllFabsVisible = false;
+        }
+    }
+
+    fun setFabButtonClickListener(listener: OnClickListener) = binding.addFab.setOnClickListener(listener)
+    fun setAlarmFabButtonClickListener(listener: OnClickListener) = binding.addAlarmFab.setOnClickListener(listener)
 
     fun setStartButtonClickListener(listener: OnClickListener) = binding.startButton.setOnClickListener(listener)
     fun setStopButtonClickListener(listener: OnClickListener) = binding.stopButton.setOnClickListener(listener)

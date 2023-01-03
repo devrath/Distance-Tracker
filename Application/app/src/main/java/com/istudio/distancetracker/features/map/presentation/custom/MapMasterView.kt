@@ -51,6 +51,10 @@ class MapMasterView @JvmOverloads constructor(
         }
     }
 
+    fun actionButtonClick() { binding.apply { mapViewId.actionButtonClick() } }
+    fun initialActionButtonSetUp() { binding.apply { mapViewId.initialActionButtonSetUpForMap() } }
+
+    fun setFabButtonClickListener(listener: OnClickListener) = binding.mapViewId.setFabButtonClickListener(listener)
     fun setStartButtonClickListener(listener: OnClickListener) = binding.mapViewId.setStartButtonClickListener(listener)
     fun setStopButtonClickListener(listener: OnClickListener) = binding.mapViewId.setStopButtonClickListener(listener)
     fun setResetButtonClickListener(listener: OnClickListener) = binding.mapViewId.setResetButtonClickListener(listener)

@@ -121,6 +121,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         setCustomIconForLocationButton()
         // Start observing the tracker service
         observeTrackerService()
+        // Initial action button set up
+        binding.mapMasterViewId.initialActionButtonSetUp()
     }
     // **********************************CallBacks *************************************************
 
@@ -160,6 +162,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             }
             setNetworkSettingsButtonClickListener {
                 connectivitySettingsLauncher.launch(Intent(Settings.ACTION_SETTINGS))
+            }
+            setFabButtonClickListener{
+                //startButtonAction()
+                binding.mapMasterViewId.actionButtonClick()
             }
         }
     }
