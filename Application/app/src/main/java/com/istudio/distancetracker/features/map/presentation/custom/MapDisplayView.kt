@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.istudio.core_common.extensions.disable
@@ -12,6 +13,7 @@ import com.istudio.core_common.extensions.enable
 import com.istudio.core_common.extensions.gone
 import com.istudio.core_common.extensions.visible
 import com.istudio.core_ui.R
+import com.istudio.core_ui.toggleUiMode.Mode
 import com.istudio.distancetracker.databinding.IncludeCustMapViewBinding
 
 class MapDisplayView @JvmOverloads constructor(
@@ -117,32 +119,43 @@ class MapDisplayView @JvmOverloads constructor(
         btnMyLocation.apply { callOnClick(); }
     }
 
-    fun initialActionButtonSetUpForMap() {
+    /**
+     * First time when the map is loaded, This is the initial state of the screen
+     */
+    fun initialActionButtonSetUpForMap(isDarkMode: Boolean) {
         // Now set all the FABs and all the action name
         // texts as GONE
-        binding.addAlarmFab.visibility = View.GONE;
+        binding.uiModeFab.visibility = View.GONE;
         //mAddPersonFab.setVisibility(View.GONE);
         binding.addAlarmActionText.visibility = View.GONE;
-       // binding.addPersonActionText.visibility = View.GONE;
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are
+        // binding.addPersonActionText.visibility = View.GONE;
         // invisible
         isAllFabsVisible = false;
-        // Set the Extended floating action button to
-        // shrinked state initially
+        // Set the current icon for the action mode on the basis that saved mode is dark-mode or light-mode
+        if(isDarkMode){
+            // Set the light mode icon
+            binding.uiModeFab.setImageResource(R.drawable.ic_light_mode)
+        }else{
+            // Set the dark mode icon
+            binding.uiModeFab.setImageResource(R.drawable.ic_dark_mode)
+        }
+
         binding.addFab.shrink();
     }
 
-    fun actionButtonClick() {
+    /**
+     * On subsequent clicks of the action button handle the expanding and collapsing state of action button
+     */
+    fun toggleUiMode() {
         if (!isAllFabsVisible) {
-            binding.addAlarmFab.show();
+            binding.uiModeFab.show();
             //mAddPersonFab.show();
             binding.addAlarmActionText.visibility = View.VISIBLE;
             //addPersonActionText.setVisibility(View.VISIBLE);
             binding.addFab.extend();
             isAllFabsVisible = true;
         } else {
-            binding.addAlarmFab.hide();
+            binding.uiModeFab.hide();
             //mAddPersonFab.hide();
             binding.addAlarmActionText.visibility = View.GONE;
             //addPersonActionText.setVisibility(View.GONE);
@@ -151,8 +164,9 @@ class MapDisplayView @JvmOverloads constructor(
         }
     }
 
+
     fun setFabButtonClickListener(listener: OnClickListener) = binding.addFab.setOnClickListener(listener)
-    fun setAlarmFabButtonClickListener(listener: OnClickListener) = binding.addAlarmFab.setOnClickListener(listener)
+    fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.uiModeFab.setOnClickListener(listener)
 
     fun setStartButtonClickListener(listener: OnClickListener) = binding.startButton.setOnClickListener(listener)
     fun setStopButtonClickListener(listener: OnClickListener) = binding.stopButton.setOnClickListener(listener)

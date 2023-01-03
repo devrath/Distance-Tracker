@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
     <!--Floating action button for add alarm-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_alarm_fab"
+        android:id="@+id/ui_mode_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -116,10 +116,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Switch UI Modes"
-        app:layout_constraintBottom_toBottomOf="@+id/add_alarm_fab"
-        app:layout_constraintEnd_toStartOf="@+id/add_alarm_fab"
-        app:layout_constraintTop_toTopOf="@+id/add_alarm_fab" />
+        android:text="UI Modes"
+        app:layout_constraintBottom_toBottomOf="@+id/ui_mode_fab"
+        app:layout_constraintEnd_toStartOf="@+id/ui_mode_fab"
+        app:layout_constraintTop_toTopOf="@+id/ui_mode_fab" />
     <!--Floating action button for add person-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_person_fab"
@@ -130,9 +130,9 @@
         android:visibility="gone"
         app:fabSize="normal"
         app:tint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/add_alarm_fab"
-        app:layout_constraintEnd_toEndOf="@+id/add_alarm_fab"
-        app:layout_constraintStart_toStartOf="@+id/add_alarm_fab"
+        app:layout_constraintBottom_toTopOf="@+id/ui_mode_fab"
+        app:layout_constraintEnd_toEndOf="@+id/ui_mode_fab"
+        app:layout_constraintStart_toStartOf="@+id/ui_mode_fab"
         app:srcCompat="@drawable/ic_light_mode"
         android:contentDescription="@string/app_name" />
     <!--Action name text for the add person button-->

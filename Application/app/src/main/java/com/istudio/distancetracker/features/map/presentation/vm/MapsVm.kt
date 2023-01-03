@@ -2,6 +2,7 @@ package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -16,6 +17,7 @@ import com.istudio.core_location.domain.LocationFeature
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.core_connectivity.domain.ConnectivityFeature
 import com.istudio.core_preferences.domain.InAppReviewPreferences
+import com.istudio.core_ui.toggleUiMode.Mode
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
@@ -196,6 +198,37 @@ class MapsVm @Inject constructor(
             var number = preferences.noOfDistanceTracked().first()
             number++
             preferences.setNoOfDistanceTracked(number)
+        }
+    }
+
+    /**
+     * This will return true if the current mode is dark mode
+     * else if false in case the current mode is dark mode
+     */
+    suspend fun isDarkMode(): Boolean {
+        val currentMode = preferences.getUiModeForApp().first()
+        if (currentMode == Mode.LIGHT.ordinal){ return false }
+        else { return true }
+    }
+
+    suspend fun toggleUiMode(): Int {
+        return if(isDarkMode()){
+            // Set light mode
+            AppCompatDelegate.MODE_NIGHT_NO
+        }else {
+            // Set dark mode
+            AppCompatDelegate.MODE_NIGHT_YES
+        }
+    }
+
+
+    suspend fun saveToggledUiMode() {
+        if(isDarkMode()){
+            // Set light mode
+            preferences.setUiModeForApp(Mode.LIGHT.ordinal)
+        }else {
+            // Set dark mode
+            preferences.setUiModeForApp(Mode.DARK.ordinal)
         }
     }
     // ********************************* Preference-States *****************************************

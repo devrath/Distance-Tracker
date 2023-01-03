@@ -125,5 +125,10 @@ class MainActivity : AppCompatActivity() {
         }
     /** ******************************** APPLICATION UPDATE  *********************************** **/
 
+    override fun recreate() {
+        finish()
+        startActivity(intent)
+        // https://stackoverflow.com/questions/30174042/how-to-switch-themes-night-mode-without-restarting-the-activity
+    }
 
 }

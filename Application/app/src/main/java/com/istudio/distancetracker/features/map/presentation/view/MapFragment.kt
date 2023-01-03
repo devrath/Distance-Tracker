@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -122,7 +123,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         // Start observing the tracker service
         observeTrackerService()
         // Initial action button set up
-        binding.mapMasterViewId.initialActionButtonSetUp()
+        initialActionButtonSetUp()
     }
     // **********************************CallBacks *************************************************
 
@@ -165,7 +166,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             }
             setFabButtonClickListener{
                 //startButtonAction()
-                binding.mapMasterViewId.actionButtonClick()
+                binding.mapMasterViewId.toggleUiMode()
+            }
+            setUiModeFabButtonClickListener{
+                lifecycleScope.launch {
+                    // Set the UI Mode
+                    AppCompatDelegate.setDefaultNightMode(viewModel.toggleUiMode())
+                    // Save the UI Mode to preferences
+                    viewModel.saveToggledUiMode()
+                }
             }
         }
     }
@@ -309,6 +318,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             initNetworkObserver()
         }
         setOnClickListeners()
+    }
+
+    private fun initialActionButtonSetUp() {
+        lifecycleScope.launch {
+            val isDarkMode = viewModel.isDarkMode()
+            binding.mapMasterViewId.initialActionButtonSetUp(isDarkMode)
+        }
     }
     // ********************************** User defined functions ************************************
 

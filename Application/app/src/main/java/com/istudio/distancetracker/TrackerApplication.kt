@@ -34,7 +34,7 @@ class TrackerApplication: Application() {
                 val currentMode = when (preferences.getUiModeState().first()) {
                     Mode.LIGHT.ordinal -> AppCompatDelegate.MODE_NIGHT_NO
                     Mode.DARK.ordinal -> AppCompatDelegate.MODE_NIGHT_YES
-                    Mode.SYSTEM.ordinal -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    //Mode.SYSTEM.ordinal -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                     else -> AppCompatDelegate.MODE_NIGHT_NO
                 }
                 AppCompatDelegate.setDefaultNightMode(currentMode)
