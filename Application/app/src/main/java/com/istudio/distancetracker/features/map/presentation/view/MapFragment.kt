@@ -196,7 +196,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                         event.location, event.duration
                     )
                     is MapStates.DisableStopButton -> binding.mapMasterViewId.enableStopButton()
-                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(
+                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPicture(
                         event.bounds, event.padding, event.duration
                     )
                     is MapStates.AddPolyline -> {
@@ -388,7 +388,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         animateMap(newCameraPosition, duration)
     }
 
-    private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
+    private fun animateCameraForBiggerPicture(bounds: LatLngBounds, padding: Int, duration: Int) {
         val newCameraPosition = CameraUpdateFactory.newLatLngBounds(bounds, padding)
         animateMap(newCameraPosition, duration)
     }

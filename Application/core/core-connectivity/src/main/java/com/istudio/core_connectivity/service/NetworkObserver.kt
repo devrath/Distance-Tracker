@@ -51,7 +51,7 @@ class NetworkObserver constructor(
   override fun onStart(owner: LifecycleOwner) {
     super.onStart(owner)
     registerNetworkCallback()
-    checkValidNetworks()
+    //checkValidNetworks()
   }
 
   override fun onStop(owner: LifecycleOwner) {
