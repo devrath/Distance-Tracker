@@ -14,12 +14,16 @@
     <color name="colorGreen">#008000</color>
     <color name="colorBlue">#6495ED</color>
 
-
     <color name="colorResultValues">#FF000000</color>
     <color name="colorResultCloseIcon">#FF000000</color>
     <color name="colorRefreshIcon">#FF000000</color>
     <color name="colorPermissionPageDescription">#FF000000</color>
 
     <color name="ic_launcher_background">#FFFFFF</color>
+
+
+    <color name="colorActionPLusIcon">#000000</color>
+    <color name="colorActionPlusBackground">#FFFFFF</color>
+
 
 </resources>

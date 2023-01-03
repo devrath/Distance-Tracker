@@ -14,10 +14,14 @@
     <color name="colorGreen">#008000</color>
     <color name="colorBlue">#6495ED</color>
 
-
     <color name="colorResultValues">#FFFFFFFF</color>
     <color name="colorResultCloseIcon">#00FFFF</color>
     <color name="colorRefreshIcon">#FFFFFFFF</color>
     <color name="colorPermissionPageDescription">#FFFFFFFF</color>
+
+
+    <color name="colorActionPLusIcon">#FFFFFF</color>
+    <color name="colorActionPlusBackground">#000000</color>
+
 
 </resources>
