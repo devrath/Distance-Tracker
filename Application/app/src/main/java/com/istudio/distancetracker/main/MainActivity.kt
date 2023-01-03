@@ -18,12 +18,14 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.extensions.toast
 import com.istudio.core_common.navigation.NavigationUtils
+import com.istudio.core_ui.domain.SwitchUiModeFeature
 import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.ActivityMainBinding
 import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -31,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+
+    @Inject
+    lateinit var switchUiModeFeature: SwitchUiModeFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +50,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun recreate() {
-        animateForUiModeChange()
+        // This lets user to recreate the activity via animation when we switch the UI-modes
+        switchUiModeFeature.animateAndRestartApplication(this)
     }
     // ********************************** Life cycle methods ***************************************
 
@@ -64,18 +71,6 @@ class MainActivity : AppCompatActivity() {
         if (Permissions.hasLocationPermission(this@MainActivity)) {
             NavigationUtils.navigateSafe(navController, R.id.action_permissionFragment_to_mapFragment, null);
         }
-    }
-
-    /**
-     * This lets user to recreate the activity via animation when we switch the UI-modes
-     */
-    private fun animateForUiModeChange() {
-        finish()
-        val fadeIn = com.istudio.core_ui.R.anim.fade_in
-        val fadeOut = com.istudio.core_ui.R.anim.fade_out
-        overridePendingTransition(fadeIn, fadeOut);
-        startActivity(intent);
-        overridePendingTransition(fadeIn, fadeOut);
     }
     // ********************************** User defined functions ************************************
 

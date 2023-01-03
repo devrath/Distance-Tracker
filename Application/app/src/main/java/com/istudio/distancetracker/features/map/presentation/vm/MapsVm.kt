@@ -1,7 +1,6 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -17,7 +16,8 @@ import com.istudio.core_location.domain.LocationFeature
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.core_connectivity.domain.ConnectivityFeature
 import com.istudio.core_preferences.domain.InAppReviewPreferences
-import com.istudio.core_ui.toggleUiMode.Mode
+import com.istudio.core_ui.data.models.Mode
+import com.istudio.core_ui.domain.SwitchUiModeFeature
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
@@ -44,6 +44,8 @@ class MapsVm @Inject constructor(
     private var reviewManager: InAppReviewManager,
     // Preferences used to update the rate app prompt flags.
     var preferences: InAppReviewPreferences,
+    // Switch UI mode feature
+    var switchUiModeFeature: SwitchUiModeFeature,
 ) : BaseViewModel() {
 
     /**
@@ -200,31 +202,21 @@ class MapsVm @Inject constructor(
             preferences.setNoOfDistanceTracked(number)
         }
     }
+    // ********************************* Preference-States *****************************************
 
+    // ********************************* Switch-UI-Mode ********************************************
     /**
      * This will return true if the current mode is dark mode
      * else if false in case the current mode is dark mode
      */
-    suspend fun isDarkMode(): Boolean {
-        val currentMode = preferences.getUiModeForApp().first()
-        if (currentMode == Mode.LIGHT.ordinal){ return false }
-        else { return true }
-    }
+    suspend fun isDarkMode(): Boolean { return switchUiModeFeature.isDarkMode() }
 
     /**
      * How this works:
      * ***************
      * If the dark mode is currently present in app return light mode value else dark mode value
      */
-    suspend fun toggleUiMode(): Int {
-        return if(isDarkMode()){
-            // Set light mode
-            AppCompatDelegate.MODE_NIGHT_NO
-        }else {
-            // Set dark mode
-            AppCompatDelegate.MODE_NIGHT_YES
-        }
-    }
+    suspend fun toggleUiMode(): Int { return switchUiModeFeature.toggleUiMode() }
 
     /**
      * How this works:
@@ -232,16 +224,8 @@ class MapsVm @Inject constructor(
      * User would have initiated -> Change UI mode, So new UI mode will be the changed one
      * Thus if its dark-mode we set the flag new mode as light mode else dark mode
      */
-    suspend fun saveToggledUiMode() {
-        if(isDarkMode()){
-            // Set light mode
-            preferences.setUiModeForApp(Mode.LIGHT.ordinal)
-        }else {
-            // Set dark mode
-            preferences.setUiModeForApp(Mode.DARK.ordinal)
-        }
-    }
-    // ********************************* Preference-States *****************************************
+    suspend fun saveToggledUiMode() { switchUiModeFeature.saveToggledUiMode() }
+    // ********************************* Switch-UI-Mode ********************************************
 
     /**
      * ERROR HANDLING: For the Use cases

@@ -1,13 +1,12 @@
 package com.istudio.distancetracker
 
 import android.app.Application
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.istudio.core_logger.ApplicationLoggerConfig
 import com.istudio.core_preferences.data.repository.PreferenceRepository
-import com.istudio.core_ui.toggleUiMode.Mode
+import com.istudio.core_ui.data.models.Mode
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

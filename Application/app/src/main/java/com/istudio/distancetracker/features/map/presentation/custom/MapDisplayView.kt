@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.istudio.core_common.extensions.disable
@@ -13,7 +12,6 @@ import com.istudio.core_common.extensions.enable
 import com.istudio.core_common.extensions.gone
 import com.istudio.core_common.extensions.visible
 import com.istudio.core_ui.R
-import com.istudio.core_ui.toggleUiMode.Mode
 import com.istudio.distancetracker.databinding.IncludeCustMapViewBinding
 
 class MapDisplayView @JvmOverloads constructor(
