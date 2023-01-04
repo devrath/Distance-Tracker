@@ -23,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
@@ -118,6 +119,23 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
         // Set map padding
         map.setPadding(0, 0, 20, 0)
+
+        lifecycleScope.launchWhenStarted {
+            when {
+                viewModel.isDarkMode() -> googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.map_dark_mode
+                    )
+                )
+                else -> googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.map_light_mode
+                    )
+                )
+            }
+        }
+
+        //map.mapType = GoogleMap.MAP_TYPE_HYBRID
         // Set custom location
         setCustomIconForLocationButton()
         // Start observing the tracker service
