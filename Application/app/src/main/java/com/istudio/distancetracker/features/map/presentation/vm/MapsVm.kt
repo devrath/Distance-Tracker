@@ -212,6 +212,11 @@ class MapsVm @Inject constructor(
     suspend fun isDarkMode(): Boolean { return switchUiModeFeature.isDarkMode() }
 
     /**
+     * This will return true/false based on whetehr the UI mode key is stored or not
+     */
+    suspend fun isUiModeKeyStored(): Boolean { return switchUiModeFeature.isUiModeKeyStored() }
+
+    /**
      * How this works:
      * ***************
      * If the dark mode is currently present in app return light mode value else dark mode value

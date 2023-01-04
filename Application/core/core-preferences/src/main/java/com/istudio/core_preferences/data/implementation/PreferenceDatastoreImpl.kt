@@ -35,6 +35,9 @@ class PreferenceDatastoreImpl(
         dataStore.edit { it[keyUiModeOfApp] = mode }
     }
 
+    override suspend fun isUiModeKeyStored(): Flow<Boolean> = dataStore.data.map { preference ->
+            preference.contains(keyUiModeOfApp)
+    }
     /** *************************************************************** **/
     override suspend fun hasUserRatedApp(): Flow<Boolean> {
         return dataStore.getValueFlow(keyRefHasUserRatedTheApp, false)
@@ -78,6 +81,8 @@ class PreferenceDatastoreImpl(
     /** *************************************************************** **/
     override suspend fun clearIfUserDidNotRate() { dataStore.edit { it.clear() } }
     /** *************************************************************** **/
+
+
 
 
     private fun <T> DataStore<Preferences>.getValueFlow(

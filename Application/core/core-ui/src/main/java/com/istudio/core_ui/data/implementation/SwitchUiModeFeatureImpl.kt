@@ -69,4 +69,13 @@ class SwitchUiModeFeatureImpl @Inject constructor(
             overridePendingTransition(fadeIn, fadeOut);
         }
     }
+
+    /**
+     * How this works:
+     * ***************
+     * It will return true/false based on whether the UI-Mode key is stored or not
+     */
+    override suspend fun isUiModeKeyStored(): Boolean {
+        return preferences.isUiModeKeyStored().first()
+    }
 }

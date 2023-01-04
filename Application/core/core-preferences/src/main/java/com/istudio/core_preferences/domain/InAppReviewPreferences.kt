@@ -87,4 +87,7 @@ interface InAppReviewPreferences {
      * @param mode - User saves the UI mode selected
      * */
     suspend fun setUiModeForApp(mode: Int)
+
+
+    suspend fun isUiModeKeyStored(): Flow<Boolean>
 }

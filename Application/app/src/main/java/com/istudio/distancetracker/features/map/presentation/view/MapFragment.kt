@@ -2,6 +2,7 @@ package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
@@ -29,21 +30,21 @@ import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
-import com.istudio.distancetracker.R
-import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
-import com.istudio.distancetracker.model.Result
-import com.istudio.distancetracker.service.TrackerService
-import com.istudio.distancetracker.features.map.presentation.state.MapStates
-import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
+import com.istudio.distancetracker.model.Result
+import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -122,18 +123,25 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
         lifecycleScope.launchWhenStarted {
             when {
-                viewModel.isDarkMode() -> googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                        requireContext(), R.raw.map_dark_mode
-                    )
-                )
-                else -> googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                        requireContext(), R.raw.map_light_mode
-                    )
-                )
+                !viewModel.isUiModeKeyStored() -> {
+                    // System UI mode is not applied so use the system selection of dark/light theme
+                    when (requireActivity().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_NO -> lightMode(googleMap)
+                        Configuration.UI_MODE_NIGHT_YES -> darkMode(googleMap)
+                    }
+                }
+                else -> {
+                    // System UI mode is not applied so use the user selection of dark/light theme
+                    lifecycleScope.launchWhenStarted {
+                        when {
+                            viewModel.isDarkMode() -> darkMode(googleMap)
+                            else -> lightMode(googleMap)
+                        }
+                    }
+                }
             }
         }
+
 
         //map.mapType = GoogleMap.MAP_TYPE_HYBRID
         // Set custom location
@@ -343,6 +351,28 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             val isDarkMode = viewModel.isDarkMode()
             binding.mapMasterViewId.initialActionButtonSetUp(isDarkMode)
         }
+    }
+
+    /**
+     * THEME-APPLIED: Light mode is applied
+     */
+    private fun lightMode(googleMap: GoogleMap) {
+        googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(), R.raw.map_light_mode
+            )
+        )
+    }
+
+    /**
+     * THEME-APPLIED: Dark mode is applied
+     */
+    private fun darkMode(googleMap: GoogleMap) {
+        googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(), R.raw.map_dark_mode
+            )
+        )
     }
     // ********************************** User defined functions ************************************
 
