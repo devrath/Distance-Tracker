@@ -28,7 +28,7 @@ class PreferenceDatastoreImpl(
 
 
     override suspend fun getUiModeForApp(): Flow<Int> {
-        return dataStore.getValueFlow(keyUiModeOfApp,0)
+        return dataStore.getValueFlow(keyUiModeOfApp,-1)
     }
 
     override suspend fun setUiModeForApp(mode: Int) {

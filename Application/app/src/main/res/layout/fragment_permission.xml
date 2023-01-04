@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPermissionScreenBkg"
     tools:context=".features.permission.PermissionFragment">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -59,6 +60,8 @@
         android:clickable="true"
         android:focusable="true"
         android:contentDescription="@string/continue_text"
+        app:tint="@color/colorActionPlusTextColor"
+        android:backgroundTint="@color/colorPermissionScreenAction"
         android:src="@drawable/ic_baseline_arrow_forward"
         android:layout_marginBottom="@dimen/continue_button_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"

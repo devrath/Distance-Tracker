@@ -47,7 +47,7 @@ class TrackerApplication: Application() {
                     Mode.LIGHT.ordinal -> AppCompatDelegate.MODE_NIGHT_NO
                     Mode.DARK.ordinal -> AppCompatDelegate.MODE_NIGHT_YES
                     //Mode.SYSTEM.ordinal -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                    else -> AppCompatDelegate.MODE_NIGHT_NO
+                    else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 }
                 AppCompatDelegate.setDefaultNightMode(currentMode)
             }
