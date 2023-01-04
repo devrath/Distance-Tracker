@@ -20,8 +20,14 @@
     <color name="colorPermissionPageDescription">#FFFFFFFF</color>
 
 
+    <!-- Dark Mode Migrated -->
     <color name="colorActionPLusIcon">#FFFFFF</color>
-    <color name="colorActionPlusBackground">#000000</color>
+    <color name="colorBackgroundTintActionPlus">#000000</color>
+    <color name="colorBackgroundTintActionUiMode">#000000</color>
+    <color name="colorActionPlusTextColor">#FFFFFF</color>
+    <color name="colorUiModeTextColor">#000000</color>
+    <!-- Dark Mode Migrated -->
+
 
 
 </resources>

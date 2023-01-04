@@ -22,8 +22,13 @@
     <color name="ic_launcher_background">#FFFFFF</color>
 
 
+    <!-- Light Mode Migrated -->
     <color name="colorActionPLusIcon">#000000</color>
-    <color name="colorActionPlusBackground">#FFFFFF</color>
+    <color name="colorBackgroundTintActionPlus">#D4A017</color>
+    <color name="colorBackgroundTintActionUiMode">#D4A017</color>
+    <color name="colorActionPlusTextColor">#FFFFFF</color>
+    <color name="colorUiModeTextColor">#000000</color>
+    <!-- Light Mode Migrated -->
 
 
 </resources>
