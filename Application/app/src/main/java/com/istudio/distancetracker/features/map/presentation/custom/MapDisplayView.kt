@@ -53,7 +53,7 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun counterGoState() {
         // Text Color:-> BLACK
-        val colorBlack = ContextCompat.getColor(context, R.color.black)
+        val colorBlack = ContextCompat.getColor(context, R.color.colorCounter)
         // Text String:-> GO
         val strGo = context.getText(R.string.go)
         binding.apply {
@@ -64,7 +64,7 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun counterCountDownState(currentSecond: String) {
         // Text Color:-> RED
-        val colorRed = ContextCompat.getColor(context, R.color.red)
+        val colorRed = ContextCompat.getColor(context, R.color.colorCounter)
         binding.apply {
             // Text String:-> Current second Number
             timerTextView.text = currentSecond.toString()

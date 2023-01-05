@@ -25,6 +25,7 @@
     <color name="colorActionButtonBackgroundTint">#FF018786</color>
     <color name="colorActionButtonTint">#FFFFFF</color>
     <color name="colorPermissionScreenBkg">#000000</color>
+    <color name="colorCounter">#FF018786</color>
     <!-- Dark Mode Migrated -->
 
 

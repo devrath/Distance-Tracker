@@ -27,6 +27,7 @@
     <color name="colorPermissionScreenBkg">#FFFFFF</color>
     <color name="colorActionButtonBackgroundTint">#D4A017</color>
     <color name="colorActionButtonTint">#FFFFFF</color>
+    <color name="colorCounter">#D4A017</color>
     <!-- Light Mode Migrated -->
 
 
