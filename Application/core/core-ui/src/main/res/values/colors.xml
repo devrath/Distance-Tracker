@@ -23,14 +23,10 @@
 
 
     <!-- Light Mode Migrated -->
-    <color name="colorActionPLusIcon">#000000</color>
-    <color name="colorBackgroundTintActionPlus">#D4A017</color>
-    <color name="colorBackgroundTintActionUiMode">#D4A017</color>
-    <color name="colorPermissionScreenAction">#D4A017</color>
-    <color name="colorActionPlusTextColor">#FFFFFF</color>
     <color name="colorUiModeTextColor">#000000</color>
     <color name="colorPermissionScreenBkg">#FFFFFF</color>
-    <color name="colorPermissionScreenArrow">#FFFFFF</color>
+    <color name="colorActionButtonBackgroundTint">#D4A017</color>
+    <color name="colorActionButtonTint">#FFFFFF</color>
     <!-- Light Mode Migrated -->
 
 

@@ -461,8 +461,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // *************************************** States **********************************************
     private fun setCustomIconForLocationButton() {
         binding.mapMasterViewId.apply {
-            setCustomIconForLocationButton()
             lifecycleScope.launch {
+                setCustomIconForLocationButton(viewModel.isDarkMode())
                 // Provide a delay
                 delay(Constants.LOCATE_MYSELF_TIMER_DURATION)
                 initiateLocationButtonClick()
