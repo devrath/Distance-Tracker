@@ -30,7 +30,7 @@ class MapMasterView @JvmOverloads constructor(
     fun stoppedUiState() { binding.mapViewId.stoppedUiState() }
     fun hideTimerTextView() { binding.mapViewId.hideTimerTextView() }
     fun startButtonActionUiState() { binding.mapViewId.startButtonActionUiState() }
-    fun setCustomIconForLocationButton() { binding.mapViewId.setCustomIconForLocationButton() }
+    fun setCustomIconForLocationButton(darkMode: Boolean) { binding.mapViewId.setCustomIconForLocationButton(darkMode) }
     fun initiateLocationButtonClick() { binding.mapViewId.initiateLocationButtonClick() }
     fun counterCountDownState(currentSecond: String) { binding.mapViewId.counterCountDownState(currentSecond) }
 
@@ -51,6 +51,11 @@ class MapMasterView @JvmOverloads constructor(
         }
     }
 
+    fun toggleUiMode() { binding.apply { mapViewId.toggleUiMode() } }
+    fun initialActionButtonSetUp(isDarkMode: Boolean) { binding.apply { mapViewId.initialActionButtonSetUpForMap(isDarkMode) } }
+
+    fun setFabButtonClickListener(listener: OnClickListener) = binding.mapViewId.setFabButtonClickListener(listener)
+    fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.mapViewId.setUiModeFabButtonClickListener(listener)
     fun setStartButtonClickListener(listener: OnClickListener) = binding.mapViewId.setStartButtonClickListener(listener)
     fun setStopButtonClickListener(listener: OnClickListener) = binding.mapViewId.setStopButtonClickListener(listener)
     fun setResetButtonClickListener(listener: OnClickListener) = binding.mapViewId.setResetButtonClickListener(listener)

@@ -27,6 +27,9 @@ class MapDisplayView @JvmOverloads constructor(
     private var binding =
         IncludeCustMapViewBinding.inflate(LayoutInflater.from(context), this, true)
 
+    // to check whether sub FABs are visible or not
+    private var isAllFabsVisible: Boolean = false
+
     fun displayStartButton() {
         binding.apply {
             resetButton.gone(animate = false)
@@ -50,7 +53,7 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun counterGoState() {
         // Text Color:-> BLACK
-        val colorBlack = ContextCompat.getColor(context, R.color.black)
+        val colorBlack = ContextCompat.getColor(context, R.color.colorCounter)
         // Text String:-> GO
         val strGo = context.getText(R.string.go)
         binding.apply {
@@ -61,7 +64,7 @@ class MapDisplayView @JvmOverloads constructor(
 
     fun counterCountDownState(currentSecond: String) {
         // Text Color:-> RED
-        val colorRed = ContextCompat.getColor(context, R.color.red)
+        val colorRed = ContextCompat.getColor(context, R.color.colorCounter)
         binding.apply {
             // Text String:-> Current second Number
             timerTextView.text = currentSecond.toString()
@@ -95,13 +98,17 @@ class MapDisplayView @JvmOverloads constructor(
         }
     }
 
-    fun setCustomIconForLocationButton() {
+    fun setCustomIconForLocationButton(darkMode: Boolean) {
         val btnMyLocation: ImageView =
             (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(
                 Integer.parseInt("2")
             )
         btnMyLocation.apply {
-            setImageResource(R.drawable.ic_current_location)
+            if(darkMode){
+                setImageResource(R.drawable.ic_current_location_dark_mode)
+            }else{
+                setImageResource(R.drawable.ic_current_location)
+            }
             callOnClick();
         }
     }
@@ -113,6 +120,55 @@ class MapDisplayView @JvmOverloads constructor(
             )
         btnMyLocation.apply { callOnClick(); }
     }
+
+    /**
+     * First time when the map is loaded, This is the initial state of the screen
+     */
+    fun initialActionButtonSetUpForMap(isDarkMode: Boolean) {
+        // Now set all the FABs and all the action name
+        // texts as GONE
+        binding.uiModeFab.visibility = View.GONE;
+        //mAddPersonFab.setVisibility(View.GONE);
+        binding.addAlarmActionText.visibility = View.GONE;
+        // binding.addPersonActionText.visibility = View.GONE;
+        // invisible
+        isAllFabsVisible = false;
+        // Set the current icon for the action mode on the basis that saved mode is dark-mode or light-mode
+        if(isDarkMode){
+            // Set the light mode icon
+            binding.uiModeFab.setImageResource(R.drawable.ic_light_mode)
+        }else{
+            // Set the dark mode icon
+            binding.uiModeFab.setImageResource(R.drawable.ic_dark_mode)
+        }
+
+        binding.addFab.shrink();
+    }
+
+    /**
+     * On subsequent clicks of the action button handle the expanding and collapsing state of action button
+     */
+    fun toggleUiMode() {
+        if (!isAllFabsVisible) {
+            binding.uiModeFab.show();
+            //mAddPersonFab.show();
+            binding.addAlarmActionText.visibility = View.VISIBLE;
+            //addPersonActionText.setVisibility(View.VISIBLE);
+            binding.addFab.extend();
+            isAllFabsVisible = true;
+        } else {
+            binding.uiModeFab.hide();
+            //mAddPersonFab.hide();
+            binding.addAlarmActionText.visibility = View.GONE;
+            //addPersonActionText.setVisibility(View.GONE);
+            binding.addFab.shrink();
+            isAllFabsVisible = false;
+        }
+    }
+
+
+    fun setFabButtonClickListener(listener: OnClickListener) = binding.addFab.setOnClickListener(listener)
+    fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.uiModeFab.setOnClickListener(listener)
 
     fun setStartButtonClickListener(listener: OnClickListener) = binding.startButton.setOnClickListener(listener)
     fun setStopButtonClickListener(listener: OnClickListener) = binding.stopButton.setOnClickListener(listener)

@@ -5,5 +5,6 @@ apply {
 dependencies {
     // "implementation"(project(Modules.core))
     "implementation"(SplashScreen.splashAndroidApi)
+    "implementation"(project(Modules.corePreferences))
 
 }

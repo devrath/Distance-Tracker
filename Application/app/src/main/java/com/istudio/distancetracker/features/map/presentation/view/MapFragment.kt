@@ -2,6 +2,7 @@ package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,26 +24,27 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
-import com.istudio.distancetracker.R
-import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
-import com.istudio.distancetracker.model.Result
-import com.istudio.distancetracker.service.TrackerService
-import com.istudio.distancetracker.features.map.presentation.state.MapStates
-import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_DURATION
 import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
+import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
+import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
+import com.istudio.distancetracker.features.map.presentation.state.MapStates
+import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
 import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
+import com.istudio.distancetracker.model.Result
+import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -117,10 +120,36 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
         // Set map padding
         map.setPadding(0, 0, 20, 0)
+
+        lifecycleScope.launchWhenStarted {
+            when {
+                !viewModel.isUiModeKeyStored() -> {
+                    // System UI mode is not applied so use the system selection of dark/light theme
+                    when (requireActivity().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_NO -> lightMode(googleMap)
+                        Configuration.UI_MODE_NIGHT_YES -> darkMode(googleMap)
+                    }
+                }
+                else -> {
+                    // System UI mode is not applied so use the user selection of dark/light theme
+                    lifecycleScope.launchWhenStarted {
+                        when {
+                            viewModel.isDarkMode() -> darkMode(googleMap)
+                            else -> lightMode(googleMap)
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //map.mapType = GoogleMap.MAP_TYPE_HYBRID
         // Set custom location
         setCustomIconForLocationButton()
         // Start observing the tracker service
         observeTrackerService()
+        // Initial action button set up
+        initialActionButtonSetUp()
     }
     // **********************************CallBacks *************************************************
 
@@ -161,6 +190,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             setNetworkSettingsButtonClickListener {
                 connectivitySettingsLauncher.launch(Intent(Settings.ACTION_SETTINGS))
             }
+            setFabButtonClickListener{
+                //startButtonAction()
+                binding.mapMasterViewId.toggleUiMode()
+            }
+            setUiModeFabButtonClickListener{
+                lifecycleScope.launch {
+                    // INITIATE:-> Set the UI Mode for application
+                    AppCompatDelegate.setDefaultNightMode(viewModel.toggleUiMode())
+                    // Save the UI Mode to preferences
+                    viewModel.saveToggledUiMode()
+                }
+            }
         }
     }
 
@@ -181,7 +222,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                         event.location, event.duration
                     )
                     is MapStates.DisableStopButton -> binding.mapMasterViewId.enableStopButton()
-                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPitchure(
+                    is MapStates.AnimateCameraForBiggerPitchure -> animateCameraForBiggerPicture(
                         event.bounds, event.padding, event.duration
                     )
                     is MapStates.AddPolyline -> {
@@ -304,6 +345,35 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
         setOnClickListeners()
     }
+
+    private fun initialActionButtonSetUp() {
+        lifecycleScope.launch {
+            val isDarkMode = viewModel.isDarkMode()
+            binding.mapMasterViewId.initialActionButtonSetUp(isDarkMode)
+        }
+    }
+
+    /**
+     * THEME-APPLIED: Light mode is applied
+     */
+    private fun lightMode(googleMap: GoogleMap) {
+        googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(), R.raw.map_light_mode
+            )
+        )
+    }
+
+    /**
+     * THEME-APPLIED: Dark mode is applied
+     */
+    private fun darkMode(googleMap: GoogleMap) {
+        googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(), R.raw.map_dark_mode
+            )
+        )
+    }
     // ********************************** User defined functions ************************************
 
     // *************************************** Location Service ************************************
@@ -366,7 +436,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         animateMap(newCameraPosition, duration)
     }
 
-    private fun animateCameraForBiggerPitchure(bounds: LatLngBounds, padding: Int, duration: Int) {
+    private fun animateCameraForBiggerPicture(bounds: LatLngBounds, padding: Int, duration: Int) {
         val newCameraPosition = CameraUpdateFactory.newLatLngBounds(bounds, padding)
         animateMap(newCameraPosition, duration)
     }
@@ -391,8 +461,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     // *************************************** States **********************************************
     private fun setCustomIconForLocationButton() {
         binding.mapMasterViewId.apply {
-            setCustomIconForLocationButton()
             lifecycleScope.launch {
+                setCustomIconForLocationButton(viewModel.isDarkMode())
                 // Provide a delay
                 delay(Constants.LOCATE_MYSELF_TIMER_DURATION)
                 initiateLocationButtonClick()

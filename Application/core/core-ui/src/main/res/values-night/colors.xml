@@ -14,10 +14,20 @@
     <color name="colorGreen">#008000</color>
     <color name="colorBlue">#6495ED</color>
 
-
     <color name="colorResultValues">#FFFFFFFF</color>
     <color name="colorResultCloseIcon">#00FFFF</color>
     <color name="colorRefreshIcon">#FFFFFFFF</color>
     <color name="colorPermissionPageDescription">#FFFFFFFF</color>
+
+
+    <!-- Dark Mode Migrated -->
+    <color name="colorUiModeTextColor">#000000</color>
+    <color name="colorActionButtonBackgroundTint">#FF018786</color>
+    <color name="colorActionButtonTint">#FFFFFF</color>
+    <color name="colorPermissionScreenBkg">#000000</color>
+    <color name="colorCounter">#FF018786</color>
+    <!-- Dark Mode Migrated -->
+
+
 
 </resources>
