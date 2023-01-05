@@ -26,6 +26,8 @@
     <color name="colorActionButtonTint">#FFFFFF</color>
     <color name="colorPermissionScreenBkg">#000000</color>
     <color name="colorCounter">#FF018786</color>
+    <color name="colorBottomSheetBkgStyleSelection">#000000</color>
+    <color name="colorBottomSheetTextColor">#FFFFFF</color>
     <!-- Dark Mode Migrated -->
 
 

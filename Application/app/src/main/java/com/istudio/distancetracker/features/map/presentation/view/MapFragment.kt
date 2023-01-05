@@ -1,14 +1,20 @@
 package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -202,6 +208,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     viewModel.saveToggledUiMode()
                 }
             }
+            setChangeStyleButtonClickListener { showDialog() }
         }
     }
 
@@ -470,4 +477,34 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
     // *************************************** States **********************************************
+
+    // *************************************** Dialogs *********************************************
+    private fun showDialog() {
+        val dialog = Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.bottom_sheet_map_type)
+        }
+        val mapNormal: LinearLayout = dialog.findViewById(R.id.layoutOne)
+        val mapHybrid: LinearLayout = dialog.findViewById(R.id.layoutTwo)
+        val mapSatellite: LinearLayout = dialog.findViewById(R.id.layoutThree)
+        val mapTerrain: LinearLayout = dialog.findViewById(R.id.layoutFour)
+
+        mapNormal.setOnClickListener { setType(GoogleMap.MAP_TYPE_NORMAL,dialog) }
+        mapHybrid.setOnClickListener { setType(GoogleMap.MAP_TYPE_HYBRID,dialog) }
+        mapSatellite.setOnClickListener { setType(GoogleMap.MAP_TYPE_SATELLITE,dialog) }
+        mapTerrain.setOnClickListener { setType(GoogleMap.MAP_TYPE_TERRAIN,dialog) }
+        dialog.show()
+        dialog.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            //attributes.windowAnimations = R.style.DialogAnimation
+            setGravity(Gravity.BOTTOM)
+        }
+    }
+
+    private fun setType(typeValue: Int, dialog: Dialog) {
+        map.mapType = typeValue
+        dialog.dismiss()
+    }
+    // *************************************** Dialogs *********************************************
 }
