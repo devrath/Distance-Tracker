@@ -208,7 +208,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     viewModel.saveToggledUiMode()
                 }
             }
-            setChangeStyleButtonClickListener { showDialog() }
+            setChangeStyleButtonClickListener {
+                // showDialog()
+            }
         }
     }
 
@@ -484,10 +486,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.bottom_sheet_map_type)
         }
-        val mapNormal: LinearLayout = dialog.findViewById(R.id.layoutOne)
-        val mapHybrid: LinearLayout = dialog.findViewById(R.id.layoutTwo)
-        val mapSatellite: LinearLayout = dialog.findViewById(R.id.layoutThree)
-        val mapTerrain: LinearLayout = dialog.findViewById(R.id.layoutFour)
+        val mapNormal: LinearLayout = dialog.findViewById(R.id.btnNormalId)
+        val mapHybrid: LinearLayout = dialog.findViewById(R.id.btnHybridId)
+        val mapSatellite: LinearLayout = dialog.findViewById(R.id.btnSatelliteId)
+        val mapTerrain: LinearLayout = dialog.findViewById(R.id.btnTerrainId)
 
         mapNormal.setOnClickListener { setType(GoogleMap.MAP_TYPE_NORMAL,dialog) }
         mapHybrid.setOnClickListener { setType(GoogleMap.MAP_TYPE_HYBRID,dialog) }

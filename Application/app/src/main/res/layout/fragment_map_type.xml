@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical"
-tools:context=".features.result.ResultFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".features.result.ResultFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnNormalId"
@@ -39,6 +39,15 @@ tools:context=".features.result.ResultFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnTerrainId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/terrain"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/colorBottomSheetTextColor"
+        android:padding="20dp"
+        android:textSize="18sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/terrain"
