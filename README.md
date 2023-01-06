@@ -37,6 +37,11 @@ This application is used to track the user distance traveled and the time taken 
 | **`Toggling dark/light mode from app`**: This application supports system dark/light mode along with it user can force the toggling of modes in android |  | <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/dark_light_mode.gif" width="160" height="330"/> |
 | **`Changing the map style`**: We can dynamically change the map style of android to provide a different user experience |  | <img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/ScreenGif/switch_map_types.gif" width="160" height="330"/> |
 
+## **`Useful learnings`** 💡
+* [_**`Publisher subscriber pattern using flow API`**_](https://medium.com/@devrath.dev595/publisher-subscriber-using-shared-flow-api-e12baf32113e)
+
+
+
 ### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
 
 * [Jetpack-Androidx](https://developer.android.com/jetpack/androidx): Major improvement to the original Android Support Library, which is no longer maintained.
