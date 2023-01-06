@@ -18,20 +18,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionFragment : Fragment(){
+class PermissionFragment : Fragment() {
 
     private var _binding: FragmentPermissionBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: PermissionVm by viewModels()
 
-    @Inject lateinit var permissionFeature: PermissionFeature
-
+    @Inject
+    lateinit var permissionFeature: PermissionFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View { return initOnCreateView(inflater,container) }
+    ): View {
+        return initOnCreateView(inflater, container)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,7 +69,10 @@ class PermissionFragment : Fragment(){
             viewModel.events.collect { event ->
                 when (event) {
                     PermissionStates.NavigateToMapsScreen -> findNavController().navigate(R.id.action_permissionFragment_to_mapFragment)
-                    PermissionStates.RuntimeLocationPermission -> permissionFeature.runtimeLocationPermission(this@PermissionFragment,binding.root)
+                    PermissionStates.RuntimeLocationPermission ->
+                        permissionFeature.runtimeLocationPermission(
+                            this@PermissionFragment, binding.root
+                        )
                 }
             }
         }
