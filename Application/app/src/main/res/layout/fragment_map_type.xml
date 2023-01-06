@@ -7,17 +7,16 @@
     android:orientation="vertical"
     tools:context="com.istudio.distancetracker.features.map.presentation.view.MapTypeSelectionFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/btnNormalId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/normal"
-        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/colorBottomSheetTextColor"
         android:padding="20dp"
         android:textSize="18sp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/btnHybridId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +26,7 @@
         android:padding="20dp"
         android:textSize="18sp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/btnSatelliteId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,17 +36,8 @@
         android:padding="20dp"
         android:textSize="18sp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/btnTerrainId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/terrain"
-        android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/colorBottomSheetTextColor"
-        android:padding="20dp"
-        android:textSize="18sp"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/terrain"

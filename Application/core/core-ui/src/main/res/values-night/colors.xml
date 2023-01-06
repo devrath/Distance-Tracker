@@ -21,7 +21,7 @@
 
 
     <!-- Dark Mode Migrated -->
-    <color name="colorUiModeTextColor">#000000</color>
+    <color name="colorUiModeTextColor">#FFFFFF</color>
     <color name="colorActionButtonBackgroundTint">#FF018786</color>
     <color name="colorActionButtonTint">#FFFFFF</color>
     <color name="colorPermissionScreenBkg">#000000</color>
