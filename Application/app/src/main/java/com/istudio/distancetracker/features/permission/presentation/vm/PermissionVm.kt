@@ -61,5 +61,10 @@ class PermissionVm @Inject constructor(
     }
 
 
+    override fun onCleared() {
+        super.onCleared()
+        _eventChannel.cancel()
+    }
+
 
 }
