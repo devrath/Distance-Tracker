@@ -52,21 +52,25 @@ class MapTypeSelectionFragment : BottomSheetDialogFragment() {
                 lifecycleScope.launch {
                     PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_NORMAL))
                 }
+                dismiss()
             }
             btnHybridId.setOnClickListener {
                 lifecycleScope.launch {
                     PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_HYBRID))
                 }
+                dismiss()
             }
             btnSatelliteId.setOnClickListener {
                 lifecycleScope.launch {
                     PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_SATELLITE))
                 }
+                dismiss()
             }
             btnTerrainId.setOnClickListener {
                 lifecycleScope.launch {
                     PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_TERRAIN))
                 }
+                dismiss()
             }
         }
     }

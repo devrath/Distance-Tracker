@@ -7,7 +7,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.demo.core_permission.domain.PermissionFeature
 import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -40,8 +40,6 @@ import com.istudio.core_connectivity.service.NetworkState
 import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
-import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_DURATION
-import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
@@ -49,8 +47,6 @@ import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
-import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
-import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
@@ -58,7 +54,6 @@ import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -78,6 +73,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * */
     @Inject
     lateinit var reviewManager: InAppReviewManager
+
+    @Inject
+    lateinit var permissionFeature: PermissionFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -133,10 +131,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             when {
                 !viewModel.isUiModeKeyStored() -> {
                     // System UI mode is not applied so use the system selection of dark/light theme
-                    when (requireActivity().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                        Configuration.UI_MODE_NIGHT_NO -> lightMode(googleMap)
-                        Configuration.UI_MODE_NIGHT_YES -> darkMode(googleMap)
-                    }
+                    if(checkIfSystemHasLightMode()){ lightMode(googleMap)
+                    }else{ darkMode(googleMap) }
                 }
                 else -> {
                     // System UI mode is not applied so use the user selection of dark/light theme
@@ -244,6 +240,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     is MapStates.LaunchInAppReview -> {
                         ReviewDialog().show(childFragmentManager, null)
                     }
+                    is MapStates.CounterGoState -> binding.mapMasterViewId.counterGoState()
+                    is MapStates.CounterCountDownState ->  binding.mapMasterViewId.counterCountDownState(event.currentSecond)
+                    is MapStates.CounterFinishedState -> counterCountDownFinished()
                 }
             }
         }
@@ -280,11 +279,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * BUTTON-ACTION: Start button clicked
      */
     private fun startButtonAction() {
-        if (hasBackgroundLocationPermission(requireContext())) {
+        if (permissionFeature.hasBackgroundLocationPermission()) {
             startCountdown()
             binding.mapMasterViewId.startButtonActionUiState()
         } else {
-            runtimeBackgroundPermission(this, requireActivity(), binding.root)
+            permissionFeature.runtimeBackgroundPermission(this, binding.root)
         }
     }
 
@@ -299,25 +298,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun startCountdown() {
         binding.mapMasterViewId.countDownUiState()
-        val timer: CountDownTimer =
-            object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val currentSecond =
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
-                    val zeroString = "0"
-                    if (currentSecond == zeroString) {
-                        binding.mapMasterViewId.counterGoState()
-                    } else {
-                        binding.mapMasterViewId.counterCountDownState(currentSecond)
-                    }
-                }
-
-                override fun onFinish() {
-                    binding.mapMasterViewId.hideTimerTextView()
-                    startLocationService()
-                }
-            }
-        timer.start()
+        viewModel.startCountdown()
     }
 
     private fun stopForegroundService() {
@@ -397,6 +378,25 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 requireContext(), R.raw.map_dark_mode
             )
         )
+    }
+
+    /**
+     * Triggered when the counter count down is finished
+     */
+    private fun counterCountDownFinished() {
+        binding.mapMasterViewId.hideTimerTextView()
+        startLocationService()
+    }
+
+    /**
+     * Check if the system selected as light mode
+     */
+    private fun checkIfSystemHasLightMode(): Boolean {
+        when (requireActivity().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> return true
+            Configuration.UI_MODE_NIGHT_YES -> return false
+        }
+        return true
     }
     // ********************************** User defined functions ************************************
 
@@ -486,7 +486,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     private fun setCustomIconForLocationButton() {
         binding.mapMasterViewId.apply {
             lifecycleScope.launch {
-                setCustomIconForLocationButton(viewModel.isDarkMode())
+                setCustomIconForLocationButton(
+                    viewModel.isDarkMode(),viewModel.isUiModeKeyStored(),
+                    checkIfSystemHasLightMode()
+                )
                 // Provide a delay
                 delay(Constants.LOCATE_MYSELF_TIMER_DURATION)
                 initiateLocationButtonClick()

@@ -98,16 +98,24 @@ class MapDisplayView @JvmOverloads constructor(
         }
     }
 
-    fun setCustomIconForLocationButton(darkMode: Boolean) {
+    fun setCustomIconForLocationButton(
+        darkMode: Boolean, uiModeKeyStored: Boolean, isSystemSelectionLightMode:Boolean
+    ) {
         val btnMyLocation: ImageView =
             (binding.map.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById(
                 Integer.parseInt("2")
             )
         btnMyLocation.apply {
-            if(darkMode){
-                setImageResource(R.drawable.ic_current_location_dark_mode)
+            if(uiModeKeyStored){
+                when {
+                    darkMode -> setImageResource(R.drawable.ic_current_location_dark_mode)
+                    else -> setImageResource(R.drawable.ic_current_location)
+                }
             }else{
-                setImageResource(R.drawable.ic_current_location)
+                when {
+                    isSystemSelectionLightMode -> setImageResource(R.drawable.ic_current_location)
+                    else -> setImageResource(R.drawable.ic_current_location_dark_mode)
+                }
             }
             callOnClick();
         }

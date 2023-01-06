@@ -22,4 +22,8 @@ sealed class MapStates {
     object DisableStopButton : MapStates()
 
     object LaunchInAppReview : MapStates()
+    object CounterGoState : MapStates()
+    object CounterFinishedState : MapStates()
+    data class CounterCountDownState(val currentSecond: String) : MapStates()
+
 }

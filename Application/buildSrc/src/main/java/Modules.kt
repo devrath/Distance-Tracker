@@ -11,4 +11,5 @@ object Modules {
     const val coreLocation = ":core:core-location"
     const val coreConnectivity = ":core:core-connectivity"
     const val coreDatabase = ":core:core-database"
+    const val corePermission = ":core:core-permission"
 }

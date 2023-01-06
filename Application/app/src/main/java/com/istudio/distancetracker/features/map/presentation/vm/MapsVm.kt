@@ -1,6 +1,7 @@
 package com.istudio.distancetracker.features.map.presentation.vm
 
 import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,7 @@ import com.istudio.core_connectivity.domain.ConnectivityFeature
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.core_ui.data.models.Mode
 import com.istudio.core_ui.domain.SwitchUiModeFeature
+import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.features.map.domain.MapFragmentUseCases
 import com.istudio.distancetracker.features.map.domain.entities.inputs.CalculateResultInput
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
@@ -31,6 +33,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -147,6 +150,30 @@ class MapsVm @Inject constructor(
     fun checkLocationEnabled() = locationFeature.isLocationEnabled()
 
     fun checkConnectivity(): Boolean = connectivity.checkConnectivity()
+
+    fun startCountdown() {
+        val timer: CountDownTimer =
+            object : CountDownTimer(
+                Constants.COUNTDOWN_TIMER_DURATION,
+                Constants.COUNTDOWN_TIMER_INTERVAL
+            ) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val currentSecond = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
+                    val zeroString = "0"
+                    viewModelScope.launch {
+                        when (currentSecond) {
+                            zeroString -> _eventChannel.send(MapStates.CounterGoState)
+                            else -> _eventChannel.send(MapStates.CounterCountDownState(currentSecond))
+                        }
+                    }
+                }
+
+                override fun onFinish() {
+                    viewModelScope.launch { _eventChannel.send(MapStates.CounterFinishedState) }
+                }
+            }
+        timer.start()
+    }
 
     // ********************************* Review Prompt *********************************************
     private fun showInAppReview() {

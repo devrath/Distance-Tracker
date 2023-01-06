@@ -134,10 +134,6 @@ dependencies {
     implementation(Maps.playServicesMaps)
     // ********************************** Map *****************************************
 
-    // ********************************** Permission **********************************
-    implementation(Permission.lifecycleExtensions)
-    // ********************************** Permission **********************************
-
     // ***************************** Unit Testing *************************************
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
@@ -178,5 +174,6 @@ dependencies {
     implementation(project(Modules.coreConnectivity))
     implementation(project(Modules.corePreferences))
     implementation(project(Modules.coreUi))
+    implementation(project(Modules.corePermission))
     // ********************************** Modules ************************************
 }

@@ -1,30 +1,37 @@
-package com.istudio.distancetracker.features.permission.utils
+package com.demo.core_permission.data.implementation
 
-import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.Manifest
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
+import com.demo.core_permission.domain.PermissionFeature
 import com.google.android.material.snackbar.Snackbar
 import com.istudio.core_common.extensions.openAppNotificationSettings
 import com.istudio.core_ui.R
 import com.permissionx.guolindev.PermissionX
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-object Permissions {
+class PermissionFeatureImpl @Inject constructor(
+    @ApplicationContext val context: Context
+) : PermissionFeature {
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    val permissionBackgroundLocation = Manifest.permission.ACCESS_BACKGROUND_LOCATION
+    private val permissionLocation = Manifest.permission.ACCESS_FINE_LOCATION
+    private val granted = PermissionChecker.PERMISSION_GRANTED
+
 
     // <-------------------------------- Location Permission -------------------------------------->
-    private const val permissionLocation = ACCESS_FINE_LOCATION
+    override fun hasLocationPermission() = ContextCompat.checkSelfPermission(context, permissionLocation) == granted
 
-    private const val granted = PermissionChecker.PERMISSION_GRANTED
-
-    fun hasLocationPermission(context:Context) = ContextCompat.checkSelfPermission(context, permissionLocation) == granted
-
-    fun runtimeLocationPermission(fragment: Fragment, context:Context, view: View){
+    override fun runtimeLocationPermission(fragment: Fragment, view: View){
         PermissionX.init(fragment)
             .permissions(android.Manifest.permission.ACCESS_FINE_LOCATION)
             .setDialogTintColor(Color.parseColor("#1972e8"), Color.parseColor("#8ab6f5"))
@@ -48,12 +55,10 @@ object Permissions {
 
 
     // <-------------------------------- BackGround Permission ------------------------------------>
-    @RequiresApi(Build.VERSION_CODES.Q)
-    const val permissionBackgroundLocation = ACCESS_BACKGROUND_LOCATION
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
+    override fun isBackgroundPermissionRequired(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-    private fun isBackgroundPermissionRequired(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-
-    fun hasBackgroundLocationPermission(context:Context): Boolean {
+    override fun hasBackgroundLocationPermission(): Boolean {
         return if(isBackgroundPermissionRequired()){
             // The permission ACCESS_BACKGROUND_LOCATION is needed from android-10 and above, So check it
             ContextCompat.checkSelfPermission(context, permissionBackgroundLocation) == granted
@@ -63,7 +68,7 @@ object Permissions {
         }
     }
 
-    fun runtimeBackgroundPermission(fragment: Fragment, context:Context, view: View){
+    override fun runtimeBackgroundPermission(fragment: Fragment, view: View){
         if(isBackgroundPermissionRequired()){
             PermissionX.init(fragment)
                 .permissions(permissionBackgroundLocation)
@@ -87,6 +92,7 @@ object Permissions {
         }
     }
     // <-------------------------------- BackGround Permission ------------------------------------>
+
 
 
 }

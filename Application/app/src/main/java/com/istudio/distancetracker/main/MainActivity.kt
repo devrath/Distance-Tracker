@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.demo.core_permission.domain.PermissionFeature
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -23,7 +24,6 @@ import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.ActivityMainBinding
-import com.istudio.distancetracker.features.permission.utils.Permissions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
+    @Inject
+    lateinit var permissionFeature: PermissionFeature
 
     @Inject
     lateinit var switchUiModeFeature: SwitchUiModeFeature
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity() {
      * Open the Map screen
      */
     private fun openScreen() {
-        if (Permissions.hasLocationPermission(this@MainActivity)) {
+        if (permissionFeature.hasLocationPermission()) {
             NavigationUtils.navigateSafe(navController, R.id.action_permissionFragment_to_mapFragment, null);
         }
     }
