@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
      * Open the Map screen
      */
     private fun openScreen() {
-        if (permissionFeature.hasLocationPermission(this@MainActivity)) {
+        if (permissionFeature.hasLocationPermission()) {
             NavigationUtils.navigateSafe(navController, R.id.action_permissionFragment_to_mapFragment, null);
         }
     }

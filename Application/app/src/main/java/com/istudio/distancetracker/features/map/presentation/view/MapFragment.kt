@@ -282,11 +282,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * BUTTON-ACTION: Start button clicked
      */
     private fun startButtonAction() {
-        if (permissionFeature.hasBackgroundLocationPermission(requireContext())) {
+        if (permissionFeature.hasBackgroundLocationPermission()) {
             startCountdown()
             binding.mapMasterViewId.startButtonActionUiState()
         } else {
-            permissionFeature.runtimeBackgroundPermission(this, requireActivity(), binding.root)
+            permissionFeature.runtimeBackgroundPermission(this, binding.root)
         }
     }
 

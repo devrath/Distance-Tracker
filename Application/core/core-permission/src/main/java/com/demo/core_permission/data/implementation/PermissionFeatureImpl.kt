@@ -15,9 +15,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.istudio.core_common.extensions.openAppNotificationSettings
 import com.istudio.core_ui.R
 import com.permissionx.guolindev.PermissionX
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PermissionFeatureImpl @Inject constructor() : PermissionFeature {
+class PermissionFeatureImpl @Inject constructor(
+    @ApplicationContext val context: Context
+) : PermissionFeature {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     val permissionBackgroundLocation = Manifest.permission.ACCESS_BACKGROUND_LOCATION
@@ -26,9 +29,9 @@ class PermissionFeatureImpl @Inject constructor() : PermissionFeature {
 
 
     // <-------------------------------- Location Permission -------------------------------------->
-    override fun hasLocationPermission(context: Context) = ContextCompat.checkSelfPermission(context, permissionLocation) == granted
+    override fun hasLocationPermission() = ContextCompat.checkSelfPermission(context, permissionLocation) == granted
 
-    override fun runtimeLocationPermission(fragment: Fragment, context: Context, view: View){
+    override fun runtimeLocationPermission(fragment: Fragment, view: View){
         PermissionX.init(fragment)
             .permissions(android.Manifest.permission.ACCESS_FINE_LOCATION)
             .setDialogTintColor(Color.parseColor("#1972e8"), Color.parseColor("#8ab6f5"))
@@ -55,7 +58,7 @@ class PermissionFeatureImpl @Inject constructor() : PermissionFeature {
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
     override fun isBackgroundPermissionRequired(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-    override fun hasBackgroundLocationPermission(context: Context): Boolean {
+    override fun hasBackgroundLocationPermission(): Boolean {
         return if(isBackgroundPermissionRequired()){
             // The permission ACCESS_BACKGROUND_LOCATION is needed from android-10 and above, So check it
             ContextCompat.checkSelfPermission(context, permissionBackgroundLocation) == granted
@@ -65,7 +68,7 @@ class PermissionFeatureImpl @Inject constructor() : PermissionFeature {
         }
     }
 
-    override fun runtimeBackgroundPermission(fragment: Fragment, context: Context, view: View){
+    override fun runtimeBackgroundPermission(fragment: Fragment, view: View){
         if(isBackgroundPermissionRequired()){
             PermissionX.init(fragment)
                 .permissions(permissionBackgroundLocation)

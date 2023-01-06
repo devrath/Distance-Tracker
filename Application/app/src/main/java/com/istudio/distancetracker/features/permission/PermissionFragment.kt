@@ -56,11 +56,11 @@ class PermissionFragment : Fragment(){
     }
 
     private fun initiateLocationFlow() {
-        if (permissionRepository.hasLocationPermission(requireContext())) {
+        if (permissionRepository.hasLocationPermission()) {
             // If the permission is available navigate to maps fragment
             navigateToMapsScreen()
         } else {
-            permissionRepository.runtimeLocationPermission(this,requireActivity(),binding.root)
+            permissionRepository.runtimeLocationPermission(this,binding.root)
         }
     }
 
