@@ -20,7 +20,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/permission_lotte" />
 
-    <TextView
+    <com.istudio.core_ui.customviews.text.TextViewBold
         android:id="@+id/welcomeTextViewId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/permission_description_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

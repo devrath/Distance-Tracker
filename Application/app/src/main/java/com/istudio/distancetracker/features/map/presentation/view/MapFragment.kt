@@ -1,14 +1,20 @@
 package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -28,6 +34,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
+import com.istudio.core_common.functional.PublisherEventBus
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
 import com.istudio.distancetracker.Constants
@@ -38,6 +45,7 @@ import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
+import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
@@ -202,6 +210,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     viewModel.saveToggledUiMode()
                 }
             }
+            setChangeStyleButtonClickListener {
+                findNavController().navigate(R.id.action_mapFragment_to_mapTypeSelectionFragment)
+            }
         }
     }
 
@@ -234,6 +245,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                         ReviewDialog().show(childFragmentManager, null)
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Observe events in the subscriber
+     */
+    private fun observerEvents() {
+
+        lifecycleScope.launch {
+            PublisherEventBus.subscribe<EventMapStyleSelected> { event ->
+                map.mapType = event.selection
             }
         }
     }
@@ -341,6 +364,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             binding.mapMasterViewId.showMapView(isError = false)
             initiateMapSync()
             setObservers()
+            observerEvents()
             initNetworkObserver()
         }
         setOnClickListeners()
@@ -470,4 +494,34 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
         }
     }
     // *************************************** States **********************************************
+
+    // *************************************** Dialogs *********************************************
+    private fun showDialog() {
+        val dialog = Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.bottom_sheet_map_type)
+        }
+        val mapNormal: LinearLayout = dialog.findViewById(R.id.btnNormalId)
+        val mapHybrid: LinearLayout = dialog.findViewById(R.id.btnHybridId)
+        val mapSatellite: LinearLayout = dialog.findViewById(R.id.btnSatelliteId)
+        val mapTerrain: LinearLayout = dialog.findViewById(R.id.btnTerrainId)
+
+        mapNormal.setOnClickListener { setType(GoogleMap.MAP_TYPE_NORMAL,dialog) }
+        mapHybrid.setOnClickListener { setType(GoogleMap.MAP_TYPE_HYBRID,dialog) }
+        mapSatellite.setOnClickListener { setType(GoogleMap.MAP_TYPE_SATELLITE,dialog) }
+        mapTerrain.setOnClickListener { setType(GoogleMap.MAP_TYPE_TERRAIN,dialog) }
+        dialog.show()
+        dialog.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            //attributes.windowAnimations = R.style.DialogAnimation
+            setGravity(Gravity.BOTTOM)
+        }
+    }
+
+    private fun setType(typeValue: Int, dialog: Dialog) {
+        map.mapType = typeValue
+        dialog.dismiss()
+    }
+    // *************************************** Dialogs *********************************************
 }

@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.istudio.core_ui.customviews.text.TextViewRegular
         android:id="@+id/timer_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.istudio.core_ui.customviews.button.ButtonViewRegular
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.istudio.core_ui.customviews.button.ButtonViewRegular
         android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.istudio.core_ui.customviews.button.ButtonViewRegular
         android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         app:srcCompat="@drawable/ic_dark_mode"
         android:contentDescription="@string/app_name" />
     <!--Action name text for the add alarm button-->
-    <TextView
+    <com.istudio.core_ui.customviews.text.TextViewMedium
         android:id="@+id/add_alarm_action_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,29 +124,29 @@
         app:layout_constraintTop_toTopOf="@+id/ui_mode_fab" />
     <!--Floating action button for add person-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_person_fab"
+        android:id="@+id/add_style_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/colorActionButtonBackgroundTint"
         android:visibility="gone"
-        app:fabSize="normal"
-        app:tint="@color/white"
+        app:fabSize="mini"
+        app:tint="@color/colorActionButtonTint"
         app:layout_constraintBottom_toTopOf="@+id/ui_mode_fab"
         app:layout_constraintEnd_toEndOf="@+id/ui_mode_fab"
         app:layout_constraintStart_toStartOf="@+id/ui_mode_fab"
-        app:srcCompat="@drawable/ic_light_mode"
+        app:srcCompat="@drawable/ic_map_styles"
         android:contentDescription="@string/app_name" />
     <!--Action name text for the add person button-->
-    <TextView
-        android:id="@+id/add_person_action_text"
+    <com.istudio.core_ui.customviews.text.TextViewMedium
+        android:id="@+id/add_style_action_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Add Person"
+        android:text="@string/changeStyle"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/add_person_fab"
-        app:layout_constraintEnd_toStartOf="@+id/add_person_fab"
-        app:layout_constraintTop_toTopOf="@+id/add_person_fab" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_style_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_style_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_style_fab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
