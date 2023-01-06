@@ -1,3 +1,3 @@
 package com.istudio.distancetracker.features.map.events
 
-data class EventMapStyleSelected()
+data class EventMapStyleSelected(val selection : Int)

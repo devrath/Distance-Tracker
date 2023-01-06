@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
 import com.istudio.core_common.extensions.showSnackbar
+import com.istudio.core_common.functional.PublisherEventBus
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
 import com.istudio.distancetracker.Constants
@@ -44,6 +45,7 @@ import com.istudio.distancetracker.Constants.COUNTDOWN_TIMER_INTERVAL
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.FragmentMapBinding
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
+import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
@@ -209,7 +211,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 }
             }
             setChangeStyleButtonClickListener {
-                // showDialog()
+                findNavController().navigate(R.id.action_mapFragment_to_mapTypeSelectionFragment)
             }
         }
     }
@@ -243,6 +245,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                         ReviewDialog().show(childFragmentManager, null)
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Observe events in the subscriber
+     */
+    private fun observerEvents() {
+
+        lifecycleScope.launch {
+            PublisherEventBus.subscribe<EventMapStyleSelected> { event ->
+                map.mapType = event.selection
             }
         }
     }
@@ -350,6 +364,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             binding.mapMasterViewId.showMapView(isError = false)
             initiateMapSync()
             setObservers()
+            observerEvents()
             initNetworkObserver()
         }
         setOnClickListeners()

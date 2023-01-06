@@ -4,8 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.istudio.core_common.functional.PublisherEventBus
 import com.istudio.distancetracker.databinding.FragmentMapTypeBinding
+import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
+import kotlinx.coroutines.launch
 
 class MapTypeSelectionFragment : BottomSheetDialogFragment() {
 
@@ -44,16 +49,24 @@ class MapTypeSelectionFragment : BottomSheetDialogFragment() {
     private fun setOnClickListeners() {
         binding.apply {
             btnNormalId.setOnClickListener {
-
+                lifecycleScope.launch {
+                    PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_NORMAL))
+                }
             }
             btnHybridId.setOnClickListener {
-
+                lifecycleScope.launch {
+                    PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_HYBRID))
+                }
             }
             btnSatelliteId.setOnClickListener {
-
+                lifecycleScope.launch {
+                    PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_SATELLITE))
+                }
             }
             btnTerrainId.setOnClickListener {
-
+                lifecycleScope.launch {
+                    PublisherEventBus.publish(EventMapStyleSelected(GoogleMap.MAP_TYPE_TERRAIN))
+                }
             }
         }
     }
