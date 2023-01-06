@@ -6,16 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.demo.core_permission.data.repository.PermissionFeatureRepository
+import com.demo.core_permission.domain.PermissionFeature
 import com.istudio.distancetracker.R
-import com.istudio.distancetracker.features.permission.utils.Permissions.hasLocationPermission
 import com.istudio.distancetracker.databinding.FragmentPermissionBinding
-import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeLocationPermission
+import com.istudio.feat_inappreview.manager.InAppReviewManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PermissionFragment : Fragment(){
 
     private var _binding: FragmentPermissionBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var permissionRepository: PermissionFeatureRepository
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -50,11 +56,11 @@ class PermissionFragment : Fragment(){
     }
 
     private fun initiateLocationFlow() {
-        if (hasLocationPermission(requireContext())) {
+        if (permissionRepository.hasLocationPermission(requireContext())) {
             // If the permission is available navigate to maps fragment
             navigateToMapsScreen()
         } else {
-            runtimeLocationPermission(this,requireActivity(),binding.root)
+            permissionRepository.runtimeLocationPermission(this,requireActivity(),binding.root)
         }
     }
 

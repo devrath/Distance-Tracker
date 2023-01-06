@@ -1,4 +1,4 @@
-package com.istudio.distancetracker.features.permission.utils
+package com.demo.core_permission
 
 import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION

@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.demo.core_permission.domain.PermissionFeature
 import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -49,8 +50,6 @@ import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
-import com.istudio.distancetracker.features.permission.utils.Permissions.hasBackgroundLocationPermission
-import com.istudio.distancetracker.features.permission.utils.Permissions.runtimeBackgroundPermission
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
@@ -78,6 +77,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * */
     @Inject
     lateinit var reviewManager: InAppReviewManager
+
+    @Inject
+    lateinit var permissionFeature: PermissionFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -280,11 +282,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * BUTTON-ACTION: Start button clicked
      */
     private fun startButtonAction() {
-        if (hasBackgroundLocationPermission(requireContext())) {
+        if (permissionFeature.hasBackgroundLocationPermission(requireContext())) {
             startCountdown()
             binding.mapMasterViewId.startButtonActionUiState()
         } else {
-            runtimeBackgroundPermission(this, requireActivity(), binding.root)
+            permissionFeature.runtimeBackgroundPermission(this, requireActivity(), binding.root)
         }
     }
 

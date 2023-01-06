@@ -135,7 +135,7 @@ dependencies {
     // ********************************** Map *****************************************
 
     // ********************************** Permission **********************************
-    implementation(Permission.lifecycleExtensions)
+    implementation(Permission.customPermission)
     // ********************************** Permission **********************************
 
     // ***************************** Unit Testing *************************************
@@ -178,5 +178,6 @@ dependencies {
     implementation(project(Modules.coreConnectivity))
     implementation(project(Modules.corePreferences))
     implementation(project(Modules.coreUi))
+    implementation(project(Modules.corePermission))
     // ********************************** Modules ************************************
 }
