@@ -246,6 +246,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                     is MapStates.LaunchInAppReview -> {
                         ReviewDialog().show(childFragmentManager, null)
                     }
+                    is MapStates.CounterGoState -> binding.mapMasterViewId.counterGoState()
+                    is MapStates.CounterCountDownState ->  binding.mapMasterViewId.counterCountDownState(event.currentSecond)
+                    is MapStates.CounterFinishedState -> counterCountDownFinished()
                 }
             }
         }
@@ -301,25 +304,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     private fun startCountdown() {
         binding.mapMasterViewId.countDownUiState()
-        val timer: CountDownTimer =
-            object : CountDownTimer(COUNTDOWN_TIMER_DURATION, COUNTDOWN_TIMER_INTERVAL) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val currentSecond =
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
-                    val zeroString = "0"
-                    if (currentSecond == zeroString) {
-                        binding.mapMasterViewId.counterGoState()
-                    } else {
-                        binding.mapMasterViewId.counterCountDownState(currentSecond)
-                    }
-                }
-
-                override fun onFinish() {
-                    binding.mapMasterViewId.hideTimerTextView()
-                    startLocationService()
-                }
-            }
-        timer.start()
+        viewModel.startCountdown()
     }
 
     private fun stopForegroundService() {
@@ -399,6 +384,14 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 requireContext(), R.raw.map_dark_mode
             )
         )
+    }
+
+    /**
+     * Triggered when the counter count down is finished
+     */
+    private fun counterCountDownFinished() {
+        binding.mapMasterViewId.hideTimerTextView()
+        startLocationService()
     }
     // ********************************** User defined functions ************************************
 
