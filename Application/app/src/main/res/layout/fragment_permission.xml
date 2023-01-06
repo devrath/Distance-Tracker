@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPermissionScreenBkg"
-    tools:context=".features.permission.PermissionFragment">
+    tools:context=".features.permission.presentation.view.PermissionFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/welcomeImageView"

@@ -134,10 +134,6 @@ dependencies {
     implementation(Maps.playServicesMaps)
     // ********************************** Map *****************************************
 
-    // ********************************** Permission **********************************
-    implementation(Permission.customPermission)
-    // ********************************** Permission **********************************
-
     // ***************************** Unit Testing *************************************
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
