@@ -30,7 +30,12 @@ class MapMasterView @JvmOverloads constructor(
     fun stoppedUiState() { binding.mapViewId.stoppedUiState() }
     fun hideTimerTextView() { binding.mapViewId.hideTimerTextView() }
     fun startButtonActionUiState() { binding.mapViewId.startButtonActionUiState() }
-    fun setCustomIconForLocationButton(darkMode: Boolean) { binding.mapViewId.setCustomIconForLocationButton(darkMode) }
+    fun setCustomIconForLocationButton(
+        darkMode: Boolean, uiModeKeyStored: Boolean, isSystemSelectionLightMode: Boolean
+    ) {
+        binding.mapViewId.setCustomIconForLocationButton(
+            darkMode,uiModeKeyStored,isSystemSelectionLightMode)
+    }
     fun initiateLocationButtonClick() { binding.mapViewId.initiateLocationButtonClick() }
     fun counterCountDownState(currentSecond: String) { binding.mapViewId.counterCountDownState(currentSecond) }
 
