@@ -4,8 +4,10 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.demo.core_permission.domain.PermissionFeature
@@ -24,6 +26,8 @@ import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.ActivityMainBinding
+import com.istudio.distancetracker.features.permission.presentation.vm.PermissionVm
+import com.istudio.distancetracker.main.presentation.vm.MainVm
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+    private val viewModel: MainVm by viewModels()
 
     @Inject
     lateinit var permissionFeature: PermissionFeature
