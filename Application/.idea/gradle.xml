@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/core/core-database" />
             <option value="$PROJECT_DIR$/core/core-location" />
             <option value="$PROJECT_DIR$/core/core-logger" />
+            <option value="$PROJECT_DIR$/core/core-network" />
             <option value="$PROJECT_DIR$/core/core-permission" />
             <option value="$PROJECT_DIR$/core/core-preferences" />
             <option value="$PROJECT_DIR$/core/core-ui" />

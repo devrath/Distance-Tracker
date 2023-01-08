@@ -175,5 +175,6 @@ dependencies {
     implementation(project(Modules.corePreferences))
     implementation(project(Modules.coreUi))
     implementation(project(Modules.corePermission))
+    implementation(project(Modules.coreNetwork))
     // ********************************** Modules ************************************
 }

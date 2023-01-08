@@ -12,4 +12,5 @@ object Modules {
     const val coreConnectivity = ":core:core-connectivity"
     const val coreDatabase = ":core:core-database"
     const val corePermission = ":core:core-permission"
+    const val coreNetwork = ":core:core-network"
 }
