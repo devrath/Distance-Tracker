@@ -39,7 +39,8 @@ This application is used to track the user distance traveled and the time taken 
 
 ## **`Useful learnings`** 💡
 * [_**`Publisher subscriber pattern using flow API`**_](https://medium.com/@devrath.dev595/publisher-subscriber-using-shared-flow-api-e12baf32113e)
-
+* [_**`Using kotlin serilization for serilization of API and model objects`**_](https://github.com/devrath/KotlinSerialization)
+* [_**`Using okhttp interceptors to modify the netwrok requests`**_](https://github.com/devrath/fluffy-okhttp-interceptors)
 
 
 ### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
