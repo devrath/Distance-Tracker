@@ -98,15 +98,13 @@ class MainActivity : AppCompatActivity() {
         if(info.result.updateAvailability() == UpdateAvailability.UPDATE_NOT_AVAILABLE){
             // Start normal app flow: -> Open the app
             openScreen()
-        }else if ( // Before starting this process, verify that there’s an update available or one already in progress.
-            (info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE ||
-                info.result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
-                )
-            // Verify if the immediate type is supported.
-            && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-        ) {
-            // Start or resume the update with the startUpdateFlowForResult but only if the previous conditions are true.
-            startUpdate(info.result,manager)
+        }else{
+            // Update is available so request the update.
+            if (info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                startUpdate(info.result,manager)
+            }
         }
     }
 
