@@ -4,5 +4,8 @@ apply {
 
 dependencies {
     // "implementation"(project(Modules.core))
-   // "implementation"(SplashScreen.splashAndroidApi)
+    "implementation"(Retrofit.retrofit)
+    "implementation"(Retrofit.gsonConverter)
+    "implementation"(Retrofit.okHttp)
+    "implementation"(Retrofit.okHttpLoggingInterceptor)
 }
