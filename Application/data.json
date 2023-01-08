@@ -1,20 +1,10 @@
 {
-  "appUpdateConstants": {
-    "type": 1
-  },
-  "timerConstants": {
-    "duration": 5000,
-    "interval": 1000
-  },
-  "locationConstants": {
-    "updateInterval": 4000,
-    "fastestUpdateInterval": 2000,
-    "myselfTimerDuration": 5000
-  },
-  "resultPage": {
-    "displayDuration": 2500
-  },
-  "maps": {
-    "followPolylineUpdateDuration": 1000
-  }
+  "appUpdateConstantType": 1,
+  "timerDuration": 5000,
+  "timerInterval": 1000,
+  "locationUpdateInterval": 4000,
+  "locationFastestUpdateInterval": 2000,
+  "locationMyselfTimerDuration": 5000,
+  "resultPageDisplayDuration": 2500,
+  "mapsFollowPolylineUpdateDuration": 1000
 }
