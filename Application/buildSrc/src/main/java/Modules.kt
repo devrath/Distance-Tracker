@@ -13,4 +13,6 @@ object Modules {
     const val coreDatabase = ":core:core-database"
     const val corePermission = ":core:core-permission"
     const val coreNetwork = ":core:core-network"
+    const val coreModels = ":core:core-models"
+    const val coreRepository = ":core:core-repository"
 }
