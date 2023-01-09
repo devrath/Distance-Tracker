@@ -24,6 +24,7 @@ import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
 import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.ActivityMainBinding
+import com.istudio.distancetracker.service.InAppUpdate
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+    private lateinit var inAppUpdate: InAppUpdate
 
     @Inject
     lateinit var permissionFeature: PermissionFeature
@@ -47,8 +50,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setNavController()
-        checkForUpdates()
-        //openScreen()
+        //checkForUpdates()
+        openScreen()
+        inAppUpdate = InAppUpdate(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inAppUpdate.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        inAppUpdate.onDestroy()
     }
 
     override fun recreate() {
