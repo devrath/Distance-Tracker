@@ -60,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setNavController()
-        //checkForUpdates()
         observeViewStates()
-        //openScreen()
         inAppUpdate = InAppUpdate(this)
     }
 
@@ -94,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     is MainEvent.GetTrackerConstantsApiCall -> {
-                        Log.d("called",event.isSuccess.toString())
+                       openScreen()
                     }
                 }
             }.exhaustive
@@ -127,69 +125,4 @@ class MainActivity : AppCompatActivity() {
         message?.let { Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show(); }
     }
     // ********************************** User defined functions ************************************
-
-    /** ******************************** APPLICATION UPDATE  *********************************** **/
-    private fun checkForUpdates() {
-        val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
-        val appUpdateInfo = appUpdateManager.appUpdateInfo
-        appUpdateInfo.addOnSuccessListener {
-            handleUpdate(appUpdateManager, appUpdateInfo)
-        }
-    }
-
-    private fun handleUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
-
-        /* ************************************************************************************
-        * The update availability can be one of the following values
-        * DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS: When there’s an ongoing update.
-        * UPDATE_AVAILABLE: When a new update is available.
-        * UPDATE_NOT_AVAILABLE: When there’s no update available.
-        * UNKNOWN: When there was a problem connecting to the app store.
-        * *************************************************************************************/
-
-        if(info.result.updateAvailability() == UpdateAvailability.UPDATE_NOT_AVAILABLE){
-            // Start normal app flow: -> Open the app
-            openScreen()
-        }else{
-            // Update is available so request the update.
-            if (info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-            ) {
-                startUpdate(info.result,manager)
-            }
-        }
-    }
-
-    /**
-     * Prepare and start the update Screen intent
-     */
-    private fun startUpdate(
-        appUpdateInfo: AppUpdateInfo, appUpdateManager: AppUpdateManager,
-    ) {
-        val starter =
-            IntentSenderForResultStarter { intent, _, fillInIntent, flagsMask, flagsValues, _, _ ->
-                val request = IntentSenderRequest.Builder(intent)
-                    .setFillInIntent(fillInIntent)
-                    .setFlags(flagsValues, flagsMask)
-                    .build()
-
-                appUpdateLauncher.launch(request)
-            }
-
-        appUpdateManager.startUpdateFlowForResult(
-            appUpdateInfo, APP_UPDATE_TYPE, starter, APP_UPDATE_REQUEST_CODE,
-        )
-    }
-
-    private var appUpdateLauncher =
-        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
-            activityResult?.let {
-                when (activityResult.resultCode) {
-                    Activity.RESULT_OK -> toast(R.string.toast_updated)
-                    Activity.RESULT_CANCELED -> toast(R.string.toast_cancelled)
-                    ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> toast(R.string.toast_failed)
-                }
-            }
-        }
-    /** ******************************** APPLICATION UPDATE  *********************************** **/
 }
