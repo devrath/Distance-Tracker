@@ -18,16 +18,14 @@ object DatabaseModule {
     /**
      * Provides a instance of RoomDatabase
      */
-    @Singleton
     @Provides
+    @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(
-        context,
-        DistanceTrackerDatabase::class.java,
-        DATABASE_NAME
-    ).build()
-
+    ): DistanceTrackerDatabase =
+        Room.databaseBuilder(context, DistanceTrackerDatabase::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
 
 
     @Singleton

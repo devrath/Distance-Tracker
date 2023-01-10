@@ -86,6 +86,7 @@ dependencies {
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
     implementation(Compose.uiToolingPreview)
+    implementation(project(mapOf("path" to ":core:core-models")))
     debugImplementation(Compose.uiTooling)
     // ********************************** Compose ************************************
 
@@ -167,6 +168,7 @@ dependencies {
 
     // ********************************** Modules ************************************
     implementation(project(Modules.featInAppReview))
+    implementation(project(Modules.featRepository))
     implementation(project(Modules.coreCommon))
     implementation(project(Modules.coreLogger))
     implementation(project(Modules.coreLocation))
@@ -175,5 +177,6 @@ dependencies {
     implementation(project(Modules.coreUi))
     implementation(project(Modules.corePermission))
     implementation(project(Modules.coreNetwork))
+    implementation(project(Modules.coreModels))
     // ********************************** Modules ************************************
 }

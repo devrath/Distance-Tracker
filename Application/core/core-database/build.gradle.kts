@@ -5,8 +5,8 @@ apply {
 dependencies {
     // "implementation"(project(Modules.core))
     "implementation"(Room.roomKtx)
-    "implementation"(Room.roomRuntime)
-    //"implementation"(Room.roomCompiler)
+    "api"(Room.roomRuntime)
+    "kapt"(Room.roomCompiler)
     "implementation"(Coroutines.coroutineLib)
     "implementation"(project(Modules.coreUi))
     "implementation"(project(Modules.coreModels))
