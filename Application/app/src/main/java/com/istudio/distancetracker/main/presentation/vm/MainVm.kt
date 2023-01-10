@@ -3,6 +3,7 @@ package com.istudio.distancetracker.main.presentation.vm
 import androidx.lifecycle.viewModelScope
 import com.demo.feat_repository.DistanceTrackerRepository
 import com.istudio.core_common.base.BaseViewModel
+import com.istudio.core_common.functional.Resource
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.main.presentation.state.MainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,13 +24,20 @@ class MainVm @Inject constructor(
      * Activity should not be able to add values into the channel instead it should only be able to take value from the channel
      * Turning into the flow, the activity can't put anything into it
      */
-    private val _eventChannel = Channel<MainEvent>()
-    val events = _eventChannel.receiveAsFlow()
+    private val _viewState = Channel<MainEvent>()
+    val viewState = _viewState.receiveAsFlow()
+
 
     init {
         viewModelScope.launch {
-            val constants = repository.getConstantsFromApi()
-            _eventChannel.send(MainEvent.GetDistanceTrackerConstants(constants = constants))
+            val result = withContext(Dispatchers.Default) { repository.getConstantsFromApi() }
+            result.collect{
+                if(it is Resource.Success){
+                    _viewState.send(MainEvent.GetTrackerConstantsApiCall(true))
+                }else if(it is Resource.Error){
+                    _viewState.send(MainEvent.GetTrackerConstantsApiCall(false))
+                }
+            }
         }
     }
 

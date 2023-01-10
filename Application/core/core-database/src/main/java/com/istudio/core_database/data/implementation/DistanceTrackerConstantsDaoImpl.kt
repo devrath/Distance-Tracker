@@ -13,6 +13,10 @@ class DistanceTrackerConstantsDaoImpl @Inject constructor(
         dao.insertTrackerConstants(distTrackerConst)
     }
 
+    override suspend fun insertTrackerConstantsWithTransaction(distTrackerConst: DistanceTrackerConstants) {
+        super.insertTrackerConstantsWithTransaction(distTrackerConst)
+    }
+
     override suspend fun deleteTrackerConstants() {
         dao.deleteTrackerConstants()
     }

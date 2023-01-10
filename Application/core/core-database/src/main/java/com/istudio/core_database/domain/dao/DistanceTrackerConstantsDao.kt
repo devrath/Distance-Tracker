@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -20,6 +21,13 @@ interface DistanceTrackerConstantsDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTrackerConstants(distTrackerConst : DistanceTrackerConstants)
+
+
+    @Transaction
+    suspend fun insertTrackerConstantsWithTransaction(distTrackerConst :DistanceTrackerConstants){
+        deleteTrackerConstants()
+        insertTrackerConstants(distTrackerConst)
+    }
 
     /**
      * DESCRIPTION: Deleting the table

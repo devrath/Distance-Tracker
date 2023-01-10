@@ -249,7 +249,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
 
     /**
-     * Observe events in the subscriber
+     * Observe viewState in the subscriber
      */
     private fun observerEvents() {
 

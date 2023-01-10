@@ -23,6 +23,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.extensions.exhaustive
 import com.istudio.core_common.extensions.toast
+import com.istudio.core_common.functional.Resource
 import com.istudio.core_common.navigation.NavigationUtils
 import com.istudio.core_ui.domain.SwitchUiModeFeature
 import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
@@ -86,15 +87,14 @@ class MainActivity : AppCompatActivity() {
     // ********************************** View states **********************************************
     private fun observeViewStates() {
         lifecycleScope.launchWhenStarted {
-            viewModel.events.collect { event ->
+            viewModel.viewState.collect { event ->
                 when(event){
                     is MainEvent.ShowErrorMessage -> displayUserMessage(event.error.message)
                     is MainEvent.SplashSuccessful -> {
 
                     }
-                    is MainEvent.GetDistanceTrackerConstants -> {
-                        Log.d("test",event.constants.toString())
-                        openScreen()
+                    is MainEvent.GetTrackerConstantsApiCall -> {
+                        Log.d("called",event.isSuccess.toString())
                     }
                 }
             }.exhaustive
