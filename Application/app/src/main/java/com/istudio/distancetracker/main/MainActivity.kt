@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.viewState.collect { event ->
                 when(event){
                     is MainEvent.ShowErrorMessage -> displayUserMessage(event.error.message)
-                    is MainEvent.SplashSuccessful -> displayUserMessage("Data synced")
+                    is MainEvent.SplashSuccessful -> {}
                     is MainEvent.GetTrackerConstantsApiCall ->  viewModel.constantsSynched()
                 }
             }.exhaustive
