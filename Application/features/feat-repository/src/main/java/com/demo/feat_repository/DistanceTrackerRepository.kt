@@ -15,9 +15,8 @@ class DistanceTrackerRepository @Inject constructor(
         val response = repository.getAllConstants()
     }
 
-    fun getConstantsFromApi(): Flow<DistanceTrackerConstants> {
-        val response = api.getConstants()
-        return response
+    suspend fun getConstantsFromApi(): DistanceTrackerConstants {
+        return api.getConstants()
     }
 
 

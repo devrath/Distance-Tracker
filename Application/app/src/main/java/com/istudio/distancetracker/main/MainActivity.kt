@@ -2,6 +2,7 @@ package com.istudio.distancetracker.main
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         setNavController()
         //checkForUpdates()
         observeViewStates()
-        openScreen()
+        //openScreen()
         inAppUpdate = InAppUpdate(this)
     }
 
@@ -91,8 +92,9 @@ class MainActivity : AppCompatActivity() {
                     is MainEvent.SplashSuccessful -> {
 
                     }
-                    is MainEvent.GetDistanceTrackerConstants -> event.constants.collect {
-
+                    is MainEvent.GetDistanceTrackerConstants -> {
+                        Log.d("test",event.constants.toString())
+                        openScreen()
                     }
                 }
             }.exhaustive

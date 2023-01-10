@@ -11,7 +11,7 @@ interface DistanceTrackerApi {
     }
 
     @GET("data.json")
-    fun getConstants(): Flow<DistanceTrackerConstants>
+    suspend fun getConstants(): DistanceTrackerConstants
 
 
 }
