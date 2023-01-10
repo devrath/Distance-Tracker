@@ -74,8 +74,6 @@ class MainActivity : AppCompatActivity() {
         inAppUpdate.onDestroy()
     }
 
-
-
     override fun recreate() {
         // This lets user to recreate the activity via animation when we switch the UI-modes
         switchUiModeFeature.animateAndRestartApplication(this)
@@ -88,12 +86,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.viewState.collect { event ->
                 when(event){
                     is MainEvent.ShowErrorMessage -> displayUserMessage(event.error.message)
-                    is MainEvent.SplashSuccessful -> {
-
-                    }
-                    is MainEvent.GetTrackerConstantsApiCall -> {
-                       openScreen()
-                    }
+                    is MainEvent.SplashSuccessful -> openScreen()
+                    is MainEvent.GetTrackerConstantsApiCall ->  viewModel.constantsSynched()
                 }
             }.exhaustive
         }
