@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         setNavController()
         observeViewStates()
         inAppUpdate = InAppUpdate(this)
+        viewModel.getConstantsFromApplication()
     }
 
     override fun onResume() {
@@ -86,7 +87,9 @@ class MainActivity : AppCompatActivity() {
             viewModel.viewState.collect { event ->
                 when(event){
                     is MainEvent.ShowErrorMessage -> displayUserMessage(event.error.message)
-                    is MainEvent.SplashSuccessful -> openScreen()
+                    is MainEvent.SplashSuccessful -> {
+                        displayUserMessage("Data synced")
+                    }
                     is MainEvent.GetTrackerConstantsApiCall ->  viewModel.constantsSynched()
                 }
             }.exhaustive
