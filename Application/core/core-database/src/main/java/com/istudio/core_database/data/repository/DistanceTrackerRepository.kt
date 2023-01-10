@@ -4,7 +4,6 @@ import com.demo.core_models.DistanceTrackerConstants
 import com.istudio.core_database.data.implementation.DistanceTrackerConstantsDaoImpl
 import dagger.hilt.android.scopes.ViewModelScoped
 
-@ViewModelScoped
 open class DistanceTrackerRepository(
     private val toDoDaoImpl: DistanceTrackerConstantsDaoImpl
 ) {
