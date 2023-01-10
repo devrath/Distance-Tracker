@@ -17,7 +17,7 @@ open class DistanceTrackerDbRepository @Inject constructor(
         toDoDaoImpl.insertTrackerConstants(distTrackerConst)
     }
 
-    suspend fun getAllConstants(): Flow<DistanceTrackerConstants> {
+    fun getAllConstants(): Flow<DistanceTrackerConstants> {
         return toDoDaoImpl.getAllConstants()
     }
 
