@@ -1,6 +1,6 @@
 package com.istudio.core_database.data.implementation
 
-import DistanceTrackerConstants
+import com.demo.core_models.DistanceTrackerConstants
 import com.istudio.core_database.domain.dao.DistanceTrackerConstantsDao
 import javax.inject.Inject
 

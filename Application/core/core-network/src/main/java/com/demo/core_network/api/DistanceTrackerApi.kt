@@ -1,6 +1,6 @@
 package com.demo.core_network.api
 
-import DistanceTrackerConstants
+import com.demo.core_models.DistanceTrackerConstants
 import retrofit2.http.GET
 
 interface DistanceTrackerApi {

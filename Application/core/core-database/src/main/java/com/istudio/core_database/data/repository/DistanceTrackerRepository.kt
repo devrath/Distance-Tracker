@@ -1,6 +1,6 @@
 package com.istudio.core_database.data.repository
 
-import DistanceTrackerConstants
+import com.demo.core_models.DistanceTrackerConstants
 import com.istudio.core_database.data.implementation.DistanceTrackerConstantsDaoImpl
 import dagger.hilt.android.scopes.ViewModelScoped
 

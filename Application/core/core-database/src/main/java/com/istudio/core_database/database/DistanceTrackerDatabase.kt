@@ -1,6 +1,6 @@
 package com.istudio.core_database.database
 
-import DistanceTrackerConstants
+import com.demo.core_models.DistanceTrackerConstants
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.istudio.core_database.domain.dao.DistanceTrackerConstantsDao
@@ -11,7 +11,7 @@ import com.istudio.core_database.domain.dao.DistanceTrackerConstantsDao
  * Why not make it Interface:: ---> This class need to extend the room-database and interface cannot extend the class so we make class abstract
  */
 @Database(
-    entities = [ DistanceTrackerConstants::class ],
+    entities = [DistanceTrackerConstants::class],
     version = 1
 )
 abstract class DistanceTrackerDatabase : RoomDatabase() {

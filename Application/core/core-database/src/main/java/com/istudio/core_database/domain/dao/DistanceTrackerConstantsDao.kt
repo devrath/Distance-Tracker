@@ -1,6 +1,6 @@
 package com.istudio.core_database.domain.dao
 
-import DistanceTrackerConstants
+import com.demo.core_models.DistanceTrackerConstants
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
