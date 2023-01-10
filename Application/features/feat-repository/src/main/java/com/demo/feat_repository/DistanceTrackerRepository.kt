@@ -1,7 +1,9 @@
 package com.demo.feat_repository
 
+import com.demo.core_models.DistanceTrackerConstants
 import com.demo.core_network.api.DistanceTrackerApi
 import com.istudio.core_database.data.repository.DistanceTrackerDbRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DistanceTrackerRepository @Inject constructor(
@@ -13,8 +15,9 @@ class DistanceTrackerRepository @Inject constructor(
         val response = repository.getAllConstants()
     }
 
-    suspend fun getConstantsFromApi(){
+    fun getConstantsFromApi(): Flow<DistanceTrackerConstants> {
         val response = api.getConstants()
+        return response
     }
 
 

@@ -1,6 +1,7 @@
 package com.demo.core_network.api
 
 import com.demo.core_models.DistanceTrackerConstants
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 
 interface DistanceTrackerApi {
@@ -10,7 +11,7 @@ interface DistanceTrackerApi {
     }
 
     @GET("data.json")
-    suspend fun getConstants(): DistanceTrackerConstants
+    fun getConstants(): Flow<DistanceTrackerConstants>
 
 
 }

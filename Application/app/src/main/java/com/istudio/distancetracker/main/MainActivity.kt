@@ -91,6 +91,9 @@ class MainActivity : AppCompatActivity() {
                     is MainEvent.SplashSuccessful -> {
 
                     }
+                    is MainEvent.GetDistanceTrackerConstants -> event.constants.collect {
+
+                    }
                 }
             }.exhaustive
         }
