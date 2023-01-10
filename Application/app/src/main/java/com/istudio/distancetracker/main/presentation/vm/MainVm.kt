@@ -28,9 +28,9 @@ class MainVm @Inject constructor(
     val viewState = _viewState.receiveAsFlow()
 
 
-    init {
+    fun getConstantsFromApplication() {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.Default) { repository.getConstantsFromApi() }
+            val result = withContext(Dispatchers.Default) { repository.getConstants(true) }
             result.collect{
                 if(it is Resource.Success){
                     _viewState.send(MainEvent.GetTrackerConstantsApiCall(true))
@@ -41,5 +41,10 @@ class MainVm @Inject constructor(
         }
     }
 
+    fun constantsSynched(){
+        viewModelScope.launch {
+            _viewState.send(MainEvent.SplashSuccessful)
+        }
+    }
 
 }
