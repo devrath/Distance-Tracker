@@ -3,7 +3,7 @@ object Modules {
     const val core = ":core"
     const val features = ":features"
     const val featInAppReview = ":features:feat-inappreview"
-    const val featUserJourney = ":features:feat-user_journey"
+    const val featRepository = ":features:feat-repository"
     const val corePreferences = ":core:core-preferences"
     const val coreUi = ":core:core-ui"
     const val coreCommon = ":core:core-common"
@@ -12,4 +12,7 @@ object Modules {
     const val coreConnectivity = ":core:core-connectivity"
     const val coreDatabase = ":core:core-database"
     const val corePermission = ":core:core-permission"
+    const val coreNetwork = ":core:core-network"
+    const val coreModels = ":core:core-models"
+    const val coreRepository = ":core:core-repository"
 }

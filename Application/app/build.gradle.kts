@@ -167,7 +167,6 @@ dependencies {
 
     // ********************************** Modules ************************************
     implementation(project(Modules.featInAppReview))
-    implementation(project(Modules.featUserJourney))
     implementation(project(Modules.coreCommon))
     implementation(project(Modules.coreLogger))
     implementation(project(Modules.coreLocation))
@@ -175,5 +174,6 @@ dependencies {
     implementation(project(Modules.corePreferences))
     implementation(project(Modules.coreUi))
     implementation(project(Modules.corePermission))
+    implementation(project(Modules.coreNetwork))
     // ********************************** Modules ************************************
 }

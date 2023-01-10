@@ -4,13 +4,11 @@ apply {
 
 dependencies {
     // "implementation"(project(Modules.core))
-
-
     "implementation"(Room.roomKtx)
-    //"implementation"(Room.roomCompiler)
     "implementation"(Room.roomRuntime)
+    //"implementation"(Room.roomCompiler)
     "implementation"(Coroutines.coroutineLib)
-    
-
     "implementation"(project(Modules.coreUi))
+    "implementation"(project(Modules.coreModels))
+    "implementation"(project(Modules.coreCommon))
 }
