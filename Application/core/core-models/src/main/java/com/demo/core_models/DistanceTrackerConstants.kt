@@ -1,8 +1,9 @@
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.istudio.core_common.constants.DbConstants.TABLE_NAME_DISTANCE_TRACKER_CONSTANTS
 
-@Entity(tableName = "distance_tracker_constants")
+@Entity(tableName = TABLE_NAME_DISTANCE_TRACKER_CONSTANTS)
 data class DistanceTrackerConstants (
 	@PrimaryKey(autoGenerate = true) val id : Int = 0,
 	val isUpdatedAt : Long = System.currentTimeMillis(),

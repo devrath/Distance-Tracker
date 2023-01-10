@@ -9,4 +9,5 @@ dependencies {
     "implementation"(Coroutines.coroutineLib)
     "implementation"(project(Modules.coreUi))
     "implementation"(project(Modules.coreModels))
+    "implementation"(project(Modules.coreCommon))
 }

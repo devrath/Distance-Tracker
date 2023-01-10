@@ -8,6 +8,7 @@ dependencies {
     "implementation"(Room.roomKtx)
     "implementation"(Room.roomRuntime)
     "implementation"(Coroutines.coroutineLib)
+    "implementation"(project(Modules.coreCommon))
     //"implementation"(Retrofit.okHttp)
     //"implementation"(Retrofit.okHttpLoggingInterceptor)
 }

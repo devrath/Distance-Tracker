@@ -3,9 +3,7 @@ package com.istudio.core_database.di
 import android.content.Context
 import androidx.room.Room
 import com.istudio.core_database.Constants.DATABASE_NAME
-import com.istudio.core_database.data.implementation.ToDoDaoImpl
-import com.istudio.core_database.database.ToDoDatabase
-import com.istudio.core_database.domain.dao.ToDoDao
+import com.istudio.core_database.database.DistanceTrackerDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +24,7 @@ object DatabaseModule {
         @ApplicationContext context: Context
     ) = Room.databaseBuilder(
         context,
-        ToDoDatabase::class.java,
+        DistanceTrackerDatabase::class.java,
         DATABASE_NAME
     ).build()
 
@@ -34,6 +32,6 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDao(database: ToDoDatabase) = database.toDoDao()
+    fun provideDao(database: DistanceTrackerDatabase) = database.distanceTrackerConstantsDao()
 
 }
