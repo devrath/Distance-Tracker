@@ -27,6 +27,7 @@
             <option value="$PROJECT_DIR$/core/core-ui" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/feat-inappreview" />
+            <option value="$PROJECT_DIR$/features/feat-repository" />
           </set>
         </option>
       </GradleProjectSettings>
