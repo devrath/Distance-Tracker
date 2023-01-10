@@ -55,29 +55,23 @@ class MainActivity : AppCompatActivity() {
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         installSplashScreen()
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setNavController()
-        observeViewStates()
-        inAppUpdate = InAppUpdate(this)
-        viewModel.getConstantsFromApplication()
+        super.onCreate(savedInstanceState)
+        initOnCreate()
     }
 
     override fun onResume() {
         super.onResume()
-        inAppUpdate.onResume()
+        initOnResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        inAppUpdate.onDestroy()
+        initOnDestroy()
     }
 
     override fun recreate() {
-        // This lets user to recreate the activity via animation when we switch the UI-modes
-        switchUiModeFeature.animateAndRestartApplication(this)
+       initOnRecreate()
     }
     // ********************************** Life cycle methods ***************************************
 
@@ -87,9 +81,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.viewState.collect { event ->
                 when(event){
                     is MainEvent.ShowErrorMessage -> displayUserMessage(event.error.message)
-                    is MainEvent.SplashSuccessful -> {
-                        displayUserMessage("Data synced")
-                    }
+                    is MainEvent.SplashSuccessful -> displayUserMessage("Data synced")
                     is MainEvent.GetTrackerConstantsApiCall ->  viewModel.constantsSynched()
                 }
             }.exhaustive
@@ -98,6 +90,47 @@ class MainActivity : AppCompatActivity() {
     // ********************************** View states **********************************************
 
     // ********************************** User defined functions ************************************
+
+    /**
+     * Init function for onCreate
+     */
+    private fun initOnCreate() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        // Set the navigation controller
+        setNavController()
+        // Set observables
+        observeViewStates()
+        // Initiate update
+        inAppUpdate = InAppUpdate(this)
+        // Trigger the api for synching the constants in the application
+        viewModel.getConstantsFromApplication()
+        // Open the screen
+        openScreen()
+    }
+
+    /**
+     * Init function for onResume
+     */
+    private fun initOnResume() {
+        inAppUpdate.onResume()
+    }
+
+    /**
+     * Init function for onDestroy
+     */
+    private fun initOnDestroy() {
+        inAppUpdate.onDestroy()
+    }
+
+    /**
+     * Init function for onRecreate
+     */
+    private fun initOnRecreate() {
+        // This lets user to recreate the activity via animation when we switch the UI-modes
+        switchUiModeFeature.animateAndRestartApplication(this)
+    }
+
     /**
      * Set the nav controller for the screen
      */
