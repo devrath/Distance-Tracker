@@ -167,6 +167,7 @@ dependencies {
 
     // ********************************** Modules ************************************
     implementation(project(Modules.featInAppReview))
+    implementation(project(Modules.featRepository))
     implementation(project(Modules.coreCommon))
     implementation(project(Modules.coreLogger))
     implementation(project(Modules.coreLocation))

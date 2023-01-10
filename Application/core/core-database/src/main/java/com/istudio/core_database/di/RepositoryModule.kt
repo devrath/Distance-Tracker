@@ -7,13 +7,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideToDoDaoRepository(toDoDaoImpl: DistanceTrackerConstantsDaoImpl) : DistanceTrackerDbRepository {
         return DistanceTrackerDbRepository(toDoDaoImpl)
     }

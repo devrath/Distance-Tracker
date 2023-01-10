@@ -5,8 +5,17 @@ import com.istudio.core_database.data.repository.DistanceTrackerDbRepository
 import javax.inject.Inject
 
 class DistanceTrackerRepository @Inject constructor(
-    private val distanceTrackerApi : DistanceTrackerApi,
-    private val distanceTrackerDbRepository : DistanceTrackerDbRepository
+    private val api : DistanceTrackerApi,
+    private val repository : DistanceTrackerDbRepository
 ) {
+
+    suspend fun getConstantsFromDb(){
+        val response = repository.getAllConstants()
+    }
+
+    suspend fun getConstantsFromApi(){
+        val response = api.getConstants()
+    }
+
 
 }

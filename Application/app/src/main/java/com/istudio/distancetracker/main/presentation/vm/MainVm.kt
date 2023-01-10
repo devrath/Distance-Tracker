@@ -1,5 +1,6 @@
 package com.istudio.distancetracker.main.presentation.vm
 
+import com.demo.feat_repository.DistanceTrackerRepository
 import com.istudio.core_common.base.BaseViewModel
 import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.main.presentation.state.MainEvent
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainVm @Inject constructor(
-    private var log: LoggerFeature
+    private var log: LoggerFeature,
+    private val repository : DistanceTrackerRepository
 ) : BaseViewModel()  {
 
     /**
