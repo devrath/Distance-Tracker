@@ -6,6 +6,7 @@ dependencies {
     // "implementation"(project(Modules.core))
     "implementation"(project(Modules.coreModels))
     "implementation"(project(Modules.coreCommon))
+    "implementation"(project(Modules.coreLogger))
     "implementation"(Retrofit.retrofit)
     "implementation"(Retrofit.gsonConverter)
     "implementation"(Retrofit.okHttp)
