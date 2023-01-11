@@ -10,4 +10,6 @@ dependencies {
     "implementation"(Retrofit.gsonConverter)
     "implementation"(Retrofit.okHttp)
     "implementation"(Retrofit.okHttpLoggingInterceptor)
+    "implementation"(KotlinSerialization.kotlinSerializationJson)
+    "implementation"(KotlinSerialization.kotlinSerializationConverter)
 }

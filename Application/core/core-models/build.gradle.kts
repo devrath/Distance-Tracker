@@ -8,6 +8,7 @@ dependencies {
     "implementation"(Room.roomKtx)
     "implementation"(Room.roomRuntime)
     "implementation"(Coroutines.coroutineLib)
+    "implementation"(KotlinSerialization.kotlinSerializationJson)
     "implementation"(project(Modules.coreCommon))
     //"implementation"(Retrofit.okHttp)
     //"implementation"(Retrofit.okHttpLoggingInterceptor)

@@ -27,6 +27,9 @@ object Build {
     private const val spotlessVersion = "6.12.0"
     const val spotlessPlugin = "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion"
 
+    const val kotlinSerialization = "serialization"
+    const val gradlePlugin = "gradle-plugin"
+
 
     object BuildPlugins {
         const val androidLibrary = "com.android.library"
@@ -38,6 +41,7 @@ object Build {
         const val kotlinKapt = "kotlin-kapt"
         const val daggerHiltAndroidPlugin = "dagger.hilt.android.plugin"
         const val mapsplatformSecretsGradlePlugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+        const val kotlinXserializationPlugin = "kotlinx-serialization"
 
         const val googleServices = "com.google.gms.google-services"
         const val crashlytics = "com.google.firebase.crashlytics"

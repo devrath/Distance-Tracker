@@ -15,6 +15,8 @@ buildscript {
         classpath(Build.navSafeArgs)
         classpath(Build.secretsGradle)
         classpath(Build.spotlessPlugin)
+        classpath(kotlin(Build.gradlePlugin, version = Kotlin.version))
+        classpath(kotlin(Build.kotlinSerialization, version = Kotlin.version))
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

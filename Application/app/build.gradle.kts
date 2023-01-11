@@ -9,6 +9,7 @@ plugins {
     id(Build.BuildPlugins.kotlinParcelize)
     id(Build.BuildPlugins.kotlinNavigationSafeargs)
     id(Build.BuildPlugins.mapsplatformSecretsGradlePlugin)
+    id(Build.BuildPlugins.kotlinXserializationPlugin)
     id("java-test-fixtures")
 }
 
@@ -106,7 +107,7 @@ dependencies {
     implementation(Navigation.navigationFragmentKtx)
     implementation(Navigation.navigationUiKtx)
     implementation(DataStorePreferences.datastorePreferences)
-    // implementation(Moshi.moshiRepo)
+    implementation(KotlinSerialization.kotlinSerializationJson)
     implementation(Gson.gson)
     implementation(CustomLogging.orhanobut)
     implementation(CustomLogging.timber)
