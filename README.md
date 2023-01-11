@@ -26,7 +26,8 @@
 ## **`𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎`** 🎈
 ![Banner](https://github.com/devrath/Distance-Tracker/blob/main/Assets/Architecture/Architecture.png)
 
-The architecture of the application is based, apply and strictly complies with each of the following 5 points:
+
+## **`𝚃𝚑𝚎 𝚊𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎 𝚘𝚏 𝚝𝚑𝚎 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚒𝚜 𝚋𝚊𝚜𝚎𝚍, 𝚊𝚙𝚙𝚕𝚢 𝚊𝚗𝚍 𝚜𝚝𝚛𝚒𝚌𝚝𝚕𝚢 𝚌𝚘𝚖𝚙𝚕𝚒𝚎𝚜 𝚠𝚒𝚝𝚑 𝚎𝚊𝚌𝚑 𝚘𝚏 𝚝𝚑𝚎 𝚏𝚘𝚕𝚕𝚘𝚠𝚒𝚗𝚐 𝟻 𝚙𝚘𝚒𝚗𝚝𝚜`** 🐿️
 
 | `SlNo` | `Description` |
 | ------ | ------------- |
@@ -36,7 +37,14 @@ The architecture of the application is based, apply and strictly complies with e
 |   `4`  | [S.O.L.I.D](https://en.wikipedia.org/wiki/SOLID) design principles intended to make software designs more understandable, flexible and maintainable. |
 |   `5`  | [Modular app architecture](https://proandroiddev.com/build-a-modular-android-app-architecture-25342d99de82) allows to be developed features in isolation, independently from other features. |
 
+## **`𝙼𝚘𝚍𝚞𝚕𝚊𝚛𝚒𝚣𝚊𝚝𝚒𝚘𝚗 𝚜𝚝𝚛𝚊𝚝𝚎𝚐𝚒𝚎𝚜 𝚞𝚜𝚎𝚍`** 🦨 
 
+| **`Name`** | **`Description`** |
+| ---------- | ----------------- |
+| **`Reusability`** | Keeping code reusable so same code snippets are utilized in different parts of the code |
+| **`Parallel Building`** | Modular approach reduces the build time |
+| **`Strict visibility control`** | Modules restrict to expose dedicated components and access to other layers, so it prevents they're being used outside the module |
+| **`Decentralized focusing`** | Each developer team can assign their dedicated module and they can focus on their own modules |
 
 ## **`𝙳𝚎𝚖𝚘 𝚘𝚏 𝚝𝚑𝚎 𝚙𝚛𝚘𝚓𝚎𝚌𝚝`** 💡
 This application is used to track the user distance traveled and the time taken to travel the distance.
