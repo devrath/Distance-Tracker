@@ -4,15 +4,19 @@ import android.content.Context
 import com.demo.core_network.api.DistanceTrackerApi
 import com.demo.core_network.interceptors.AnalyticsInterceptor
 import com.demo.core_network.interceptors.ApiKeyInterceptor
+import com.demo.core_network.utils.NetworkUtils
 import com.google.gson.Gson
 import com.istudio.core_logger.data.repository.LoggerRepository
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -33,12 +37,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient, gson: Gson, factory: GsonConverterFactory): Retrofit =
-        Retrofit.Builder()
+    fun provideRetrofit(client: OkHttpClient, factory: Converter.Factory): Retrofit {
+        val retrofit = Retrofit.Builder()
             .baseUrl(DistanceTrackerApi.BASE_URL)
             .addConverterFactory(factory)
             .client(client)
             .build()
+        return retrofit
+    }
 
     @Provides
     fun okHttp(
@@ -65,13 +71,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+    fun provideConverterFactory():Converter.Factory{
+        return NetworkUtils.buildFactoryForKotlinSerialiser()
     }
 
-    @Provides
-    @Singleton
-    fun provideSerialiser(): Gson {
-        return Gson()
-    }
 }

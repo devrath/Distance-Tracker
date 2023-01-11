@@ -8,7 +8,7 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExampleUnitNetworkUtils {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
