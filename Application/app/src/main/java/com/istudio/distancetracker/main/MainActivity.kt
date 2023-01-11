@@ -1,10 +1,6 @@
 package com.istudio.distancetracker.main
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -13,21 +9,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.demo.core_permission.domain.PermissionFeature
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.common.IntentSenderForResultStarter
-import com.google.android.play.core.install.model.ActivityResult
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.tasks.Task
 import com.istudio.core_common.extensions.exhaustive
-import com.istudio.core_common.extensions.toast
-import com.istudio.core_common.functional.Resource
 import com.istudio.core_common.navigation.NavigationUtils
 import com.istudio.core_ui.domain.SwitchUiModeFeature
-import com.istudio.distancetracker.Constants.APP_UPDATE_REQUEST_CODE
-import com.istudio.distancetracker.Constants.APP_UPDATE_TYPE
 import com.istudio.distancetracker.R
 import com.istudio.distancetracker.databinding.ActivityMainBinding
 import com.istudio.distancetracker.main.presentation.state.MainEvent

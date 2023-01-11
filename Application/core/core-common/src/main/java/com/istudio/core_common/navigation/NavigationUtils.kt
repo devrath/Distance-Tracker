@@ -1,7 +1,7 @@
 package com.istudio.core_common.navigation
 
-import androidx.annotation.IdRes
 import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavGraph

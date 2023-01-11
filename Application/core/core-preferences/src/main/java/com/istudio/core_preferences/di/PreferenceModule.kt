@@ -8,8 +8,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences
 import com.istudio.core_preferences.data.implementation.PreferenceDatastoreImpl
+import com.istudio.core_preferences.data.implementation.utilities.KeysPreferences
 import com.istudio.core_preferences.data.repository.PreferenceRepository
 import com.istudio.core_preferences.domain.InAppReviewPreferences
 import dagger.Module

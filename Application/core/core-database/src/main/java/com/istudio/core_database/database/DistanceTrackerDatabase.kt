@@ -1,8 +1,8 @@
 package com.istudio.core_database.database
 
-import com.demo.core_models.DistanceTrackerConstants
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.demo.core_models.DistanceTrackerConstants
 import com.istudio.core_database.domain.dao.DistanceTrackerConstantsDao
 
 

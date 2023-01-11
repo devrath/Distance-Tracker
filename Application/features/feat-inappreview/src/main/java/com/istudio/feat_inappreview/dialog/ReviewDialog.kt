@@ -1,14 +1,8 @@
 package com.istudio.feat_inappreview.dialog
 
 
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,10 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.core_ui.R
 import com.istudio.feat_inappreview.databinding.FragmentInAppReviewPromptBinding
-import com.istudio.feat_inappreview.manager.InAppReviewManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 /**

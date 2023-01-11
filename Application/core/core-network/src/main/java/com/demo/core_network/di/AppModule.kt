@@ -1,7 +1,6 @@
 package com.demo.core_network.di
 
 import android.content.Context
-import android.util.Log
 import com.demo.core_network.api.DistanceTrackerApi
 import com.demo.core_network.interceptors.AnalyticsInterceptor
 import com.demo.core_network.interceptors.ApiKeyInterceptor
@@ -42,11 +41,14 @@ object AppModule {
             .build()
 
     @Provides
-    fun okHttp(@ApplicationContext appContext: Context, loggerRepo:LoggerRepository): OkHttpClient {
+    fun okHttp(
+        @ApplicationContext appContext: Context,
+        loggerRepo: LoggerRepository
+    ): OkHttpClient {
         // val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
         val logger = HttpLoggingInterceptor { message ->
             // Print the logging messages using our custom logger
-            loggerRepo.d(HTTP_INTERCEPTOR_TAG,message)
+            loggerRepo.d(HTTP_INTERCEPTOR_TAG, message)
         }
         logger.level = HttpLoggingInterceptor.Level.BODY
         // If something you need to remove from header of OkHttp

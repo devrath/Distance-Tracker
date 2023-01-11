@@ -7,11 +7,9 @@ import com.istudio.core_preferences.domain.InAppReviewPreferences
 import com.istudio.feat_inappreview.ReviewFeatureConstants
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

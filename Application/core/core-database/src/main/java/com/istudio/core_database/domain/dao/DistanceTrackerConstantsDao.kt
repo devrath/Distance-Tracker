@@ -1,11 +1,11 @@
 package com.istudio.core_database.domain.dao
 
-import com.demo.core_models.DistanceTrackerConstants
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.demo.core_models.DistanceTrackerConstants
 import kotlinx.coroutines.flow.Flow
 
 /**

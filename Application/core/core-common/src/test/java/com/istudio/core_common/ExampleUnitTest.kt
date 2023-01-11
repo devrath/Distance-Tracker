@@ -1,6 +1,6 @@
 package com.istudio.core_common
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

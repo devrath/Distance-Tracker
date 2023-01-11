@@ -5,7 +5,6 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.istudio.core_common.ui.uiEvent.UiText
 import com.istudio.distancetracker.features.map.domain.entities.outputs.CalculateResultOutput
-import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
 
 sealed class MapStates {
     //object OnSubmitClick : MapStates()

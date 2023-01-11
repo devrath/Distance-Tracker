@@ -1,6 +1,6 @@
 package com.istudio.core_connectivity
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
