@@ -32,7 +32,7 @@
 
 ### `𝙼𝚅𝚅𝙼-𝙰𝚙𝚙𝚛𝚘𝚊𝚌𝚑`
 <div align="center">
-<img align="center" height="500" width="600" src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Architecture/MVVM.drawio.png"  alt="dev_logo"/>
+<img align="center" height="500" width="600" src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Architecture/MVVM.png"  alt="dev_logo"/>
 </div>
 
 #### **`𝚃𝚑𝚎 𝚊𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎 𝚘𝚏 𝚝𝚑𝚎 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚒𝚜 𝚋𝚊𝚜𝚎𝚍, 𝚊𝚙𝚙𝚕𝚢 𝚊𝚗𝚍 𝚜𝚝𝚛𝚒𝚌𝚝𝚕𝚢 𝚌𝚘𝚖𝚙𝚕𝚒𝚎𝚜 𝚠𝚒𝚝𝚑 𝚎𝚊𝚌𝚑 𝚘𝚏 𝚝𝚑𝚎 𝚏𝚘𝚕𝚕𝚘𝚠𝚒𝚗𝚐 𝟻 𝚙𝚘𝚒𝚗𝚝𝚜`** 🐿️
