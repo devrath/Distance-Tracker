@@ -1,0 +1,83 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.GalleryActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageGallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".2" />
+
+    <LinearLayout
+        android:id="@+id/permissionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topGuideline"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/lockedImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_lock_black_24dp"
+            app:tint="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/requiredPermissionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginEnd="72dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:text="@string/permission_reason" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grantPermissionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/grant_permission" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/albumContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topGuideline"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/albumImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_photo_album_black_24dp"
+            app:tint="@color/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openAlbumButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/open_album" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
