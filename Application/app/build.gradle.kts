@@ -179,5 +179,6 @@ dependencies {
     implementation(project(Modules.corePermission))
     implementation(project(Modules.coreNetwork))
     implementation(project(Modules.coreModels))
+    implementation(project(Modules.featGallery))
     // ********************************** Modules ************************************
 }

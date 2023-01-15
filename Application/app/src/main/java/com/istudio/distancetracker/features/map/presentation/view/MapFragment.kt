@@ -33,10 +33,12 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
+import com.istudio.core_common.extensions.TAG
 import com.istudio.core_common.extensions.showSnackbar
 import com.istudio.core_common.functional.PublisherEventBus
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
+import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
@@ -76,6 +78,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     @Inject
     lateinit var permissionFeature: PermissionFeature
+
+    @Inject
+    lateinit var log: LoggerFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -498,33 +503,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
     // *************************************** States **********************************************
 
-    // *************************************** Dialogs *********************************************
-    private fun showDialog() {
-        val dialog = Dialog(requireContext()).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(R.layout.bottom_sheet_map_type)
-        }
-        val mapNormal: LinearLayout = dialog.findViewById(R.id.btnNormalId)
-        val mapHybrid: LinearLayout = dialog.findViewById(R.id.btnHybridId)
-        val mapSatellite: LinearLayout = dialog.findViewById(R.id.btnSatelliteId)
-        val mapTerrain: LinearLayout = dialog.findViewById(R.id.btnTerrainId)
+    /**
+     * Getting a snapshot from the Map fragment
+     */
+    fun setMapSnapshot() {
+        map.snapshot {
+            log.i(TAG,"Taking the snapshot for the map:-> $it")
+            val mapImage = it?: return@snapshot
 
-        mapNormal.setOnClickListener { setType(GoogleMap.MAP_TYPE_NORMAL,dialog) }
-        mapHybrid.setOnClickListener { setType(GoogleMap.MAP_TYPE_HYBRID,dialog) }
-        mapSatellite.setOnClickListener { setType(GoogleMap.MAP_TYPE_SATELLITE,dialog) }
-        mapTerrain.setOnClickListener { setType(GoogleMap.MAP_TYPE_TERRAIN,dialog) }
-        dialog.show()
-        dialog.window?.apply {
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //attributes.windowAnimations = R.style.DialogAnimation
-            setGravity(Gravity.BOTTOM)
+
         }
     }
-
-    private fun setType(typeValue: Int, dialog: Dialog) {
-        map.mapType = typeValue
-        dialog.dismiss()
-    }
-    // *************************************** Dialogs *********************************************
 }

@@ -2,8 +2,6 @@ object Modules {
     const val app = ":app"
     const val core = ":core"
     const val features = ":features"
-    const val featInAppReview = ":features:feat-inappreview"
-    const val featRepository = ":features:feat-repository"
     const val corePreferences = ":core:core-preferences"
     const val coreUi = ":core:core-ui"
     const val coreCommon = ":core:core-common"
@@ -14,4 +12,7 @@ object Modules {
     const val corePermission = ":core:core-permission"
     const val coreNetwork = ":core:core-network"
     const val coreModels = ":core:core-models"
+    const val featInAppReview = ":features:feat-inappreview"
+    const val featRepository = ":features:feat-repository"
+    const val featGallery = ":features:feat-gallery"
 }
