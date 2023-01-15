@@ -98,7 +98,7 @@
         app:iconTint="@color/colorActionButtonTint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <!--Floating action button for add alarm-->
+    <!--Floating action button for UI-Dark-Light options-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ui_mode_fab"
         android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="@+id/add_fab"
         app:srcCompat="@drawable/ic_dark_mode"
         android:contentDescription="@string/app_name" />
-    <!--Action name text for the add alarm button-->
+    <!--Action name text for the UI-Dark-Light options-->
     <com.istudio.core_ui.customviews.text.TextViewMedium
         android:id="@+id/add_alarm_action_text"
         android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/ui_mode_fab"
         app:layout_constraintEnd_toStartOf="@+id/ui_mode_fab"
         app:layout_constraintTop_toTopOf="@+id/ui_mode_fab" />
-    <!--Floating action button for add person-->
+    <!--Floating action button for change map style options-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_style_fab"
         android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
         app:layout_constraintStart_toStartOf="@+id/ui_mode_fab"
         app:srcCompat="@drawable/ic_map_styles"
         android:contentDescription="@string/app_name" />
-    <!--Action name text for the add person button-->
+    <!--Action name text for change map style options-->
     <com.istudio.core_ui.customviews.text.TextViewMedium
         android:id="@+id/add_style_action_text"
         android:layout_width="wrap_content"
@@ -148,5 +148,31 @@
         app:layout_constraintBottom_toBottomOf="@+id/add_style_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_style_fab"
         app:layout_constraintTop_toTopOf="@+id/add_style_fab" />
+    <!--Floating action button for journey gallery options-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/journey_gallery_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/colorActionButtonBackgroundTint"
+        android:visibility="gone"
+        app:fabSize="mini"
+        app:tint="@color/colorActionButtonTint"
+        app:layout_constraintBottom_toTopOf="@+id/add_style_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_style_fab"
+        app:layout_constraintStart_toStartOf="@+id/add_style_fab"
+        app:srcCompat="@drawable/ic_map_journey"
+        android:contentDescription="@string/app_name" />
+    <!--Action name text for journey gallery options-->
+    <com.istudio.core_ui.customviews.text.TextViewMedium
+        android:id="@+id/journey_gallery_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/userJourney"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/journey_gallery_fab"
+        app:layout_constraintEnd_toStartOf="@+id/journey_gallery_fab"
+        app:layout_constraintTop_toTopOf="@+id/journey_gallery_fab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

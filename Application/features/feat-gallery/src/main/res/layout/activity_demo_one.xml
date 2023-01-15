@@ -34,7 +34,7 @@
             android:layout_height="128dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_lock_black_24dp"
-            app:tint="@color/colorPrimary" />
+            app:tint="@color/blue_200" />
 
         <TextView
             android:id="@+id/requiredPermissionText"
@@ -71,7 +71,7 @@
             android:layout_height="128dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_photo_album_black_24dp"
-            app:tint="@color/colorPrimary" />
+            app:tint="@color/blue_200" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/openAlbumButton"
