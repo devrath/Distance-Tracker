@@ -23,6 +23,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.demo.core_permission.domain.PermissionFeature
+import com.example.feat_gallery.presentation.view.GalleryActivity
 import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -202,6 +203,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             setFabButtonClickListener{
                 //startButtonAction()
                 binding.mapMasterViewId.toggleUiMode()
+            }
+            setFabGalleryClickListener{
+                requireActivity().apply {
+                    Intent(this, GalleryActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
             }
             setUiModeFabButtonClickListener{
                 lifecycleScope.launch {

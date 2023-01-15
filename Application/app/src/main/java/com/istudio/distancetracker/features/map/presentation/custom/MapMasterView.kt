@@ -59,6 +59,7 @@ class MapMasterView @JvmOverloads constructor(
     fun toggleUiMode() { binding.apply { mapViewId.toggleUiMode() } }
     fun initialActionButtonSetUp(isDarkMode: Boolean) { binding.apply { mapViewId.initialActionButtonSetUpForMap(isDarkMode) } }
 
+    fun setFabGalleryClickListener(listener: OnClickListener) = binding.mapViewId.setFabGalleryClickListener(listener)
     fun setChangeStyleButtonClickListener(listener: OnClickListener) = binding.mapViewId.setChangeStyleButtonClickListener(listener)
     fun setFabButtonClickListener(listener: OnClickListener) = binding.mapViewId.setFabButtonClickListener(listener)
     fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.mapViewId.setUiModeFabButtonClickListener(listener)

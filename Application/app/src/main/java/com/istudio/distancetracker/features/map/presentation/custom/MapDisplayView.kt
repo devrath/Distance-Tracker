@@ -178,6 +178,7 @@ class MapDisplayView @JvmOverloads constructor(
         }
     }
 
+    fun setFabGalleryClickListener(listener: OnClickListener) = binding.journeyGalleryFab.setOnClickListener(listener)
     fun setChangeStyleButtonClickListener(listener: OnClickListener) = binding.addStyleFab.setOnClickListener(listener)
     fun setFabButtonClickListener(listener: OnClickListener) = binding.addFab.setOnClickListener(listener)
     fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.uiModeFab.setOnClickListener(listener)
