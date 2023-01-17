@@ -73,6 +73,7 @@ This application is used to track the user distance traveled and the time taken 
 * [_**`Okhttp interceptors to modify the netwrok requests`**_](https://github.com/devrath/fluffy-okhttp-interceptors)
 * [_**`Scoped storage in android`**_](https://github.com/devrath/refactored-android-scoped-storage)
 * [_**`Setting UI using view-groups`**_](https://github.com/devrath/DroidCustomUi)
+* [_**`Storing data offline in application`**_](https://github.com/devrath/droid-offline-application)
 
 
 ### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
