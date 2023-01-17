@@ -2,11 +2,16 @@ package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,6 +20,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,14 +55,18 @@ import com.istudio.distancetracker.features.map.domain.entities.outputs.Calculat
 import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
+import com.istudio.distancetracker.features.map.util.FileOperations
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 
@@ -328,6 +338,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown
             binding.mapMasterViewId.resetMapUiState()
+            setMapSnapshot()
         }
     }
 
@@ -514,12 +525,16 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     /**
      * Getting a snapshot from the Map fragment
      */
+
     fun setMapSnapshot() {
-        map.snapshot {
-            log.i(TAG,"Taking the snapshot for the map:-> $it")
-            val mapImage = it?: return@snapshot
-
-
+        map.snapshot { imgBitmap ->
+            log.i(TAG,"Taking the snapshot for the map:-> $imgBitmap")
+            val mapImage = imgBitmap?: return@snapshot
+            lifecycleScope.launchWhenStarted {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    FileOperations.saveImage(requireContext(),imgBitmap)
+                }
+            }
         }
     }
 }
