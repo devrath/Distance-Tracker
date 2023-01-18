@@ -74,6 +74,8 @@ This application is used to track the user distance traveled and the time taken 
 * [_**`Scoped storage in android`**_](https://github.com/devrath/refactored-android-scoped-storage)
 * [_**`Setting UI using view-groups`**_](https://github.com/devrath/DroidCustomUi)
 * [_**`Storing data offline in application`**_](https://github.com/devrath/droid-offline-application)
+* [_**`Elegant way to handle recycler view on-click`**_](https://medium.com/@devrath.dev595/an-elegant-way-to-handle-recycler-view-item-on-click-in-android-d011c95e2953)
+
 
 
 ### `𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜`🧵
