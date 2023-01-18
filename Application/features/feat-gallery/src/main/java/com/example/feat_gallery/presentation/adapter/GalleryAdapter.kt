@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
-import com.example.feat_gallery.presentation.models.Image
+import com.example.feat_gallery.presentation.models.InternalStoragePhoto
 import com.example.feat_gallery.presentation.vh.ImageViewHolder
 import com.example.feat_gallery.R
 
-class GalleryAdapter(val onClick: (Image) -> Unit) :
-    ListAdapter<Image, ImageViewHolder>(Image.DiffCallback) {
+class GalleryAdapter(val onClick: (InternalStoragePhoto) -> Unit) :
+    ListAdapter<InternalStoragePhoto, ImageViewHolder>(InternalStoragePhoto.DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +22,7 @@ class GalleryAdapter(val onClick: (Image) -> Unit) :
         holder.rootView.tag = image
 
         Glide.with(holder.imageView)
-            .load(image.contentUri)
+            .load(image.bmp)
             .thumbnail(0.33f)
             .centerCrop()
             .into(holder.imageView)

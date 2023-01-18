@@ -526,13 +526,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
      * Getting a snapshot from the Map fragment
      */
 
-    fun setMapSnapshot() {
+    private fun setMapSnapshot() {
         map.snapshot { imgBitmap ->
             log.i(TAG,"Taking the snapshot for the map:-> $imgBitmap")
             val mapImage = imgBitmap?: return@snapshot
             lifecycleScope.launchWhenStarted {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    FileOperations.saveImage(requireContext(),imgBitmap)
+                    FileOperations.savePhotoToInternalStorage(requireContext(),imgBitmap)
                 }
             }
         }
