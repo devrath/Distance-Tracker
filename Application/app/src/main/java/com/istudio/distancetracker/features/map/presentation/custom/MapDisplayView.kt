@@ -160,20 +160,25 @@ class MapDisplayView @JvmOverloads constructor(
         if (!isAllFabsVisible) {
             binding.uiModeFab.show();
             binding.addStyleFab.show();
+            binding.journeyGalleryFab.show();
             binding.addAlarmActionText.visibility = View.VISIBLE;
             binding.addStyleActionText.visibility = View.VISIBLE;
+            binding.journeyGalleryText.visibility = View.VISIBLE;
             binding.addFab.extend();
             isAllFabsVisible = true;
         } else {
             binding.uiModeFab.hide();
             binding.addStyleFab.hide();
+            binding.journeyGalleryFab.hide();
             binding.addAlarmActionText.visibility = View.GONE;
             binding.addStyleActionText.visibility = View.GONE;
+            binding.journeyGalleryText.visibility = View.GONE;
             binding.addFab.shrink();
             isAllFabsVisible = false;
         }
     }
 
+    fun setFabGalleryClickListener(listener: OnClickListener) = binding.journeyGalleryFab.setOnClickListener(listener)
     fun setChangeStyleButtonClickListener(listener: OnClickListener) = binding.addStyleFab.setOnClickListener(listener)
     fun setFabButtonClickListener(listener: OnClickListener) = binding.addFab.setOnClickListener(listener)
     fun setUiModeFabButtonClickListener(listener: OnClickListener) = binding.uiModeFab.setOnClickListener(listener)

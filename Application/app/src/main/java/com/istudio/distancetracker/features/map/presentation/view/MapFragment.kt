@@ -2,11 +2,16 @@ package com.istudio.distancetracker.features.map.presentation.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,6 +20,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,6 +29,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.demo.core_permission.domain.PermissionFeature
+import com.example.feat_gallery.presentation.view.GalleryActivity
 import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -33,10 +40,12 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.istudio.core_common.extensions.SnackBarDisplay
+import com.istudio.core_common.extensions.TAG
 import com.istudio.core_common.extensions.showSnackbar
 import com.istudio.core_common.functional.PublisherEventBus
 import com.istudio.core_connectivity.service.NetworkObserver
 import com.istudio.core_connectivity.service.NetworkState
+import com.istudio.core_logger.domain.LoggerFeature
 import com.istudio.distancetracker.Constants
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_START
 import com.istudio.distancetracker.Constants.ACTION_SERVICE_STOP
@@ -46,14 +55,18 @@ import com.istudio.distancetracker.features.map.domain.entities.outputs.Calculat
 import com.istudio.distancetracker.features.map.events.EventMapStyleSelected
 import com.istudio.distancetracker.features.map.presentation.state.MapStates
 import com.istudio.distancetracker.features.map.presentation.vm.MapsVm
+import com.istudio.distancetracker.features.map.util.FileOperations
 import com.istudio.distancetracker.features.map.util.MapUtil.setCameraPosition
 import com.istudio.distancetracker.model.Result
 import com.istudio.distancetracker.service.TrackerService
 import com.istudio.feat_inappreview.dialog.ReviewDialog
 import com.istudio.feat_inappreview.manager.InAppReviewManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 
@@ -76,6 +89,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
 
     @Inject
     lateinit var permissionFeature: PermissionFeature
+
+    @Inject
+    lateinit var log: LoggerFeature
 
     // ********************************** Life cycle methods ***************************************
     override fun onCreateView(
@@ -198,6 +214,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
                 //startButtonAction()
                 binding.mapMasterViewId.toggleUiMode()
             }
+            setFabGalleryClickListener{
+                requireActivity().apply {
+                    Intent(this, GalleryActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
+            }
             setUiModeFabButtonClickListener{
                 lifecycleScope.launch {
                     // INITIATE:-> Set the UI Mode for application
@@ -315,6 +338,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
             resultPageNavigation(resultCalculated)
             // Display the reset state for map since the result is calculated and shown
             binding.mapMasterViewId.resetMapUiState()
+            setMapSnapshot()
         }
     }
 
@@ -498,33 +522,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener {
     }
     // *************************************** States **********************************************
 
-    // *************************************** Dialogs *********************************************
-    private fun showDialog() {
-        val dialog = Dialog(requireContext()).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(R.layout.bottom_sheet_map_type)
-        }
-        val mapNormal: LinearLayout = dialog.findViewById(R.id.btnNormalId)
-        val mapHybrid: LinearLayout = dialog.findViewById(R.id.btnHybridId)
-        val mapSatellite: LinearLayout = dialog.findViewById(R.id.btnSatelliteId)
-        val mapTerrain: LinearLayout = dialog.findViewById(R.id.btnTerrainId)
+    /**
+     * Getting a snapshot from the Map fragment
+     */
 
-        mapNormal.setOnClickListener { setType(GoogleMap.MAP_TYPE_NORMAL,dialog) }
-        mapHybrid.setOnClickListener { setType(GoogleMap.MAP_TYPE_HYBRID,dialog) }
-        mapSatellite.setOnClickListener { setType(GoogleMap.MAP_TYPE_SATELLITE,dialog) }
-        mapTerrain.setOnClickListener { setType(GoogleMap.MAP_TYPE_TERRAIN,dialog) }
-        dialog.show()
-        dialog.window?.apply {
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //attributes.windowAnimations = R.style.DialogAnimation
-            setGravity(Gravity.BOTTOM)
+    private fun setMapSnapshot() {
+        map.snapshot { imgBitmap ->
+            log.i(TAG,"Taking the snapshot for the map:-> $imgBitmap")
+            val mapImage = imgBitmap?: return@snapshot
+            lifecycleScope.launchWhenStarted {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    FileOperations.savePhotoToInternalStorage(requireContext(),imgBitmap)
+                }
+            }
         }
     }
-
-    private fun setType(typeValue: Int, dialog: Dialog) {
-        map.mapType = typeValue
-        dialog.dismiss()
-    }
-    // *************************************** Dialogs *********************************************
 }

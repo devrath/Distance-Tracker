@@ -113,6 +113,7 @@ dependencies {
     implementation(CustomLogging.timber)
     implementation(Coroutines.coroutineAndroidLib)
     implementation(Coroutines.coroutineLib)
+    implementation(Coroutines.coroutinesKtx)
     implementation(Coroutines.coroutinePlayServicesLib)
     implementation(Lotte.lotteAnimation)
     implementation(Google.playCore)
@@ -179,5 +180,6 @@ dependencies {
     implementation(project(Modules.corePermission))
     implementation(project(Modules.coreNetwork))
     implementation(project(Modules.coreModels))
+    implementation(project(Modules.featGallery))
     // ********************************** Modules ************************************
 }
