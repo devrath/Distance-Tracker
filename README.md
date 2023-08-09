@@ -115,7 +115,7 @@ To maintain the style and quality of the code, are used the bellow static analys
 | 🌐 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎        | [𝚁𝚘𝚘𝚖](https://developer.android.com/jetpack/androidx/releases/room?gclid=Cj0KCQiAtbqdBhDvARIsAGYnXBN8WeUfoN8Ln5XfcNlF83mZZbJjiboM1DU95jgGawDZ5pfegpNQWOMaAtt0EALw_wcB&gclsrc=aw.ds)                       |
 
 ## **`𝙿𝚕𝚊𝚢𝚜𝚝𝚘𝚛𝚎 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍`** 🧰
-<a href="https://play.google.com/store/apps/details?id=com.twinvave.godiswithme"><img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play.png" height="75"></a>
+<a href="https://play.google.com/store/apps/details?id=com.istudio.distancetracker"><img src="https://github.com/devrath/Distance-Tracker/blob/main/Assets/Images/google-play.png" height="75"></a>
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
 If you feel like support me a coffee for my efforts, I would greatly appreciate it.</br>
